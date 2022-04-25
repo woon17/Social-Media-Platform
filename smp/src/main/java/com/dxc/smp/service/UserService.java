@@ -1,6 +1,7 @@
 package com.dxc.smp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.dxc.smp.entity.Role;
@@ -19,6 +20,9 @@ public class UserService {
 
 	@Autowired
 	private RoleRepository roleRepository;
+	
+	@Autowired
+    private PasswordEncoder passwordEncoder;
 
 //	public void initRoleAndUser() {
 //
@@ -68,8 +72,12 @@ public class UserService {
 		Set<Role> userRoles = new HashSet<>();
 		userRoles.add(role);
 		user.setRole(userRoles);
-		user.setUserPassword(user.getUserPassword());
+		user.setUserPassword(getEncodedPassword(user.getUserPassword()));
 
 		return userRepository.save(user);
 	}
+	
+	public String getEncodedPassword(String password) {
+        return passwordEncoder.encode(password);
+    }
 }
