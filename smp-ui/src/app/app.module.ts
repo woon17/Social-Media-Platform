@@ -9,7 +9,8 @@ import { UserComponent } from './user/user.component';
 import { LoginComponent } from './login/login.component';
 import { HearderComponent } from './hearder/hearder.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
-
+import { FormsModule } from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http'
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +23,9 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule, // used for login form
+    HttpClientModule // add for userService
   ],
   providers: [],
   bootstrap: [AppComponent]
