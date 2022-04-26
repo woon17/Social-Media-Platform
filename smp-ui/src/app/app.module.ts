@@ -10,7 +10,8 @@ import { LoginComponent } from './login/login.component';
 import { HearderComponent } from './hearder/hearder.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { FormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,15 +20,16 @@ import {HttpClientModule} from '@angular/common/http'
     UserComponent,
     LoginComponent,
     HearderComponent,
-    ForbiddenComponent
+    ForbiddenComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule, // used for login form
-    HttpClientModule // add for userService
+    HttpClientModule, // add for userService
+    RouterModule, // used for user-auth service
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

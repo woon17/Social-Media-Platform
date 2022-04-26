@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserAuthService } from '../_services/user-auth.service';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-hearder',
@@ -7,9 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HearderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userAuthService:UserAuthService, private router:Router, private userService:UserService) { }
 
   ngOnInit(): void {
+  }
+
+  public isLoggedIn(){
+    console.log("called isLoggedIn()");
+    return this.userAuthService.isLoggedIn();
+  }
+  public logout(){
+    console.log("call logout()");
+    this.userAuthService.clear();
+    this.router.navigate(["/home"]);
+  }
+
+  public matchRole(role: any){
+    return this.userService.roleMatch(role);
   }
 
 }
