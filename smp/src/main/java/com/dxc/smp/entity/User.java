@@ -3,6 +3,7 @@ package com.dxc.smp.entity;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -17,12 +18,16 @@ public class User {
 
 	@Id
 	private String userName;
+	@Column(name = "userFirstName")
 	private String userFirstName;
+	@Column(name = "userLastName")
 	private String userLastName;
+	@Column(name = "userPassword")
 	private String userPassword;
 
 	// many user may have many roles
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST,
+			CascadeType.REFRESH })
 	@JoinTable(name = "USER_ROLE", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = {
 			@JoinColumn(name = "ROLE_ID") })
 	private Set<Role> role; // one user may have many roles
