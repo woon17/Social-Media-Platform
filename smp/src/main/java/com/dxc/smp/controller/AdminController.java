@@ -15,7 +15,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 @RestController
-public class UserController {
+public class AdminController {
 
 	@Autowired
 	private UserService userService;
@@ -25,20 +25,18 @@ public class UserController {
 //        userService.initRoleAndUser();
 //    }
 
-	@PostMapping({ "/registerNewUser" })
-	public User registerNewUser(@RequestBody User user) {
-		return userService.registerNewUser(user);
-	}
-//
-//	@GetMapping({"/forAdmin"})
+
+	@GetMapping({"/forAdmin"})
+    @PreAuthorize("hasRole('Admin')")
+    public List<User> forAdmin(){
+        return userService.getAllUsers();
+    }
+	
+//	@GetMapping({"/deleteUser/{id}"})
 //    @PreAuthorize("hasRole('Admin')")
-//    public List<User> forAdmin(){
-//        return userService.getAllUsers();
+//    public void deleteUserById(){
+//		userService.
 //    }
 
-	@GetMapping({ "/forUser" })
-	@PreAuthorize("hasRole('User')")
-	public String forUser() {
-		return "This URL is only accessible to the user";
-	}
+
 }
