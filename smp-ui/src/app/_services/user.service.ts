@@ -23,7 +23,19 @@ export class UserService {
     });
   }
 
-  public roleMatch(allowedRoles: String): any {
+  public forUser() {
+    return this.httpclient.get(`${this.baseUrl}/forUser`, {
+      responseType: 'text',
+    });
+  }
+
+  public forAdmin() {
+    return this.httpclient.get(`${this.baseUrl}/forAdmin`, {
+      responseType: 'text',
+    });
+  }
+
+  public roleMatch(allowedRoles: String[]): any {
     let isMatch = false;
     const userRoles: any = this.userAuthService.getRoles();
 
