@@ -9,12 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dxc.smp.entity.Post;
-import com.dxc.smp.entity.User;
 import com.dxc.smp.service.PostService;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 
 @RestController
 public class PostController {
@@ -28,18 +26,18 @@ public class PostController {
 		return postService.createPost(post);
 	}
 
-	@PostMapping({ "/getAllPosts" }) // all posts show at home page
+	@GetMapping({ "/getAllPosts" }) // all posts show at home page
 	public List<Post> getAllPosts() {
 		return postService.getAllPost();
 	}
 
-	@PostMapping({ "/getPostByUserName" })
+	@PostMapping({ "/getPostByUserName/{userName}" })
 	@PreAuthorize("hasRole('User')")
 	public List<Post> getAllPosts(@PathVariable("userName") String userName) {
 		return postService.getPostsByUserName(userName);
 	}
 
-	@PostMapping({ "/getPostById" })
+	@PostMapping({ "/getPostById/{id}" })
 	@PreAuthorize("hasAnyRole('Admin','User')")
 	public Post getPostById(@PathVariable("id") int id) {
 		return postService.getPostById(id);
@@ -51,7 +49,7 @@ public class PostController {
 		postService.deletePost(id);
 	}
 
-	@PostMapping({ "/updateUser/{userName}" })
+	@PostMapping({ "/updateUser/{id}" })
 	@PreAuthorize("hasAnyRole('Admin','User')")
 	public void updatePostById(@PathVariable("id") int id, @RequestBody Post post) {
 		postService.updatePostById(id, post);
