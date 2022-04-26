@@ -9,7 +9,6 @@ import com.dxc.smp.entity.User;
 import com.dxc.smp.repository.RoleRepository;
 import com.dxc.smp.repository.UserRepository;
 
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,9 +24,9 @@ public class UserService {
 
 	@Autowired
 	private RoleRepository roleRepository;
-	
+
 	@Autowired
-    private PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
 
 //	public void initRoleAndUser() {
 //
@@ -81,19 +80,38 @@ public class UserService {
 
 		return userRepository.save(user);
 	}
-	
-	public List<User> getAllUsers(){
+
+	public List<User> getAllUsers() {
 		List<User> users = (List<User>) userRepository.findAll();
 		return users;
 	}
-	
+
 	public void deleteUser(String userName) {
 		System.out.println("userName: " + userName);
 		userRepository.deleteByUserName(userName);
 	}
-	
+
+	public User getUser(String userName) {
+
+		return userRepository.findByUserName(userName);
+	}
+
+	// only can update userFirstName, userLastName, uerPassword
+	public void updateUser(String userName, User user) {
+//		user.setUserFirstName(user.getUserFirstName());
+//		user.setUserLastName(user.getUserLastName());
+		if (userName.equals(user.getUserName())) { // same userName
+			Role role = roleRepository.findById("User").get();
+			Set<Role> userRoles = new HashSet<>();
+			userRoles.add(role);
+			user.setRole(userRoles);
+			user.setUserPassword(getEncodedPassword(user.getUserPassword()));
+			userRepository.save(user);
+		}
+	}
+
 	public String getEncodedPassword(String password) {
-        return passwordEncoder.encode(password);
-    }
-	
+		return passwordEncoder.encode(password);
+	}
+
 }
