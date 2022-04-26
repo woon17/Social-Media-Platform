@@ -10,10 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dxc.smp.entity.User;
 import com.dxc.smp.service.UserService;
 
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-
 @RestController
 public class UserController {
 

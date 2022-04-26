@@ -41,7 +41,7 @@ public class AdminController {
 	
 	@PostMapping({"/updateUser/{userName}"})
     @PreAuthorize("hasRole('Admin')")
-    public void deleteUserByName(@PathVariable("userName") String userName,  @RequestBody User user){
+    public void updateUser(@PathVariable("userName") String userName,  @RequestBody User user){
 		userService.updateUser(userName, user);
     }
 }
