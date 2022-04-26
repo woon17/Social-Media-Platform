@@ -14,7 +14,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class UserService {
 
 	@Autowired
@@ -84,9 +87,10 @@ public class UserService {
 		return users;
 	}
 	
-//	public void deleteUser(String username) {
-//		userRepository.delete(username);
-//	}
+	public void deleteUser(String userName) {
+		System.out.println("userName: " + userName);
+		userRepository.deleteByUserName(userName);
+	}
 	
 	public String getEncodedPassword(String password) {
         return passwordEncoder.encode(password);

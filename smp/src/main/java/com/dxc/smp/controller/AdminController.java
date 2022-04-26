@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dxc.smp.entity.User;
@@ -12,7 +12,6 @@ import com.dxc.smp.service.UserService;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 
 @RestController
 public class AdminController {
@@ -32,11 +31,10 @@ public class AdminController {
         return userService.getAllUsers();
     }
 	
-//	@GetMapping({"/deleteUser/{id}"})
-//    @PreAuthorize("hasRole('Admin')")
-//    public void deleteUserById(){
-//		userService.
-//    }
-
-
+	@PostMapping({"/deleteUser/{userName}"})
+    @PreAuthorize("hasRole('Admin')")
+    public void deleteUserByName(@PathVariable("userName") String userName){
+		System.out.println("admin controller: " + userName);
+		userService.deleteUser(userName);
+    }
 }
