@@ -1,1 +1,84 @@
-<p>registration works!</p>
+<div class="col-md-6 offset-md-3 mt-5">
+  <div class="card" style="padding:60px">
+
+    <h2 class="text-center">Sign up</h2>
+    <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+      {{registerForm.form.valid}}
+      <small class="text-danger">{{message}}</small>
+      <div class="form-group">
+        <label for="userName">User Name:</label>
+        <input type="text" [(ngModel)]="userName" name="userName" id="userName" placeholder="Enter your user name"
+          class="form-control" required pattern="^[a-z0-9_-]{3,8}$" #username="ngModel"
+          [class.is-invalid]="username.invalid && username.touched">
+        <div *ngIf="username.errors && (username.invalid && username.touched)">
+          <small class="text-danger" *ngIf="username.errors?.['required']">User name is required field</small>
+          <small class="text-danger" *ngIf="username.errors?.['pattern']">Enter the valid username:
+            <ul>
+              <li>3-8 chars</li>
+              <li>lower case letter, digits</li>
+              <li>special char: -_</li>
+            </ul>
+          </small>
+        </div>
+      </div><br>
+      <div class="form-group">
+        <label for="firstName">First Name:</label>
+        <input type="text" [(ngModel)]="firstName" name="firstName" id="firstName" placeholder="Enter your first name"
+          class="form-control" required pattern="^[a-zA-Z]{3,8}$" #firstname="ngModel"
+          [class.is-invalid]="firstname.invalid && firstname.touched">
+        <div *ngIf="firstname.errors && (firstname.invalid && firstname.touched)">
+          <small class="text-danger" *ngIf="firstname.errors?.['required']">first name is required field</small>
+          <small class="text-danger" *ngIf="firstname.errors?.['pattern']">Enter the valid firstname:
+            <ul>
+              <li>3-8 chars</li>
+              <li>lower/uppder case letter</li>
+            </ul>
+          </small>
+        </div>
+      </div><br>
+      <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input type="text" [(ngModel)]="lastName" name="lastName" id="lastName" placeholder="Enter your last name"
+          class="form-control" required pattern="^[a-z0-9_-]{3,8}$" #lastname="ngModel"
+          [class.is-invalid]="lastname.invalid && lastname.touched">
+        <div *ngIf="lastname.errors && (lastname.invalid && lastname.touched)">
+          <small class="text-danger" *ngIf="lastname.errors?.['required']">Last name is required field</small>
+          <small class="text-danger" *ngIf="lastname.errors?.['pattern']">Enter the valid lastname:
+            <ul>
+              <li>3-8 chars</li>
+              <li>lower case letter and digits</li>
+            </ul>
+          </small>
+        </div>
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="userPassword">Password:</label>
+        <!-- https://stackoverflow.com/questions/48350506/how-to-validate-password-strength-with-angular-5-validator-pattern -->
+        <input type="password" [(ngModel)]="userPassword" name="userPassword" id="userPassword"
+          placeholder="Enter your password" class="form-control" required
+          pattern="^(?=\D*\d)(?!.* )(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z]).{5,10}$" #pass="ngModel"
+          [class.is-invalid]="pass.invalid && pass.touched">
+
+        <!-- <small class="text-danger" [class.d-none]="pass.valid || pass.untouched">Password is required
+          field</small> -->
+        <div *ngIf="pass.errors && (pass.invalid && pass.touched)">
+          <small class="text-danger" *ngIf="pass.errors?.['required']">Password is required
+            field</small>
+          <small class="text-danger" *ngIf="pass.errors?.['pattern']">Enter the valid password:
+            <ul>
+              <li>At least one digit</li>
+              <li>At least one upper case ASCII letter</li>
+              <li>At least one lower case ASCII letter</li>
+              <li>5-10 chars</li>
+              <li>no white space</li>
+            </ul>
+          </small>
+        </div>
+      </div>
+      <br>
+      <!-- <input type="submit" value="Login" class="btn btn-outline-primary form-control round-0"> -->
+      <button [disabled]="registerForm.form.invalid" type="submit" class="btn btn-primary">Login</button>
+    </form>
+  </div>
+</div>

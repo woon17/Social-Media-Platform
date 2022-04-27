@@ -13,14 +13,24 @@ export class UserService {
   ) {}
 
   requestHeader = new HttpHeaders({ 'no-auth': 'True' });
-
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
   //
   public login(loginData: any) {
     console.log(loginData.value);
-    console.log(`${this.baseUrl}/authenticate`);
-    return this.httpclient.post(`${this.baseUrl}/authenticate`, loginData, {
+    console.log(`${this.baseUrl}/signin`);
+    return this.httpclient.post(`${this.baseUrl}/signin`, loginData, {
       headers: this.requestHeader,
     });
+  }
+
+  public register(username: string, email: string, password: string){
+    return this.httpclient.post(`${this.baseUrl}/registerNewUser`, {
+      username,
+      email,
+      password
+    }, {headers: this.requestHeader});
   }
 
   public forUser() {

@@ -29,6 +29,8 @@ export class LoginComponent implements OnInit {
     this.userservice.login(loginForm.value).subscribe(
       (response: any) => {
         console.log('---------------');
+        console.log(loginForm.value);
+        console.log(response);
         console.log(response.jwtToken);
         console.log(response.user.role[0].roleName);
         this.userAuthService.setRoles(response.user.role);
@@ -41,7 +43,7 @@ export class LoginComponent implements OnInit {
         }
       },
       (error) => {
-        this.message="Bad credentials, please enter valid user name and password";
+        this.message=error.error.message;
         console.log(error);
       }
     );
