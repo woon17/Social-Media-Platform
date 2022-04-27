@@ -1,20 +1,28 @@
 package com.dxc.smp.service;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dxc.smp.entity.Post;
+import com.dxc.smp.entity.User;
 import com.dxc.smp.repository.PostRepository;
+import com.dxc.smp.repository.UserRepository;
 
 @Service
+@Transactional
 public class PostService {
 	@Autowired
 	private PostRepository postRepository;
 
+
+	@Autowired
+	private UserRepository userRepository;
+
+	
 	// create a new post
 	public Post createPost(Post post) {
 		return postRepository.save(post);
@@ -28,7 +36,8 @@ public class PostService {
 
 	// read by username
 	public List<Post> getPostsByUserName(String userName) {
-		List<Post> posts = (List<Post>) postRepository.findByUserName(userName);
+		User user = userRepository.findByUserName(userName);
+		List<Post> posts = (List<Post>) postRepository.findByUser(user);
 		return posts;
 	}
 

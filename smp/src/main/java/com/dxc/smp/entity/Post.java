@@ -1,6 +1,6 @@
 package com.dxc.smp.entity;
 
-import javax.persistence.Id;
+
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.CascadeType;
@@ -9,13 +9,14 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Post {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private int Id;
+	private int id;
 
 	@Column(name = "type")
 	private String type;
@@ -45,7 +46,7 @@ public class Post {
 	}
 
 	public int getId() {
-		return Id;
+		return id;
 	}
 
 	public String getType() {
