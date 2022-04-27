@@ -1,6 +1,7 @@
-<div class="container mt-5">
-  <div class="card" style="padding:20px">
-    <h2 class="text-center">Login</h2>
+<div class="col-md-6 offset-md-3 mt-5">
+  <div class="card" style="padding:60px">
+    <h2 class="text-center">Sign in</h2>
+    <!-- <p class="h4 mb-4">Sign in</p> -->
     <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
       <small class="text-danger">{{message}}</small>
       <div class="form-group">
@@ -21,7 +22,10 @@
       </div>
       <br>
       <!-- <input type="submit" value="Login" class="btn btn-outline-primary form-control round-0"> -->
-      <button type="submit" class="btn btn-info">Login</button>
+      <button [disabled]="loginForm.form.invalid" type="submit" class="btn btn-primary">Login</button>
+      <a class="btn btn-link" (click)="goToRegistraton()">Register</a>
+      <!-- <a routerLink="/home" class="btn btn-primary float-md-right">Register</a> -->
     </form>
+    <!-- <button class="float-right" type="submit" (click)="goToRegistraton()">New user ? Register here</button> -->
   </div>
 </div>
