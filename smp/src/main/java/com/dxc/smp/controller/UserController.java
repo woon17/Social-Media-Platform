@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dxc.smp.entity.User;
+import com.dxc.smp.service.PostService;
 import com.dxc.smp.service.UserService;
 
 @RestController
@@ -15,6 +16,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private PostService postService;
 
 //    @PostConstruct
 //    public void initRoleAndUser() {
@@ -32,9 +36,5 @@ public class UserController {
 //        return userService.getAllUsers();
 //    }
 
-	@GetMapping({ "/forUser" })
-	@PreAuthorize("hasRole('User')")
-	public String forUser() {
-		return "This URL is only accessible to the user";
-	}
+
 }

@@ -54,4 +54,15 @@ public class PostController {
 	public void updatePostById(@PathVariable("id") int id, @RequestBody Post post) {
 		postService.updatePostById(id, post);
 	}
+	
+	@GetMapping({ "/forUser" })
+	@PreAuthorize("hasRole('User')")
+	public List<Post> forUser() {
+		return postService.getPosts();
+	}
+	
+	@PostMapping({ "/addViewsCount/{id}" })
+	public int addViewsCount(@PathVariable("id") int id) {
+		return postService.increaseViews(id);
+	}
 }

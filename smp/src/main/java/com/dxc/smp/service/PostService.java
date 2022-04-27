@@ -26,7 +26,6 @@ public class PostService {
 
 	// create a new post
 	public Post createPost(Post post) {
-		System.out.println("post.getCreatedBy: " + post.getCreatedBy());
 		User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
 		post.setUser(user);
 		return postRepository.save(post);
@@ -44,6 +43,13 @@ public class PostService {
 		List<Post> posts = (List<Post>) postRepository.findByUser(user);
 		return posts;
 	}
+	
+	public List<Post> getPosts() {
+		String loginUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userRepository.findByUserName(loginUserName);
+		List<Post> posts = (List<Post>) postRepository.findByUser(user);
+		return posts;
+	}
 
 	// read all posts
 	public List<Post> getAllPost() {
@@ -52,9 +58,11 @@ public class PostService {
 	}
 
 	// update: front end should send post with all fields
+	// update post: type, caption, link, view
 	public void updatePostById(int id, Post post) {
 		System.out.println("new post: " + post);
 		Post oldPost = getPostById(id);
+		
 		post.setUser(oldPost.getUser());
 		post.setId(id);
 		postRepository.save(post);
@@ -63,6 +71,15 @@ public class PostService {
 	// delete by Id
 	public void deletePost(int id) {
 		postRepository.deleteById(id);
+	}
+	
+	public int increaseViews(int postId){
+		Post post = getPostById(postId);
+		int newView = post.getViews()+1;
+		post.setViews(newView);
+		postRepository.save(post);
+		return newView;
+		
 	}
 
 }

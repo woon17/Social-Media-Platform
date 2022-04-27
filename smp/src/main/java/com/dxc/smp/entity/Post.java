@@ -35,7 +35,7 @@ public class Post {
 	private String caption;
 
 	@Column(name = "views")
-	private String views;
+	private int views;
 
 	@Column(name = "link")
 	private String link;
@@ -65,7 +65,7 @@ public class Post {
 
 	}
 
-	public Post(String type, String caption, String views) {
+	public Post(String type, String caption, int views) {
 		super();
 		this.type = type;
 		this.caption = caption;
@@ -96,11 +96,11 @@ public class Post {
 		this.caption = caption;
 	}
 
-	public String getViews() {
+	public int getViews() {
 		return views;
 	}
 
-	public void setViews(String views) {
+	public void setViews(int views) {
 		this.views = views;
 	}
 
