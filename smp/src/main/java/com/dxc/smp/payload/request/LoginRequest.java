@@ -1,7 +1,6 @@
-package com.dxc.smp.entity;
+package com.dxc.smp.payload.request;
 
-public class JwtRequest {
-
+public class LoginRequest {
     private String userName;
     private String userPassword;
 

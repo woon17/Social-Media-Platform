@@ -1,7 +1,8 @@
-package com.dxc.smp.entity;
+package com.dxc.smp.payload.response;
+
+import com.dxc.smp.entity.User;
 
 public class JwtResponse {
-
     private User user;
     private String jwtToken;
 

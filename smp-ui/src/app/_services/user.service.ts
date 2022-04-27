@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { UserAuthService } from './user-auth.service';
 
 @Injectable({
@@ -25,11 +26,12 @@ export class UserService {
     });
   }
 
-  public register(username: string, email: string, password: string){
-    return this.httpclient.post(`${this.baseUrl}/registerNewUser`, {
-      username,
-      email,
-      password
+  public register(user:any): Observable<any>{
+    return this.httpclient.post(`${this.baseUrl}/signup`, {
+      userName: user.userName,
+      userFirstName: user.firstName,
+      userLastName: user.lastName,
+      userPassword: user.userPassword
     }, {headers: this.requestHeader});
   }
 

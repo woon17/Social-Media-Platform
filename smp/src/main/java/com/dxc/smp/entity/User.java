@@ -35,10 +35,20 @@ public class User {
 			@JoinColumn(name = "ROLE_ID") })
 	private Set<Role> role; // one user may have many roles
 
-	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Post> posts;
-	
+
+	public User(String userName, String userFirstName, String userLastName, String userPassword) {
+		super();
+		this.userName = userName;
+		this.userFirstName = userFirstName;
+		this.userLastName = userLastName;
+		this.userPassword = userPassword;
+	}
+
+	public User() {
+	}
+
 	public String getUserName() {
 		return userName;
 	}
@@ -78,7 +88,7 @@ public class User {
 	public void setRole(Set<Role> role) {
 		this.role = role;
 	}
-	
+
 	public void add(Post temPost) {
 		if (this.posts == null) {
 			this.posts = new ArrayList<>();
@@ -88,16 +98,15 @@ public class User {
 			temPost.setUser(this);
 		}
 	}
-	
-    @Override
-    public boolean equals(Object o) {
-    	if(o instanceof User) {
-    		return this.userName.equals(((User)o).getUserName());
-    	}else {
-    		return false;
-    	}
-    	
-    }
-    
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof User) {
+			return this.userName.equals(((User) o).getUserName());
+		} else {
+			return false;
+		}
+
+	}
+
 }

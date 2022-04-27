@@ -10,33 +10,21 @@ import { UserService } from '../_services/user.service';
   styleUrls: ['./registration.component.css'],
 })
 export class RegistrationComponent implements OnInit {
-  public userName = '';
-  public firstName = '';
-  public lastName = '';
-  public userPassword = '';
-  public message = '';
+  form: any = {};
+  message = '';
   constructor(private userservice: UserService, private router: Router) {}
 
   ngOnInit(): void {}
   register(registerForm: NgForm) {
     console.log('form is submitted');
-    console.log(registerForm.value);
-    console.log('userName: ' + this.userName);
-    console.log('userName: ' + this.userPassword);
-    this.userservice.login(registerForm.value).subscribe(
+    console.log(registerForm);
+    this.userservice.register(this.form).subscribe(
       (response: any) => {
-        console.log('---------------');
-        console.log(registerForm.value);
-        console.log(response.jwtToken);
-        console.log(response.user.role[0].roleName);
-        const role = response.user.role[0].roleName;
-        this.router.navigate(['/admin']);
+        this.router.navigate(['/signin']);
       },
       (error) => {
-        this.message =
-          'Bad credentials, please enter valid user name and password';
-        console.log("+++++++++++++++++++++");
-        console.log(error);
+        this.message = error.error.message;
+        console.log(error)
       }
     );
   }

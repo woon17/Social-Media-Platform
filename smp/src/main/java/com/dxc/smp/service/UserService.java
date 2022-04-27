@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.dxc.smp.entity.Role;
 import com.dxc.smp.entity.User;
+import com.dxc.smp.payload.request.SignUpRequest;
 import com.dxc.smp.repository.RoleRepository;
 import com.dxc.smp.repository.UserRepository;
 
@@ -71,12 +72,15 @@ public class UserService {
 //		userRepository.save(user2);
 //	}
 
-	public User registerNewUser(User user) {
+	public User registerNewUser(SignUpRequest signUpRequest) {
+		// Create new user's account
 		Role role = roleRepository.findById("User").get();
 		Set<Role> userRoles = new HashSet<>();
+		User user = new User(signUpRequest.getUserName(), signUpRequest.getUserFirstName(),
+				signUpRequest.getUserLastName(), getEncodedPassword(signUpRequest.getUserPassword()));
+
 		userRoles.add(role);
 		user.setRole(userRoles);
-		user.setUserPassword(getEncodedPassword(user.getUserPassword()));
 
 		return userRepository.save(user);
 	}

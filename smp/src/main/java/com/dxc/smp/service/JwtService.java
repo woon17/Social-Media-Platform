@@ -11,9 +11,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.dxc.smp.entity.JwtRequest;
-import com.dxc.smp.entity.JwtResponse;
+
 import com.dxc.smp.entity.User;
+import com.dxc.smp.payload.request.LoginRequest;
+import com.dxc.smp.payload.response.JwtResponse;
 import com.dxc.smp.repository.UserRepository;
 import com.dxc.smp.util.JwtUtil;
 
@@ -32,7 +33,7 @@ public class JwtService implements UserDetailsService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    public JwtResponse createJwtToken(JwtRequest jwtRequest) throws Exception {
+    public JwtResponse createJwtToken(LoginRequest jwtRequest) throws Exception {
         String userName = jwtRequest.getUserName();
         String userPassword = jwtRequest.getUserPassword();
         authenticate(userName, userPassword);
@@ -59,7 +60,7 @@ public class JwtService implements UserDetailsService {
         }
     }
 
-    private Set getAuthority(User user) {
+    private Set<SimpleGrantedAuthority> getAuthority(User user) {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
         user.getRole().forEach(role -> {
             authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName()));
