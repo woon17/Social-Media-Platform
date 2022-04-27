@@ -23,11 +23,12 @@ public class PostService {
 	@Autowired
 	private UserRepository userRepository;
 
+
 	// create a new post
 	public Post createPost(Post post) {
-		String loggedInUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-		post.setCreatedBy(loggedInUserName);
-		post.setCreatedDate(LocalDateTime.now());
+		System.out.println("post.getCreatedBy: " + post.getCreatedBy());
+		User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+		post.setUser(user);
 		return postRepository.save(post);
 	}
 
@@ -53,10 +54,9 @@ public class PostService {
 	// update: front end should send post with all fields
 	public void updatePostById(int id, Post post) {
 		System.out.println("new post: " + post);
+		Post oldPost = getPostById(id);
+		post.setUser(oldPost.getUser());
 		post.setId(id);
-		String loggedInUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-		post.setModifiedBy(loggedInUserName);
-		post.setModifiedDate(LocalDateTime.now());
 		postRepository.save(post);
 	}
 
