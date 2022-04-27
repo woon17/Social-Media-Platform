@@ -1,10 +1,12 @@
 package com.dxc.smp.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.dxc.smp.entity.Post;
@@ -18,13 +20,14 @@ public class PostService {
 	@Autowired
 	private PostRepository postRepository;
 
-
 	@Autowired
 	private UserRepository userRepository;
 
-	
 	// create a new post
 	public Post createPost(Post post) {
+		String loggedInUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		post.setCreatedBy(loggedInUserName);
+		post.setCreatedDate(LocalDateTime.now());
 		return postRepository.save(post);
 	}
 
@@ -47,13 +50,16 @@ public class PostService {
 		return posts;
 	}
 
-	// update
+	// update: front end should send post with all fields
 	public void updatePostById(int id, Post post) {
-		if (id == post.getId()) {
-			postRepository.save(post);
-		}
+		System.out.println("new post: " + post);
+		post.setId(id);
+		String loggedInUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		post.setModifiedBy(loggedInUserName);
+		post.setModifiedDate(LocalDateTime.now());
+		postRepository.save(post);
 	}
-	
+
 	// delete by Id
 	public void deletePost(int id) {
 		postRepository.deleteById(id);

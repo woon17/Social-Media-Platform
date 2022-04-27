@@ -49,7 +49,7 @@ public class PostController {
 		postService.deletePost(id);
 	}
 
-	@PostMapping({ "/updateUser/{id}" })
+	@PostMapping({ "/updatePost/{id}" })
 	@PreAuthorize("hasAnyRole('Admin','User')")
 	public void updatePostById(@PathVariable("id") int id, @RequestBody Post post) {
 		postService.updatePostById(id, post);

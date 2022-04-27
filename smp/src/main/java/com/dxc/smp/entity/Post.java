@@ -1,8 +1,10 @@
 package com.dxc.smp.entity;
 
-
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import java.time.LocalDateTime;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,9 +32,22 @@ public class Post {
 	@Column(name = "link")
 	private String link;
 
-	@ManyToOne(fetch=FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH })
+	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST,
+			CascadeType.REFRESH })
 	@JoinColumn(name = "userName")
 	private User user;
+	
+	@Column(name = "createdBy")
+	private String createdBy;
+	
+	@Column(name = "createdDate")
+	private LocalDateTime createdDate;
+	
+	@Column(name = "modifiedBy")
+	private String modifiedBy;
+	
+	@Column(name = "modifiedDate")
+	private LocalDateTime modifiedDate;
 
 	public Post() {
 
@@ -47,6 +62,10 @@ public class Post {
 
 	public int getId() {
 		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getType() {
@@ -79,6 +98,53 @@ public class Post {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public LocalDateTime getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(LocalDateTime createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public String getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
+	public LocalDateTime getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(LocalDateTime modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	@Override
+	public String toString() {
+		return "Post [id=" + id + ", type=" + type + ", caption=" + caption + ", views=" + views + ", link=" + link
+				+ ", user=" + user + ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", modifiedBy="
+				+ modifiedBy + ", modifiedDate=" + modifiedDate + "]";
 	}
 
 }
