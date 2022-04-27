@@ -10,6 +10,9 @@ import { UserService } from '../_services/user.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  public userName = '';
+  public userPassword = '';
+  public message='';
   constructor(
     private userservice: UserService,
     private userAuthService: UserAuthService,
@@ -21,6 +24,8 @@ export class LoginComponent implements OnInit {
   login(loginForm: NgForm) {
     console.log('form is submitted');
     console.log(loginForm.value);
+    console.log("userName: " + this.userName);
+    console.log("userName: " + this.userPassword);
     this.userservice.login(loginForm.value).subscribe(
       (response: any) => {
         console.log('---------------');
@@ -36,6 +41,7 @@ export class LoginComponent implements OnInit {
         }
       },
       (error) => {
+        this.message="Bad credentials, please enter valid user name and password";
         console.log(error);
       }
     );

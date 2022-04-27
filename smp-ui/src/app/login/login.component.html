@@ -1,11 +1,27 @@
 <div class="container mt-5">
   <div class="card" style="padding:20px">
+    <h2 class="text-center">Login</h2>
     <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
-      <input type="text" ngModel name="userName" id="userName" placeholder="Enter your username"
-        class="form-control mb-3">
-      <input type="password" ngModel name="userPassword" id="userPassword" placeholder="Enter your password"
-        class="form-control mb-3">
-      <input type="submit" ngModel value="Login" class="btn btn-outline-primary form-control round-0">
+      <small class="text-danger">{{message}}</small>
+      <div class="form-group">
+        <label for="userName">User Name:</label>
+        <input type="text" [(ngModel)]="userName" name="userName" id="userName" placeholder="Enter your user name"
+          class="form-control" required #username="ngModel" [class.is-invalid]="username.invalid && username.touched">
+        <small class="text-danger" [class.d-none]="username.valid || username.untouched">User name is required
+          field</small>
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="userPassword">Password:</label>
+        <input type="password" [(ngModel)]="userPassword" name="userPassword" id="userPassword"
+          placeholder="Enter your password" class="form-control" required #pass="ngModel"
+          [class.is-invalid]="pass.invalid && pass.touched">
+        <small class="text-danger" [class.d-none]="pass.valid || pass.untouched">Password is required
+          field</small>
+      </div>
+      <br>
+      <!-- <input type="submit" value="Login" class="btn btn-outline-primary form-control round-0"> -->
+      <button type="submit" class="btn btn-info">Login</button>
     </form>
   </div>
 </div>

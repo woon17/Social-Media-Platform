@@ -16,8 +16,7 @@ export class HearderComponent implements OnInit {
   }
 
   public isLoggedIn(){
-    console.log("called isLoggedIn()");
-    return this.userAuthService.isLoggedIn();
+        return this.userAuthService.isLoggedIn();
   }
   public logout(){
     console.log("call logout()");
