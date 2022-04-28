@@ -39,7 +39,7 @@ export class FeedsComponent implements OnInit {
         console.log('post deleted');
       });
     }
-    // public matchRole(role: any){
-    //   return this.userService.roleMatch(role);
-    // }
+    public matchRole(role: any){
+      return this.userService.roleMatch(role);
+    }
 }

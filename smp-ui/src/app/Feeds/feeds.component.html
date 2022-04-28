@@ -1,7 +1,7 @@
-<p>post works!</p>
+<p>Feeds works!</p>
 <div class="container">
   <div class="card text-center" style="color: green; padding:20px">
-    <h1>You are Admin</h1>
+    <!-- <h1>You are Admin</h1> -->
     <div class="card-body">
       <table border="1px" class="table">
         <thead>
@@ -19,10 +19,10 @@
             <td>{{post.link}}</td>
             <td>{{post.views}}</td>
             <td>
-              <button (click)="updatePost(post.id)" class="btn btn-info" style="margin-right: 5px;">
+              <button (click)="updatePost(post.id)" class="btn btn-info" style="margin-right: 5px;" *ngIf="matchRole(['Admin']) || matchRole(['User'])">
                 Update Info
               </button>
-              <button (click)="deletePost(post.id)" class="btn btn-info">
+              <button (click)="deletePost(post.id)" class="btn btn-info"  *ngIf="matchRole(['Admin'])">
                 Delete
               </button>
             </td>
