@@ -13,7 +13,9 @@ export class PostService {
 
   getAllPosts() : Observable<Post[]>{
     console.log(`${AppSettings.API_ENDPOINT}/getAllPosts`);
-    return this.httpclient.get<Post[]>(`${AppSettings.API_ENDPOINT}/getAllPosts`);
+    return this.httpclient.get<Post[]>(`${AppSettings.API_ENDPOINT}/getAllPosts`, {
+      headers: AppSettings.NO_AUTH_HEADER,
+    });
   }
   deletePostById(id: number | undefined) {
     console.log(`${AppSettings.API_ENDPOINT}}/deletePost/${id}`);

@@ -14,16 +14,11 @@ export class UserService {
     private userAuthService: UserAuthService
   ) {}
 
-  requestHeader = new HttpHeaders({ 'no-auth': 'True' });
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-  };
-  //
   public login(loginData: any) {
     console.log(loginData.value);
     console.log(`${AppSettings.API_ENDPOINT}/signin`);
     return this.httpclient.post(`${AppSettings.API_ENDPOINT}/signin`, loginData, {
-      headers: this.requestHeader,
+      headers: AppSettings.NO_AUTH_HEADER,
     });
   }
 
@@ -36,7 +31,7 @@ export class UserService {
         userLastName: user.lastName,
         userPassword: user.userPassword,
       },
-      { headers: this.requestHeader }
+      { headers: AppSettings.NO_AUTH_HEADER }
     );
   }
 

@@ -1,5 +1,34 @@
-<div class="container mt-5">
-  <div class="card text-center" style="padding:20px">
-    <h1>This is home page, show lastest 10 posts</h1>
+<p>post works!</p>
+<div class="container">
+  <div class="card text-center" style="color: green; padding:20px">
+    <h1>You are Admin</h1>
+    <div class="card-body">
+      <table border="1px" class="table">
+        <thead>
+          <th>No.</th>
+          <th>caption</th>
+          <th>type</th>
+          <th>link</th>
+          <th>views</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let post of posts; index as i">
+            <td>{{i + 1}}</td>
+            <td>{{post.caption}}</td>
+            <td>{{post.type}}</td>
+            <td>{{post.link}}</td>
+            <td>{{post.views}}</td>
+            <td>
+              <button (click)="updatePost(post.id)" class="btn btn-info" style="margin-right: 5px;">
+                Update Info
+              </button>
+              <button (click)="deletePost(post.id)" class="btn btn-info">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
