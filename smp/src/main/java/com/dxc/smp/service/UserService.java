@@ -29,8 +29,27 @@ public class UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-//	public void initRoleAndUser() {
-//
+	// set two default admin with default password when running the application
+	public void initRoleAndUser() {
+
+		User admin1 = getUser("admin123");
+		if (admin1 == null) {
+			admin1 = new User();
+			admin1.setUserName("admin321");
+			admin1.setUserPassword(getEncodedPassword("admin321"));
+			admin1.setUserFirstName("admin");
+			admin1.setUserLastName("admin");
+			Set<Role> adminRoles = new HashSet<>();
+			Role adminRole = new Role();
+			adminRole.setRoleName("Admin");
+			adminRoles.add(adminRole);
+			admin1.setRole(adminRoles);
+			userRepository.save(admin1);
+		} else {
+			admin1.setUserPassword(getEncodedPassword("admin123"));
+			userRepository.save(admin1);
+		}
+
 //		Role adminRole = new Role();
 //		adminRole.setRoleName("Admin");
 //		adminRole.setRoleDescription("Admin role");
@@ -41,15 +60,24 @@ public class UserService {
 //		userRole.setRoleDescription("Default role for newly created record");
 //		roleRepository.save(userRole);
 //
-//		User adminUser = new User();
-//		adminUser.setUserName("admin123");
-//		adminUser.setUserPassword(("admin@pass"));
-//		adminUser.setUserFirstName("admin");
-//		adminUser.setUserLastName("admin");
-//		Set<Role> adminRoles = new HashSet<>();
-//		adminRoles.add(adminRole);
-//		adminUser.setRole(adminRoles);
-//		userRepository.save(adminUser);
+		User admin2 = getUser("admin321");
+		if (admin2 == null) {
+			admin2 = new User();
+			admin2.setUserName("admin321");
+			admin2.setUserPassword(getEncodedPassword("admin321"));
+			admin2.setUserFirstName("admin");
+			admin2.setUserLastName("admin");
+			Set<Role> adminRoles = new HashSet<>();
+			Role adminRole = new Role();
+			adminRole.setRoleName("Admin");
+			adminRoles.add(adminRole);
+			admin2.setRole(adminRoles);
+			userRepository.save(admin2);
+		} else {
+			admin2.setUserPassword(getEncodedPassword("admin321"));
+			userRepository.save(admin2);
+		}
+
 //
 //		User user1 = new User();
 //		user1.setUserName("raj123");
@@ -70,7 +98,7 @@ public class UserService {
 //		userRoles2.add(userRole);
 //		user2.setRole(userRoles2);
 //		userRepository.save(user2);
-//	}
+	}
 
 	public User registerNewUser(SignUpRequest signUpRequest) {
 		// Create new user's account

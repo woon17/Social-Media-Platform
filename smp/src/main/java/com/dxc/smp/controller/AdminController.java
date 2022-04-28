@@ -14,16 +14,18 @@ import com.dxc.smp.service.UserService;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 @RestController
 public class AdminController {
 
 	@Autowired
 	private UserService userService;
 
-//    @PostConstruct
-//    public void initRoleAndUser() {
-//        userService.initRoleAndUser();
-//    }
+    @PostConstruct
+    public void initRoleAndUser() {
+        userService.initRoleAndUser();
+    }
 
 	@GetMapping({ "/forAdmin" })
 	@PreAuthorize("hasRole('Admin')")
