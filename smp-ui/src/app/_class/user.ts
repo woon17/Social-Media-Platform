@@ -3,4 +3,5 @@ export class User {
   userFirstName: string | undefined;
   userLastName: string | undefined;
   userPassword: string | undefined;
+  role: any;
 }

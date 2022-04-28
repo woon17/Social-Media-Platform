@@ -8,6 +8,7 @@
           <th>User Name</th>
           <th>Frist Name</th>
           <th>Last Name</th>
+          <th>Role</th>
           <th>Actions</th>
         </thead>
         <tbody>
@@ -16,6 +17,8 @@
             <td>{{user.userName}}</td>
             <td>{{user.userFirstName}}</td>
             <td>{{user.userLastName}}</td>
+            <td>{{user.role[0].roleName}}</td>
+
             <td>
               <button (click)="updateUser(user.userName)" class="btn btn-info" style="margin-right: 5px;">
                 Update Info

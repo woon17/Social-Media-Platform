@@ -1,10 +1,20 @@
 <p>update-user works!</p>
 <div class="col-md-6 offset-md-3">
-  <h3>Update User details</h3>
+  <div *ngIf="isUserRole(user); else elseBlock">
+    <h3>Update User Details</h3>
+  </div>
+
+  <ng-template #elseBlock>
+    <h3>Update Admin Details</h3>
+  </ng-template>
   <form (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label>User Name:</label>
       <input type="text" id="userName" class="form-control" [(ngModel)]="user.userName" name="userName" readonly>
+    </div>
+    <div class="form-group">
+      <label>Role:</label>
+      <input type="text" id="role" class="form-control" [(ngModel)]="uerRole" name="role" readonly>
     </div>
     <div class="form-group">
       <label>First Name:</label>
@@ -18,6 +28,13 @@
       <label>Password:</label>
       <input type="text" id="userPassword" class="form-control" [(ngModel)]="user.userPassword" name="userPassword">
     </div>
-    <button class="btn btn-success" type="submit">Update User</button>
+    <div *ngIf="isUserRole(user); else elseButtonBlock">
+      <button class="btn btn-success" type="submit">Update User
+      </button>
+    </div>
+    <ng-template #elseButtonBlock>
+      <button class="btn btn-success" type="submit">Update Admin
+      </button>
+    </ng-template>
   </form>
 </div>

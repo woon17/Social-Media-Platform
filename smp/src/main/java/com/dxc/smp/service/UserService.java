@@ -105,10 +105,10 @@ public class UserService {
 //		user.setUserFirstName(user.getUserFirstName());
 //		user.setUserLastName(user.getUserLastName());
 		if (userName.equals(user.getUserName())) { // same userName
-			Role role = roleRepository.findById("User").get();
-			Set<Role> userRoles = new HashSet<>();
-			userRoles.add(role);
-			user.setRole(userRoles);
+//			Role role = roleRepository.findById("User").get();
+//			Set<Role> userRoles = new HashSet<>();
+//			userRoles.add(role);
+//			user.setRole(userRoles);
 			user.setUserPassword(getEncodedPassword(user.getUserPassword()));
 			userRepository.save(user);
 		}

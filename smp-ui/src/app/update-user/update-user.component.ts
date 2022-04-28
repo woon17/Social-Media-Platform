@@ -12,6 +12,7 @@ export class UpdateUserComponent implements OnInit {
 
   user: User = new User();
   userName!: string;
+  uerRole='';
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
@@ -21,6 +22,7 @@ export class UpdateUserComponent implements OnInit {
   ngOnInit(): void {
     this.userName = this.route.snapshot.params['userName'];
     this.userService.getUserByUserName(this.userName).subscribe((data) => {
+      this.uerRole=data.role[0].roleName;
       this.user = data;
     });
   }
@@ -33,6 +35,10 @@ export class UpdateUserComponent implements OnInit {
 
   goToUsersList() {
     this.router.navigate(['/admin']);
+  }
+
+  isUserRole(user:User):boolean{
+    return user.role?.[0].roleName === "User";
   }
 
 }
