@@ -21,7 +21,7 @@
             <td>{{post.views}}</td>
             <td>{{post.user?.userName}}</td>
             <td>
-              <button (click)="updatePost(post.id)" class="btn btn-info" style="margin-right: 5px;" *ngIf="matchRole(['Admin']) || matchRole(['User'])">
+              <button (click)="updatePost(post.id)" class="btn btn-info" style="margin-right: 5px;" *ngIf="matchRole(['Admin']) || (getUserName()===post.user?.userName)">
                 Update Info
               </button>
               <button (click)="deletePost(post.id)" class="btn btn-info"  *ngIf="matchRole(['Admin'])">

@@ -2,16 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Post } from '../_class/post';
 import { PostService } from '../_services/post.service';
+import { UserAuthService } from '../_services/user-auth.service';
 import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-feeds',
   templateUrl: './feeds.component.html',
-  styleUrls: ['./feeds.component.css']
+  styleUrls: ['./feeds.component.css'],
 })
 export class FeedsComponent implements OnInit {
-
-  constructor(private postService: PostService, private router: Router, private userService:UserService) {}
+  constructor(
+    private postService: PostService,
+    private router: Router,
+    private userService: UserService,
+    private userAuthService: UserAuthService
+  ) {}
   public message: any;
   posts: Post[] | undefined;
   post: Post | undefined;
@@ -27,19 +32,23 @@ export class FeedsComponent implements OnInit {
     });
   }
 
-    // 2. do routing,
-    updatePost(id: number | undefined) {
-      this.router.navigate(["update-post", id]);
-    }
+  // 2. do routing,
+  updatePost(id: number | undefined) {
+    this.router.navigate(['update-post', id]);
+  }
 
-    deletePost(id: number | undefined) {
-      this.postService.deletePostById(id).subscribe(() => {
-        this.fetchPosts();
-        this.post=undefined;
-        console.log('post deleted');
-      });
-    }
-    public matchRole(role: any){
-      return this.userService.roleMatch(role);
-    }
+  deletePost(id: number | undefined) {
+    this.postService.deletePostById(id).subscribe(() => {
+      this.fetchPosts();
+      this.post = undefined;
+      console.log('post deleted');
+    });
+  }
+  public matchRole(role: any) {
+    return this.userService.roleMatch(role);
+  }
+
+  getUserName() {
+    return this.userAuthService.getJwtSub();
+  }
 }

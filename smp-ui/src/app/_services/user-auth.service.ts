@@ -33,6 +33,6 @@ export class UserAuthService {
   }
 
   public getJwtSub():string{
-    return this.jwtHelperService.decodeToken(this.getToken()).sub;
+    return this.jwtHelperService.decodeToken(this.getToken())?.sub;
   }
 }
