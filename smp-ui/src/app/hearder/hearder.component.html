@@ -24,7 +24,7 @@
       </ul>
       <!-- <div>User: {{userName}} **</div> -->
       <button *ngIf="!isLoggedIn()" type="button" class="btn btn-success" routerLink="/login">Login</button>
-      <!-- <div *ngIf="isLoggedIn() && userName">user: {{userName || "asa"}}</div> -->
+      <div *ngIf="isLoggedIn()" id="username">hi, {{getUserName()}}</div>
       <button *ngIf="isLoggedIn()" type="button" class="btn btn-danger" (click)="logout()">Logout</button>
       <!-- <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

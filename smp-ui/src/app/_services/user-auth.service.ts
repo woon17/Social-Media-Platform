@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { JwtHelperService, JWT_OPTIONS    } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserAuthService {
-  constructor() {}
+  constructor(private jwtHelperService:JwtHelperService) {}
 
   public setRoles(roles: []) {
     localStorage.setItem('roles', JSON.stringify(roles));
@@ -29,5 +30,9 @@ export class UserAuthService {
 
   public isLoggedIn(){
         return this.getRoles() && this.getToken();
+  }
+
+  public getJwtSub():string{
+    return this.jwtHelperService.decodeToken(this.getToken()).sub;
   }
 }

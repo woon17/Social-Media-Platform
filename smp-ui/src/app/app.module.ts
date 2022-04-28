@@ -21,11 +21,12 @@ import { FeedsComponent } from './Feeds/feeds.component';
 import { PicturePostComponent } from './picture-post/picture-post.component';
 import { VideoPostComponent } from './video-post/video-post.component';
 import { TextPostComponent } from './text-post/text-post.component';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
     AppComponent,
-   FeedsComponent,
+    FeedsComponent,
     AdminComponent,
     UserComponent,
     LoginComponent,
@@ -52,7 +53,9 @@ import { TextPostComponent } from './text-post/text-post.component';
       useClass: AuthInterceptor,
       multi: true,
     },
-    UserService
+    UserService,
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService,
   ],
   bootstrap: [AppComponent],
 })

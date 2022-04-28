@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserAuthService } from '../_services/user-auth.service';
 import { UserService } from '../_services/user.service';
-
+import { JwtHelperService } from '@auth0/angular-jwt';
 @Component({
   selector: 'app-hearder',
   templateUrl: './hearder.component.html',
@@ -24,6 +24,10 @@ export class HearderComponent implements OnInit {
     console.log('call logout()');
     this.userAuthService.clear();
     this.router.navigate(['/feeds']);
+  }
+
+  getUserName() {
+    return this.userAuthService.getJwtSub();
   }
 
   public matchRole(role: any) {
