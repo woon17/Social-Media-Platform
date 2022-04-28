@@ -2,13 +2,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../_class/user';
+import { AppSettings } from '../_help/appSettings';
 import { UserAuthService } from './user-auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private baseUrl = 'http://localhost:8081';
   constructor(
     private httpclient: HttpClient,
     private userAuthService: UserAuthService
@@ -21,15 +21,15 @@ export class UserService {
   //
   public login(loginData: any) {
     console.log(loginData.value);
-    console.log(`${this.baseUrl}/signin`);
-    return this.httpclient.post(`${this.baseUrl}/signin`, loginData, {
+    console.log(`${AppSettings.API_ENDPOINT}/signin`);
+    return this.httpclient.post(`${AppSettings.API_ENDPOINT}/signin`, loginData, {
       headers: this.requestHeader,
     });
   }
 
   public register(user: any): Observable<any> {
     return this.httpclient.post(
-      `${this.baseUrl}/signup`,
+      `${AppSettings.API_ENDPOINT}/signup`,
       {
         userName: user.userName,
         userFirstName: user.firstName,
@@ -41,13 +41,13 @@ export class UserService {
   }
 
   public forUser() {
-    return this.httpclient.get(`${this.baseUrl}/forUser`, {
+    return this.httpclient.get(`${AppSettings.API_ENDPOINT}/forUser`, {
       responseType: 'text',
     });
   }
 
   public forAdmin(): Observable<User[]> {
-    return this.httpclient.get<User[]>(`${this.baseUrl}/forAdmin`);
+    return this.httpclient.get<User[]>(`${AppSettings.API_ENDPOINT}/forAdmin`);
   }
 
   public roleMatch(allowedRoles: String[]): any {
@@ -69,17 +69,17 @@ export class UserService {
   }
 
   updateUser(username: string, user: User): Observable<Object> {
-    console.log(`${this.baseUrl}/updateUser/${username}`);
-    return this.httpclient.put(`${this.baseUrl}/updateUser/${username}`, user);
+    console.log(`${AppSettings.API_ENDPOINT}/updateUser/${username}`);
+    return this.httpclient.put(`${AppSettings.API_ENDPOINT}/updateUser/${username}`, user);
   }
 
   getUserByUserName(userName: string): Observable<User> {
-    console.log(`${this.baseUrl}/getUser/${userName}`);
-    return this.httpclient.get<User>(`${this.baseUrl}/getUser/${userName}`);
+    console.log(`${AppSettings.API_ENDPOINT}/getUser/${userName}`);
+    return this.httpclient.get<User>(`${AppSettings.API_ENDPOINT}/getUser/${userName}`);
   }
 
   deleteUserByUserName(userName: string | undefined) {
-    console.log(`${this.baseUrl}}/deleteUser/${userName}`);
-    return this.httpclient.delete(`${this.baseUrl}/deleteUser/${userName}`);
+    console.log(`${AppSettings.API_ENDPOINT}}/deleteUser/${userName}`);
+    return this.httpclient.delete(`${AppSettings.API_ENDPOINT}/deleteUser/${userName}`);
   }
 }

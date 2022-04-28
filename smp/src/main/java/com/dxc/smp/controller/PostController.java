@@ -28,6 +28,7 @@ public class PostController {
 
 	@GetMapping({ "/getAllPosts" }) // all posts show at home page
 	public List<Post> getAllPosts() {
+		System.out.println("----------------------reach here------------------------");
 		return postService.getAllPost();
 	}
 

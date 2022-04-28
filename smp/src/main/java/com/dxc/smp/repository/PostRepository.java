@@ -13,5 +13,6 @@ import com.dxc.smp.entity.User;
 public interface PostRepository extends CrudRepository<Post, Long> {
 	public void deleteById(int id);
 	public Post findById(int id);
+	public List<Post> findAll();
 	public List<Post> findByUser(User user);
 }

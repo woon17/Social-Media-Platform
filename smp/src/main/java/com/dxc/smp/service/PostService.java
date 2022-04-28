@@ -52,7 +52,10 @@ public class PostService {
 
 	// read all posts
 	public List<Post> getAllPost() {
+		System.out.println("before");
 		List<Post> posts = (List<Post>) postRepository.findAll();
+		System.out.println("after");
+		System.out.println("posts" + posts);
 		return posts;
 	}
 
