@@ -2,6 +2,7 @@ package com.dxc.smp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -31,7 +32,7 @@ public class AdminController {
 		return userService.getAllUsers();
 	}
 
-	@PostMapping({ "/deleteUser/{userName}" })
+	@DeleteMapping({ "/deleteUser/{userName}" })
 	@PreAuthorize("hasRole('Admin')")
 	public void deleteUserByName(@PathVariable("userName") String userName) {
 		System.out.println("admin controller: " + userName);

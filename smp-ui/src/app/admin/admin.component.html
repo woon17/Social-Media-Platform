@@ -4,12 +4,15 @@
     <div class="card-body">
       <table border="1px" class="table">
         <thead>
+          <th>No.</th>
           <th>User Name</th>
           <th>Frist Name</th>
           <th>Last Name</th>
+          <th>Actions</th>
         </thead>
         <tbody>
-          <tr *ngFor="let user of users">
+          <tr *ngFor="let user of users; index as i">
+            <td>{{i + 1}}</td>
             <td>{{user.userName}}</td>
             <td>{{user.userFirstName}}</td>
             <td>{{user.userLastName}}</td>
@@ -17,9 +20,9 @@
               <button (click)="updateUser(user.userName)" class="btn btn-info" style="margin-right: 5px;">
                 Update Info
               </button>
-              <!-- <button (click)="deleteBook(user.id)" class="btn btn-info">
+              <button (click)="deleteUser(user.userName)" class="btn btn-info">
                 Delete
-              </button> -->
+              </button>
             </td>
           </tr>
         </tbody>

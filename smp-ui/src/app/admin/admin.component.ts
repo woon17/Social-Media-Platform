@@ -30,11 +30,11 @@ export class AdminComponent implements OnInit {
       this.router.navigate(["update-user", userName]);
     }
 
-    // deleteBook(id: number | undefined) {
-    //   this.userService.deleteBookById(id).subscribe(() => {
-    //     this.fetchUsers();
-    //     this.user=undefined;
-    //     console.log('book deleted');
-    //   });
-    // }
+    deleteUser(userName: string | undefined) {
+      this.userService.deleteUserByUserName(userName).subscribe(() => {
+        this.fetchUsers();
+        this.user=undefined;
+        console.log('user deleted');
+      });
+    }
 }

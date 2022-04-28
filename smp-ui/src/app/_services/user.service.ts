@@ -72,8 +72,14 @@ export class UserService {
     console.log(`${this.baseUrl}/updateUser/${username}`);
     return this.httpclient.put(`${this.baseUrl}/updateUser/${username}`, user);
   }
+
   getUserByUserName(userName: string): Observable<User> {
     console.log(`${this.baseUrl}/getUser/${userName}`);
     return this.httpclient.get<User>(`${this.baseUrl}/getUser/${userName}`);
+  }
+
+  deleteUserByUserName(userName: string | undefined) {
+    console.log(`${this.baseUrl}}/deleteUser/${userName}`);
+    return this.httpclient.delete(`${this.baseUrl}/deleteUser/${userName}`);
   }
 }
