@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
 import { AdminComponent } from './admin/admin.component';
 import { UserComponent } from './user/user.component';
 import { LoginComponent } from './login/login.component';
@@ -17,11 +16,13 @@ import { UserService } from './_services/user.service';
 import { AuthInterceptor } from './_auth/auth.interceptor';
 import { RegistrationComponent } from './registration/registration.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
+import { PostComponent } from './post/post.component';
+import { FeedsComponent } from './Feeds/feeds.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+   FeedsComponent,
     AdminComponent,
     UserComponent,
     LoginComponent,
@@ -29,6 +30,7 @@ import { UpdateUserComponent } from './update-user/update-user.component';
     ForbiddenComponent,
     RegistrationComponent,
     UpdateUserComponent,
+    PostComponent,
   ],
   imports: [
     BrowserModule,

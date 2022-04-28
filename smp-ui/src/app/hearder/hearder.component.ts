@@ -21,7 +21,7 @@ export class HearderComponent implements OnInit {
   public logout(){
     console.log("call logout()");
     this.userAuthService.clear();
-    this.router.navigate(["/home"]);
+    this.router.navigate(["/feeds"]);
   }
 
   public matchRole(role: any){

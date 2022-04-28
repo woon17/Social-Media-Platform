@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../_help/user';
+import { User } from '../_class/user';
 import { UserAuthService } from './user-auth.service';
 
 @Injectable({
