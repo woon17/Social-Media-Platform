@@ -9,6 +9,8 @@ import { UserAuthService } from './user-auth.service';
   providedIn: 'root',
 })
 export class UserService {
+  userName ='';
+
   constructor(
     private httpclient: HttpClient,
     private userAuthService: UserAuthService
@@ -17,9 +19,13 @@ export class UserService {
   public login(loginData: any) {
     console.log(loginData.value);
     console.log(`${AppSettings.API_ENDPOINT}/signin`);
-    return this.httpclient.post(`${AppSettings.API_ENDPOINT}/signin`, loginData, {
-      headers: AppSettings.NO_AUTH_HEADER,
-    });
+    return this.httpclient.post(
+      `${AppSettings.API_ENDPOINT}/signin`,
+      loginData,
+      {
+        headers: AppSettings.NO_AUTH_HEADER,
+      }
+    );
   }
 
   public register(user: any): Observable<any> {
@@ -65,16 +71,23 @@ export class UserService {
 
   updateUser(username: string, user: User): Observable<Object> {
     console.log(`${AppSettings.API_ENDPOINT}/updateUser/${username}`);
-    return this.httpclient.put(`${AppSettings.API_ENDPOINT}/updateUser/${username}`, user);
+    return this.httpclient.put(
+      `${AppSettings.API_ENDPOINT}/updateUser/${username}`,
+      user
+    );
   }
 
   getUserByUserName(userName: string): Observable<User> {
     console.log(`${AppSettings.API_ENDPOINT}/getUser/${userName}`);
-    return this.httpclient.get<User>(`${AppSettings.API_ENDPOINT}/getUser/${userName}`);
+    return this.httpclient.get<User>(
+      `${AppSettings.API_ENDPOINT}/getUser/${userName}`
+    );
   }
 
   deleteUserByUserName(userName: string | undefined) {
     console.log(`${AppSettings.API_ENDPOINT}}/deleteUser/${userName}`);
-    return this.httpclient.delete(`${AppSettings.API_ENDPOINT}/deleteUser/${userName}`);
+    return this.httpclient.delete(
+      `${AppSettings.API_ENDPOINT}/deleteUser/${userName}`
+    );
   }
 }

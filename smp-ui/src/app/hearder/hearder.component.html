@@ -11,16 +11,20 @@
           <a class="nav-link active" aria-current="page" routerLink="/feeds">Feeds </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/admin" *ngIf="matchRole(['Admin'])">Users Management </a>
+          <a class="nav-link active" aria-current="page" routerLink="/admin" *ngIf="matchRole(['Admin'])">Users
+            Management </a>
         </li>
         <!-- <li class="nav-item">
           <a class="nav-link active" aria-current="page" routerLink="/post" *ngIf="matchRole(['Admin'])">Posts Management </a>
         </li> -->
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/user" *ngIf="matchRole(['User'])">User Dashboard </a>
+          <a class="nav-link active" aria-current="page" routerLink="/user" *ngIf="matchRole(['User'])">User Dashboard
+          </a>
         </li>
       </ul>
+      <!-- <div>User: {{userName}} **</div> -->
       <button *ngIf="!isLoggedIn()" type="button" class="btn btn-success" routerLink="/login">Login</button>
+      <!-- <div *ngIf="isLoggedIn() && userName">user: {{userName || "asa"}}</div> -->
       <button *ngIf="isLoggedIn()" type="button" class="btn btn-danger" (click)="logout()">Logout</button>
       <!-- <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

@@ -18,6 +18,9 @@ import { RegistrationComponent } from './registration/registration.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { PostComponent } from './post/post.component';
 import { FeedsComponent } from './Feeds/feeds.component';
+import { PicturePostComponent } from './picture-post/picture-post.component';
+import { VideoPostComponent } from './video-post/video-post.component';
+import { TextPostComponent } from './text-post/text-post.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,9 @@ import { FeedsComponent } from './Feeds/feeds.component';
     RegistrationComponent,
     UpdateUserComponent,
     PostComponent,
+    PicturePostComponent,
+    VideoPostComponent,
+    TextPostComponent,
   ],
   imports: [
     BrowserModule,

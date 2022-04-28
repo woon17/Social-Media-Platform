@@ -12,7 +12,7 @@ import { UserService } from '../_services/user.service';
 export class LoginComponent implements OnInit {
   public userName = '';
   public userPassword = '';
-  public message='';
+  public message = '';
   constructor(
     private userservice: UserService,
     private userAuthService: UserAuthService,
@@ -24,8 +24,9 @@ export class LoginComponent implements OnInit {
   login(loginForm: NgForm) {
     console.log('form is submitted');
     console.log(loginForm.value);
-    console.log("userName: " + this.userName);
-    console.log("userName: " + this.userPassword);
+    console.log('userName: ' + this.userName);
+    console.log('userName: ' + this.userPassword);
+
     this.userservice.login(loginForm.value).subscribe(
       (response: any) => {
         console.log('---------------');
@@ -35,22 +36,22 @@ export class LoginComponent implements OnInit {
         console.log(response.user.role[0].roleName);
         this.userAuthService.setRoles(response.user.role);
         this.userAuthService.setToken(response.jwtToken);
+        this.userName = loginForm.value.userName;
         const role = response.user.role[0].roleName;
         if (role === 'Admin') {
           this.router.navigate(['/admin']);
-        }else if(role === 'User'){
+        } else if (role === 'User') {
           this.router.navigate(['/user']);
         }
       },
       (error) => {
-        this.message=error.error.message;
+        this.message = error.error.message;
       }
     );
   }
 
-  goToRegistraton(){
-    console.log("hello registration");
+  goToRegistraton() {
+    console.log('hello registration');
     this.router.navigate(['/registration']);
-
   }
 }
