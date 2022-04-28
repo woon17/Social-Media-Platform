@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from '../_help/user';
 import { UserAuthService } from './user-auth.service';
 
 @Injectable({
@@ -15,7 +16,7 @@ export class UserService {
 
   requestHeader = new HttpHeaders({ 'no-auth': 'True' });
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
   //
   public login(loginData: any) {
@@ -26,13 +27,17 @@ export class UserService {
     });
   }
 
-  public register(user:any): Observable<any>{
-    return this.httpclient.post(`${this.baseUrl}/signup`, {
-      userName: user.userName,
-      userFirstName: user.firstName,
-      userLastName: user.lastName,
-      userPassword: user.userPassword
-    }, {headers: this.requestHeader});
+  public register(user: any): Observable<any> {
+    return this.httpclient.post(
+      `${this.baseUrl}/signup`,
+      {
+        userName: user.userName,
+        userFirstName: user.firstName,
+        userLastName: user.lastName,
+        userPassword: user.userPassword,
+      },
+      { headers: this.requestHeader }
+    );
   }
 
   public forUser() {
@@ -41,10 +46,8 @@ export class UserService {
     });
   }
 
-  public forAdmin() {
-    return this.httpclient.get(`${this.baseUrl}/forAdmin`, {
-      responseType: 'text',
-    });
+  public forAdmin(): Observable<User[]> {
+    return this.httpclient.get<User[]>(`${this.baseUrl}/forAdmin`);
   }
 
   public roleMatch(allowedRoles: String[]): any {
@@ -63,5 +66,14 @@ export class UserService {
         }
       }
     }
+  }
+
+  updateUser(username: string, user: User): Observable<Object> {
+    console.log(`${this.baseUrl}/updateUser/${username}`);
+    return this.httpclient.put(`${this.baseUrl}/updateUser/${username}`, user);
+  }
+  getUserByUserName(userName: string): Observable<User> {
+    console.log(`${this.baseUrl}/getUser/${userName}`);
+    return this.httpclient.get<User>(`${this.baseUrl}/getUser/${userName}`);
   }
 }

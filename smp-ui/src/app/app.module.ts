@@ -16,6 +16,7 @@ import { AuthGuard } from './_auth/auth.guard';
 import { UserService } from './_services/user.service';
 import { AuthInterceptor } from './_auth/auth.interceptor';
 import { RegistrationComponent } from './registration/registration.component';
+import { UpdateUserComponent } from './update-user/update-user.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { RegistrationComponent } from './registration/registration.component';
     HearderComponent,
     ForbiddenComponent,
     RegistrationComponent,
+    UpdateUserComponent,
   ],
   imports: [
     BrowserModule,
