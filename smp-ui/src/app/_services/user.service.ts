@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Post } from '../_class/post';
 import { User } from '../_class/user';
 import { AppSettings } from '../_help/appSettings';
 import { UserAuthService } from './user-auth.service';
@@ -9,7 +10,7 @@ import { UserAuthService } from './user-auth.service';
   providedIn: 'root',
 })
 export class UserService {
-  userName ='';
+  userName = '';
 
   constructor(
     private httpclient: HttpClient,
@@ -41,10 +42,8 @@ export class UserService {
     );
   }
 
-  public forUser() {
-    return this.httpclient.get(`${AppSettings.API_ENDPOINT}/forUser`, {
-      responseType: 'text',
-    });
+  public forUser(): Observable<Post[]> {
+    return this.httpclient.get<Post[]>(`${AppSettings.API_ENDPOINT}/forUser`);
   }
 
   public forAdmin(): Observable<User[]> {
