@@ -11,8 +11,8 @@ import { UpdatePostComponent } from './update-post/update-post.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { UserComponent } from './user/user.component';
 import { AuthGuard } from './_auth/auth.guard';
-import { IsExistingPostGuardGuard } from './_auth/is-existing-post-guard.guard';
-import { IsMatchedPostUserGuard } from './_auth/is-matched-post-user.guard';
+import { ExistingPostGuard } from './_auth/existing-post.guard';
+import { MatchPostUserOrRoleGuard } from './_auth/match-post-user-or-role.guard';
 import { IsNotSignInGuard } from './_auth/is-not-sign-in.guard';
 
 const routes: Routes = [
@@ -28,7 +28,7 @@ const routes: Routes = [
   {
     path: 'update-post/:id',
     component: UpdatePostComponent,
-    canActivate: [IsMatchedPostUserGuard, IsExistingPostGuardGuard],
+    canActivate: [MatchPostUserOrRoleGuard, ExistingPostGuard],
     data: { roles: ['Admin']},
   }, // add update a post
   {

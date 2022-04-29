@@ -14,13 +14,14 @@ import { UserService } from '../_services/user.service';
 @Injectable({
   providedIn: 'root',
 })
-export class IsExistingPostGuardGuard implements CanActivate {
+export class MatchPostUserOrRoleGuard implements CanActivate {
   constructor(
     private userAuthService: UserAuthService,
     private router: Router,
     private postService: PostService,
     private userService: UserService
   ) {}
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -32,15 +33,34 @@ export class IsExistingPostGuardGuard implements CanActivate {
     const postId = route.paramMap.get('id');
     var post: any;
     console.log('IsMatchedPostUserGuard postId: ' + postId);
+
+    if (this.userAuthService.getToken() !== null) {
+      const role = route.data['roles'] as Array<string>;
+      console.log('role array: ' + role);
+
+      if (role) {
+        const match = this.userService.roleMatch(role);
+        console.log('match: ' + match);
+        if (match) {
+          return true;
+        }
+      }
+    }
+
     return this.postService.getPostById(Number(postId)).pipe(
       map((data) => {
         try {
-          if (data.user?.userName!==null) {
+          if (this.userAuthService.getJwtSub() === data.user?.userName) {
+            console.log('same user name');
             return true;
           } else {
+            console.log('different user name');
+            this.router.navigate(['/forbidden']);
             return false;
           }
         } catch (e) {
+          // post is not existing
+          console.log('different user name, catch block');
           this.router.navigate(['/feeds']);
           return false;
         }
