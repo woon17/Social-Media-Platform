@@ -59,7 +59,7 @@ export class FeedsComponent implements OnInit {
       if(this.matchRole(["User"])){
       this.router.navigate(['/create-post']);
     }else{
-      this.router.navigate(['/feeds']);
+      this.router.navigate(['/login']);
     }
 
   }
