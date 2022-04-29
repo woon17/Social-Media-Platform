@@ -1,8 +1,9 @@
+<button (click)="createPost()" class="btn btn-info">
+  Create Post
+</button>
 <div class="container">
   <div class="card text-center" style="color: green; padding:20px">
-    <!-- <h1>You are Admin</h1> -->
     <h1>You are user</h1>
-
     <div class="card-body">
       <table border="1px" class="table">
         <thead>
@@ -22,7 +23,8 @@
             <td>{{post.views}}</td>
             <td>{{post.user?.userName}}</td>
             <td>
-              <button (click)="updatePost(post.id)" class="btn btn-info" style="margin-right: 5px;" *ngIf="matchRole(['Admin']) || (getUserName()===post.user?.userName)">
+              <button (click)="updatePost(post.id)" class="btn btn-info" style="margin-right: 5px;"
+                *ngIf="matchRole(['Admin']) || (getUserName()===post.user?.userName)">
                 Update Post
               </button>
             </td>

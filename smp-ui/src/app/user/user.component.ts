@@ -39,4 +39,13 @@ export class UserComponent implements OnInit {
   getUserName() {
     return this.userAuthService.getJwtSub();
   }
+
+  createPost() {
+    // if(this.matchRole(["Admin"]) || this.matchRole(["User"])){
+    if (this.matchRole(['User'])) {
+      this.router.navigate(['/create-post']);
+    } else {
+      this.router.navigate(['/login']);
+    }
+  }
 }

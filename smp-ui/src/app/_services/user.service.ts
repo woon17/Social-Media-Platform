@@ -15,7 +15,9 @@ export class UserService {
   constructor(
     private httpclient: HttpClient,
     private userAuthService: UserAuthService
-  ) {}
+  ) {
+    console.log("----------------------UserService constructor----------------------------");
+  }
 
   public login(loginData: any) {
     console.log(loginData.value);
@@ -60,11 +62,10 @@ export class UserService {
           if (userRoles[i].roleName === allowedRoles[j]) {
             isMatch = true;
             return isMatch;
-          } else {
-            return isMatch;
           }
         }
       }
+      return false;
     }
   }
 
