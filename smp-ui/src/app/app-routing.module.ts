@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
+import { CreatePostComponent } from './create-post/create-post.component';
 import { FeedsComponent } from './Feeds/feeds.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { LoginComponent } from './login/login.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent, canActivate:[AuthGuard], data:{roles:['Admin']}},
   { path: 'post', component: PostComponent},
   { path: 'update-post/:id', component: UpdatePostComponent }, // add update a post
+  { path: 'create-post', component: CreatePostComponent }, // add update a post
   { path: 'update-user/:userName', component: UpdateUserComponent }, // add update a user
   { path: 'user', component: UserComponent, canActivate:[AuthGuard], data:{roles:['User']} },
   { path: 'login', component: LoginComponent }, // no need to use auth guard

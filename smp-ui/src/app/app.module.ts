@@ -23,6 +23,7 @@ import { VideoPostComponent } from './video-post/video-post.component';
 import { TextPostComponent } from './text-post/text-post.component';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { UpdatePostComponent } from './update-post/update-post.component';
+import { CreatePostComponent } from './create-post/create-post.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { UpdatePostComponent } from './update-post/update-post.component';
     VideoPostComponent,
     TextPostComponent,
     UpdatePostComponent,
+    CreatePostComponent,
   ],
   imports: [
     BrowserModule,

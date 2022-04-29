@@ -51,4 +51,16 @@ export class FeedsComponent implements OnInit {
   getUserName() {
     return this.userAuthService.getJwtSub();
   }
+
+  createPost(){
+    console.log("this.matchRole(['Admin']): " + this.matchRole(["Admin"]));
+    console.log("this.matchRole(['User']): " + this.matchRole(["User"]));
+    if(this.matchRole(["Admin"]) || this.matchRole(["User"])){
+      this.router.navigate(['/create-post']);
+
+    }else{
+      this.router.navigate(['/login']);
+    }
+
+  }
 }

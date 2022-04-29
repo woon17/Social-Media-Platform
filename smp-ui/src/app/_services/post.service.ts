@@ -26,6 +26,19 @@ export class PostService {
     );
   }
 
+  public createPost(post: any): Observable<any> {
+    console.log("createPost(post: any): " + post);
+    return this.httpclient.post(
+      `${AppSettings.API_ENDPOINT}/createPost`,
+      {
+        type: post.type,
+        caption: post.caption,
+        link: post.link,
+        views: post.views,
+      }
+    );
+  }
+
   updatePost(id: number, post: Post): Observable<Object> {
     console.log(`${AppSettings.API_ENDPOINT}/updatePost/${id}`);
     return this.httpclient.put(
