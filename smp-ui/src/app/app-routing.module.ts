@@ -11,17 +11,34 @@ import { UpdatePostComponent } from './update-post/update-post.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { UserComponent } from './user/user.component';
 import { AuthGuard } from './_auth/auth.guard';
+import { IsNotSignInGuard } from './_auth/is-not-sign-in.guard';
 
 const routes: Routes = [
   { path: 'feeds', component: FeedsComponent }, // no need to use auth guard
   { path: '', component: FeedsComponent }, // no need to use auth guard
-  { path: 'admin', component: AdminComponent, canActivate:[AuthGuard], data:{roles:['Admin']}},
-  { path: 'post', component: PostComponent},
+  {
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['Admin'] },
+  },
+  { path: 'post', component: PostComponent },
   { path: 'update-post/:id', component: UpdatePostComponent }, // add update a post
-  { path: 'create-post', component: CreatePostComponent }, // add update a post
+  {
+    path: 'create-post',
+    component: CreatePostComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['User'] },
+  }, // add update a post
   { path: 'update-user/:userName', component: UpdateUserComponent }, // add update a user
-  { path: 'user', component: UserComponent, canActivate:[AuthGuard], data:{roles:['User']} },
-  { path: 'login', component: LoginComponent }, // no need to use auth guard
+  {
+    path: 'user',
+    component: UserComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['User'] },
+  },
+  { path: 'login', component: LoginComponent , canActivate: [IsNotSignInGuard]}, // no need to use auth guard
+  // { path: 'login', component: LoginComponent }, // no need to use auth guard
   { path: 'registration', component: RegistrationComponent }, // for register a new user
   { path: 'forbidden', component: ForbiddenComponent }, // no need to use auth guard
 ];

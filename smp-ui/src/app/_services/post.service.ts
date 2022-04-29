@@ -34,7 +34,7 @@ export class PostService {
         type: post.type,
         caption: post.caption,
         link: post.link,
-        views: post.views,
+        views: 1,
       }
     );
   }

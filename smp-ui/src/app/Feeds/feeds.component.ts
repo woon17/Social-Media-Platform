@@ -55,11 +55,11 @@ export class FeedsComponent implements OnInit {
   createPost(){
     console.log("this.matchRole(['Admin']): " + this.matchRole(["Admin"]));
     console.log("this.matchRole(['User']): " + this.matchRole(["User"]));
-    if(this.matchRole(["Admin"]) || this.matchRole(["User"])){
+    // if(this.matchRole(["Admin"]) || this.matchRole(["User"])){
+      if(this.matchRole(["User"])){
       this.router.navigate(['/create-post']);
-
     }else{
-      this.router.navigate(['/login']);
+      this.router.navigate(['/feeds']);
     }
 
   }
