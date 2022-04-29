@@ -2,9 +2,11 @@ package com.dxc.smp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,19 +40,19 @@ public class PostController {
 		return postService.getPostsByUserName(userName);
 	}
 
-	@PostMapping({ "/getPostById/{id}" })
+	@GetMapping({ "/getPostById/{id}" })
 	@PreAuthorize("hasAnyRole('Admin','User')")
 	public Post getPostById(@PathVariable("id") int id) {
 		return postService.getPostById(id);
 	}
 
-	@PostMapping({ "/deletePost/{id}" })
+	@DeleteMapping({ "/deletePost/{id}" })
 	@PreAuthorize("hasRole('Admin')")
 	public void deletePostById(@PathVariable("id") int id) {
 		postService.deletePost(id);
 	}
 
-	@PostMapping({ "/updatePost/{id}" })
+	@PutMapping({ "/updatePost/{id}" })
 	@PreAuthorize("hasAnyRole('Admin','User')")
 	public void updatePostById(@PathVariable("id") int id, @RequestBody Post post) {
 		postService.updatePostById(id, post);

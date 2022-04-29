@@ -6,6 +6,7 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { LoginComponent } from './login/login.component';
 import { PostComponent } from './post/post.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { UpdatePostComponent } from './update-post/update-post.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { UserComponent } from './user/user.component';
 import { AuthGuard } from './_auth/auth.guard';
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: '', component: FeedsComponent }, // no need to use auth guard
   { path: 'admin', component: AdminComponent, canActivate:[AuthGuard], data:{roles:['Admin']}},
   { path: 'post', component: PostComponent},
+  { path: 'update-post/:id', component: UpdatePostComponent }, // add update a post
   { path: 'update-user/:userName', component: UpdateUserComponent }, // add update a user
   { path: 'user', component: UserComponent, canActivate:[AuthGuard], data:{roles:['User']} },
   { path: 'login', component: LoginComponent }, // no need to use auth guard
