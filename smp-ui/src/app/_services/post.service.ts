@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpParams, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Post } from '../_class/post';
@@ -8,16 +8,17 @@ import { AppSettings } from '../_help/appSettings';
   providedIn: 'root',
 })
 export class PostService {
-
   constructor(private httpclient: HttpClient) {}
 
-  getAllPosts() : Observable<Post[]>{
+  getAllPosts(): Observable<Post[]> {
     console.log(`${AppSettings.API_ENDPOINT}/getAllPosts`);
-    return this.httpclient.get<Post[]>(`${AppSettings.API_ENDPOINT}/getAllPosts`, {
-      headers: AppSettings.NO_AUTH_HEADER,
-    });
+    return this.httpclient.get<Post[]>(
+      `${AppSettings.API_ENDPOINT}/getAllPosts`,
+      {
+        headers: AppSettings.NO_AUTH_HEADER,
+      }
+    );
   }
-
 
   getPostById(id: number): Observable<Post> {
     console.log(`${AppSettings.API_ENDPOINT}/getPostById/${id}`);
@@ -26,17 +27,23 @@ export class PostService {
     );
   }
 
-  public createPost(post: any): Observable<any> {
-    console.log("createPost(post: any): " + post);
-    return this.httpclient.post(
+
+
+  public createPost(post: any, media:any): Observable<any> {
+    const formData: FormData = new FormData();
+
+    // formData.append('post',  JSON.stringify(postObj));
+    formData.append('file', media);
+    formData.append('type', post.type);
+    formData.append('caption', post.caption);
+
+    const req = new HttpRequest(
+      'POST',
       `${AppSettings.API_ENDPOINT}/createPost`,
-      {
-        type: post.type,
-        caption: post.caption,
-        link: post.link,
-        views: 1,
-      }
-    );
+      formData, {
+        responseType: 'json'
+      });
+      return this.httpclient.request(req);
   }
 
   updatePost(id: number, post: Post): Observable<Object> {
@@ -47,9 +54,10 @@ export class PostService {
     );
   }
 
-
   deletePostById(id: number | undefined) {
     console.log(`${AppSettings.API_ENDPOINT}}/deletePost/${id}`);
-    return this.httpclient.delete(`${AppSettings.API_ENDPOINT}/deletePost/${id}`);
+    return this.httpclient.delete(
+      `${AppSettings.API_ENDPOINT}/deletePost/${id}`
+    );
   }
 }

@@ -1,18 +1,15 @@
 package com.dxc.smp.service;
 
-import java.io.Console;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.dxc.smp.entity.Post;
 import com.dxc.smp.entity.User;
 import com.dxc.smp.repository.PostRepository;
@@ -26,16 +23,23 @@ public class PostService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	// @Autowired
+	// private StorageService storageService;
+
+	@Autowired
+	private FilesStorageService filesStorageService;
 
 	private final String uploadFolderPath = "D:\\final-assessment\\uploaded";
 
 	// create a new post
 	public Post createPost(Post post, MultipartFile multipartFile) {
+//		filesStorageService.init();
 		System.out.println("create post... for: " + post.getId());
 		User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
 		post.setUser(user);
 		postRepository.save(post); // save to get the correct new post id to create storage folder
-		Path linkPath = uploadToLocal(multipartFile, post.getId());
+		Path linkPath = filesStorageService.save(multipartFile, post);
 		post.setLink(linkPath.toString());
 		postRepository.save(post); // save correct link
 		System.out.println("create post successfully");
@@ -59,6 +63,12 @@ public class PostService {
 		String loginUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userRepository.findByUserName(loginUserName);
 		List<Post> posts = (List<Post>) postRepository.findByUser(user);
+		
+//		File file = new File("src/test/resources/input.txt");
+//		FileInputStream input = new FileInputStream(file);
+//		MultipartFile multipartFile = new MockMultipartFile("file",
+//		            file.getName(), "text/plain", IOUtils.toByteArray(input));
+//		
 		return posts;
 	}
 
@@ -66,8 +76,6 @@ public class PostService {
 	public List<Post> getAllPost() {
 		System.out.println("before");
 		List<Post> posts = (List<Post>) postRepository.findAll();
-		System.out.println("after");
-		System.out.println("posts" + posts);
 		return posts;
 	}
 
@@ -96,16 +104,17 @@ public class PostService {
 
 	}
 
-	public Path uploadToLocal(MultipartFile file, int postId) {
-		try {
-			System.out.println("enter uploadToLocal");
-			Files.createDirectories(Paths.get(uploadFolderPath + "//" + postId));
-			Path mediaPath = Paths.get(uploadFolderPath + "//" + postId).resolve(file.getOriginalFilename());
-			Files.copy(file.getInputStream(), mediaPath);
-			return mediaPath;
-		} catch (Exception e) {
-			throw new RuntimeException("FAIL!");
-		}
-	}
+//	public Path uploadToLocal(MultipartFile file, Post post) {
+//		try {
+//			System.out.println("enter uploadToLocal");
+//			Path postFolder = Paths.get(uploadFolderPath + "//" + post.getUser().getUserName() + "//" + post.getId());
+//			Files.createDirectories(postFolder);
+//			Path mediaPath = postFolder.resolve(file.getOriginalFilename());
+//			Files.copy(file.getInputStream(), mediaPath);
+//			return mediaPath;
+//		} catch (Exception e) {
+//			throw new RuntimeException("FAIL!");
+//		}
+//	}
 
 }

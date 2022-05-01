@@ -6,12 +6,13 @@
 <div class="container">
   <div class="card text-center" style="color: green; padding:20px">
     <!-- <h1>You are Admin</h1> -->
+    <!-- <img src="http://localhost:8081/files/shufa3/53/github.png" alt="test picture" width="500" height="600"> -->
     <div class="card-body">
       <table border="1px" class="table">
         <thead>
           <th>No.</th>
           <th>caption</th>
-          <th>type</th>
+          <!-- <th>type</th> -->
           <th>link</th>
           <th>views</th>
           <th>created by</th>
@@ -20,15 +21,16 @@
           <tr *ngFor="let post of posts; index as i">
             <td>{{i + 1}}</td>
             <td>{{post.caption}}</td>
-            <td>{{post.type}}</td>
-            <td>{{post.link}}</td>
+            <!-- <td>{{post.type}}</td> -->
+            <td><img src="http://localhost:8081/files/{{post.link}}" width="500" height="600"></td>
             <td>{{post.views}}</td>
             <td>{{post.user?.userName}}</td>
             <td>
-              <button (click)="updatePost(post.id)" class="btn btn-info" style="margin-right: 5px;" *ngIf="matchRole(['Admin']) || (getUserName()===post.user?.userName)">
+              <button (click)="updatePost(post.id)" class="btn btn-info" style="margin-right: 5px;"
+                *ngIf="matchRole(['Admin']) || (getUserName()===post.user?.userName)">
                 Update Post
               </button>
-              <button (click)="deletePost(post.id)" class="btn btn-info"  *ngIf="matchRole(['Admin'])">
+              <button (click)="deletePost(post.id)" class="btn btn-info" *ngIf="matchRole(['Admin'])">
                 Delete
               </button>
             </td>
