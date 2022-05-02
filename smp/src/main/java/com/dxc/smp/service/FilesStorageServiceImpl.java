@@ -79,4 +79,18 @@ public class FilesStorageServiceImpl implements FilesStorageService  {
       throw new RuntimeException("Could not load the files!");
     }
   }
+
+@Override
+public void deletePost(Post post) {
+	// TODO Auto-generated method stub
+	Path postFolder = root.resolve(Paths.get(post.getLink()).getParent());
+	System.out.println("postFolder: " + postFolder);
+	FileSystemUtils.deleteRecursively(postFolder.toFile());	
+}
+
+@Override
+public void deleteUserByUserName(String userName) {
+	// TODO Auto-generated method stub
+	
+}
 }

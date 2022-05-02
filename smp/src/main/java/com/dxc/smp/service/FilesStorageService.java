@@ -12,4 +12,6 @@ public interface FilesStorageService {
   public Resource load(String filename);
   public void deleteAll();
   public Stream<Path> loadAll();
+  public void deletePost(Post post);
+  public void deleteUserByUserName(String userName);
 }

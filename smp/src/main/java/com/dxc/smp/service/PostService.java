@@ -92,6 +92,8 @@ public class PostService {
 
 	// delete by Id
 	public void deletePost(int id) {
+		
+		filesStorageService.deletePost(postRepository.findById(id));
 		postRepository.deleteById(id);
 	}
 

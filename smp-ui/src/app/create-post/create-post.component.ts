@@ -42,7 +42,7 @@ export class CreatePostComponent implements OnInit {
 
     this.postService.createPost(this.form, this.media).subscribe(
       (response: any) => {
-        this.router.navigate(['/feeds']);
+        this.router.navigate(['/user']);
       },
       (error) => {
         console.log(error);
