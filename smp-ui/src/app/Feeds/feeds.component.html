@@ -1,5 +1,5 @@
 <div>
-  <button (click)="createPost()" class="btn btn-info">
+  <button (click)="createPost()" class="btn btn-info mb-2">
     Create Post
   </button>
 </div>
@@ -9,19 +9,17 @@
     <!-- <img src="http://localhost:8081/files/shufa3/53/github.png" alt="test picture" width="500" height="600"> -->
     <div class="card-body">
       <table border="1px" class="table">
-        <thead>
+        <!-- <thead>
           <th>No.</th>
           <th>caption</th>
-          <!-- <th>type</th> -->
           <th>link</th>
           <th>views</th>
           <th>created by</th>
-        </thead>
+        </thead> -->
         <tbody>
-          <tr *ngFor="let post of posts; index as i">
+          <!-- <tr *ngFor="let post of posts; index as i">
             <td>{{i + 1}}</td>
             <td>{{post.caption}}</td>
-            <!-- <td>{{post.type}}</td> -->
             <td><img src="http://localhost:8081/files/{{post.link}}" width="500" height="600"></td>
             <td>{{post.views}}</td>
             <td>{{post.user?.userName}}</td>
@@ -34,6 +32,27 @@
                 Delete
               </button>
             </td>
+          </tr> -->
+          <tr *ngFor="let post of posts; index as i">
+            <div class="card text-center post" (click)='increaseView(post.id)'>
+            <ul class="post-ul">
+              <!-- <li>{{i + 1}}</li> -->
+              <li class="post-caption">{{post.caption}}</li>
+              <!-- <li>{{post.type}}</li> -->
+              <li><img src="http://localhost:8081/files/{{post.link}}" width="200" height="200"></li>
+              <li>Views: {{post.views}}</li>
+              <li>By: {{post.user?.userName}}</li>
+              <li>
+                <button (click)="updatePost(post.id)" class="btn btn-info" style="margin-right: 5px;"
+                  *ngIf="matchRole(['Admin']) || (getUserName()===post.user?.userName)">
+                  Update Post
+                </button>
+                <button (click)="deletePost(post.id)" class="btn btn-info" *ngIf="matchRole(['Admin'])">
+                  Delete
+                </button>
+              </li>
+            </ul>
+          </div>
           </tr>
         </tbody>
       </table>

@@ -1,0 +1,21 @@
+.post-ul{
+  display: block;
+  list-style-type: disc;
+  margin-top: 1em;
+  margin-bottom: 1 em;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 40px;
+  text-decoration: dotted;
+  list-style-type: none;
+}
+
+.post-caption{
+  font-weight: bold;
+}
+
+div.post{
+  border-radius: 8px;
+  size: 50%;
+  background-color:aliceblue;
+}

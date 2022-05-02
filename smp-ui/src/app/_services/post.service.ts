@@ -1,4 +1,9 @@
-import { HttpClient, HttpEvent, HttpParams, HttpRequest } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpEvent,
+  HttpParams,
+  HttpRequest,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Post } from '../_class/post';
@@ -27,9 +32,7 @@ export class PostService {
     );
   }
 
-
-
-  public createPost(post: any, media:any): Observable<any> {
+  public createPost(post: any, media: any): Observable<any> {
     const formData: FormData = new FormData();
 
     // formData.append('post',  JSON.stringify(postObj));
@@ -40,10 +43,12 @@ export class PostService {
     const req = new HttpRequest(
       'POST',
       `${AppSettings.API_ENDPOINT}/createPost`,
-      formData, {
-        responseType: 'json'
-      });
-      return this.httpclient.request(req);
+      formData,
+      {
+        responseType: 'json',
+      }
+    );
+    return this.httpclient.request(req);
   }
 
   updatePost(id: number, post: Post): Observable<Object> {
@@ -58,6 +63,15 @@ export class PostService {
     console.log(`${AppSettings.API_ENDPOINT}}/deletePost/${id}`);
     return this.httpclient.delete(
       `${AppSettings.API_ENDPOINT}/deletePost/${id}`
+    );
+  }
+
+  increaseView(id: number | undefined) {
+    console.log(`${AppSettings.API_ENDPOINT}}/addViewsCount/${id}`);
+    return this.httpclient.put(
+      `${AppSettings.API_ENDPOINT}/addViewsCount/${id}`,
+      {},
+      { headers: AppSettings.NO_AUTH_HEADER }
     );
   }
 }

@@ -56,8 +56,20 @@ export class FeedsComponent implements OnInit {
     // if(this.matchRole(["Admin"]) || this.matchRole(["User"])){
     if (this.matchRole(['User'])) {
       this.router.navigate(['/create-post']);
+    } else if (this.matchRole(['Admin'])) {
+      this.router.navigate(['/forbidden']);
     } else {
       this.router.navigate(['/login']);
     }
+  }
+
+  // TODO: use click view api to update view number
+  increaseView(postid: any) {
+    console.log('increase view for post_' + postid);
+    this.postService.increaseView(postid).subscribe(() => {
+      this.fetchPosts();
+      this.post = undefined;
+      console.log('post deleted');
+    });
   }
 }

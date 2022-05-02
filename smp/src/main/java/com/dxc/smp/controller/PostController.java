@@ -90,7 +90,7 @@ public class PostController {
 		return postService.getPosts();
 	}
 
-	@PostMapping({ "/addViewsCount/{id}" })
+	@PutMapping({ "/addViewsCount/{id}" })
 	public int addViewsCount(@PathVariable("id") int id) {
 		return postService.increaseViews(id);
 	}
