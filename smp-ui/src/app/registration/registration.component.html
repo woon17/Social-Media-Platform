@@ -39,7 +39,7 @@
       <div class="form-group">
         <label for="lastName">Last Name:</label>
         <input type="text" [(ngModel)]="form.lastName" name="lastName" id="lastName" placeholder="Enter your last name"
-          class="form-control" required pattern="^[a-z0-9_-]{3,8}$" #lastname="ngModel"
+          class="form-control" required pattern="^[a-zA-Z]{3,8}$" #lastname="ngModel"
           [class.is-invalid]="lastname.invalid && lastname.touched">
         <div *ngIf="lastname.errors && (lastname.invalid && lastname.touched)">
           <small class="text-danger" *ngIf="lastname.errors?.['required']">Last name is required field</small>

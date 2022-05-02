@@ -28,6 +28,9 @@ public class UserService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private FilesStorageService filesStorageService;
 
 	// set two default admin with default password when running the application
 	public void initRoleAndUser() {
@@ -120,6 +123,7 @@ public class UserService {
 
 	public void deleteUser(String userName) {
 		System.out.println("userName: " + userName);
+		filesStorageService.deleteUserByUserName(userName);
 		userRepository.deleteByUserName(userName);
 	}
 

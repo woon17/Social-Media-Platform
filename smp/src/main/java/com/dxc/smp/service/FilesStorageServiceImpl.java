@@ -91,6 +91,9 @@ public void deletePost(Post post) {
 @Override
 public void deleteUserByUserName(String userName) {
 	// TODO Auto-generated method stub
+	Path userFolder = root.resolve(Paths.get(userName));
+	System.out.println("userFolder: " + userFolder);
+	FileSystemUtils.deleteRecursively(userFolder.toFile());	
 	
 }
 }
