@@ -13,6 +13,7 @@ import { AppSettings } from '../_help/appSettings';
   providedIn: 'root',
 })
 export class PostService {
+
   constructor(private httpclient: HttpClient) {}
 
   getAllPosts(): Observable<Post[]> {
@@ -73,5 +74,8 @@ export class PostService {
       {},
       { headers: AppSettings.NO_AUTH_HEADER }
     );
+  }
+  getAll(params: any): Observable<any> {
+    return this.httpclient.get<any>(`${AppSettings.API_ENDPOINT}/getAllPosts`, { params });
   }
 }

@@ -18,23 +18,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import com.dxc.smp.entity.MediaPost;
 import com.dxc.smp.entity.Post;
 import com.dxc.smp.payload.response.MessageResponse;
+import com.dxc.smp.repository.PostRepository;
 import com.dxc.smp.service.PostService;
 import com.dxc.smp.service.StorageService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.dxc.smp.service.FileUploadService;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class PostController {
@@ -44,6 +45,8 @@ public class PostController {
 
 	@Autowired
 	private StorageService storageService;
+	
+//	postRepository
 
 	@PostMapping({ "/createPost" })
 	@PreAuthorize("hasRole('User')")
@@ -53,10 +56,31 @@ public class PostController {
 		return postService.createPost(post, multipartFile);
 	}
 
-	@GetMapping({ "/getAllPosts" }) // all posts show at home page
-	public List<Post> getAllPosts() {
-		System.out.println("----------------------reach here------------------------");
-		return postService.getAllPost();
+//	@GetMapping({ "/getAllPosts" }) // all posts show at home page
+//	public List<Post> getAllPosts() {
+//		System.out.println("----------------------reach here------------------------");
+//		return postService.getAllPost();
+//	}
+//	
+
+	@GetMapping("/getAllPosts")
+	public ResponseEntity<Map<String, Object>> getAllPosts(@RequestParam(required = false) String title,
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
+		try {
+			List<Post> posts = new ArrayList<>();
+			Pageable paging = PageRequest.of(page, size);
+
+			Page<Post> pagePosts = postService.findAll(paging);
+			posts = pagePosts.getContent();
+			Map<String, Object> response = new HashMap<>();
+			response.put("posts", posts);
+			response.put("currentPage", pagePosts.getNumber());
+			response.put("totalItems", pagePosts.getTotalElements());
+			response.put("totalPages", pagePosts.getTotalPages());
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@PostMapping({ "/getPostByUserName/{userName}" })

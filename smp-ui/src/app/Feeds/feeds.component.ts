@@ -11,6 +11,16 @@ import { UserService } from '../_services/user.service';
   styleUrls: ['./feeds.component.css'],
 })
 export class FeedsComponent implements OnInit {
+  currentPost: Post|undefined;
+  currentIndex = -1;
+  title = '';
+  page = 1;
+  count = 0;
+  pageSize = 3;
+  pageSizes = [3, 6, 9];
+
+
+
   constructor(
     private postService: PostService,
     private router: Router,
@@ -18,11 +28,12 @@ export class FeedsComponent implements OnInit {
     private userAuthService: UserAuthService
   ) {}
   public message: any;
-  posts: Post[] | undefined;
+  posts: Post[] = [];
   post: Post | undefined;
 
   ngOnInit(): void {
-    this.fetchPosts();
+    // this.fetchPosts();
+    this.retrievePosts();
   }
 
   fetchPosts() {
@@ -67,9 +78,54 @@ export class FeedsComponent implements OnInit {
   increaseView(postid: any) {
     console.log('increase view for post_' + postid);
     this.postService.increaseView(postid).subscribe(() => {
-      this.fetchPosts();
+      this.retrievePosts();
       this.post = undefined;
       console.log('post deleted');
     });
   }
+
+
+  getRequestParams(searchTitle: string, page: number, pageSize: number): any {
+    let params: any = {};
+    if (searchTitle) {
+      params[`title`] = searchTitle;
+    }
+    if (page) {
+      params[`page`] = page - 1;
+    }
+    if (pageSize) {
+      params[`size`] = pageSize;
+    }
+    return params;
+  }
+
+  retrievePosts(): void {
+    const params = this.getRequestParams(this.title, this.page, this.pageSize);
+    this.postService.getAll(params)
+    .subscribe(
+      response => {
+        const { posts, totalItems } = response;
+        this.posts = posts;
+        this.count = totalItems;
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+      });
+  }
+  handlePageChange(event: number): void {
+    this.page = event;
+    this.retrievePosts();
+  }
+  handlePageSizeChange(event: any): void {
+    this.pageSize = event.target.value;
+    this.page = 1;
+    this.retrievePosts();
+  }
+
+  setActiveTutorial(post: Post, index: number): void {
+    this.currentPost = post;
+    this.currentIndex = index;
+  }
+
 }

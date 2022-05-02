@@ -7,6 +7,8 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -104,6 +106,11 @@ public class PostService {
 		postRepository.save(post);
 		return newView;
 
+	}
+
+	public Page<Post> findAll(Pageable paging) {
+		// TODO Auto-generated method stub
+		return postRepository.findAll(paging);
 	}
 
 //	public Path uploadToLocal(MultipartFile file, Post post) {

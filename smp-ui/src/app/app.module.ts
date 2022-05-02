@@ -24,7 +24,7 @@ import { TextPostComponent } from './text-post/text-post.component';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { UpdatePostComponent } from './update-post/update-post.component';
 import { CreatePostComponent } from './create-post/create-post.component';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,6 +49,7 @@ import { CreatePostComponent } from './create-post/create-post.component';
     FormsModule, // used for login form
     HttpClientModule, // add for userService
     RouterModule, // used for user-auth service
+    NgxPaginationModule
   ],
   providers: [
     AuthGuard,

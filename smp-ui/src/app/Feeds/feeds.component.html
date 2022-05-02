@@ -3,6 +3,29 @@
     Create Post
   </button>
 </div>
+
+<div class="col-md-12">
+  <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+    (pageChange)="handlePageChange($event)"></pagination-controls>
+</div>
+<div class="col-md-6">
+  <h4>Tutorials List</h4>
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="
+        let post of posts | paginate : {
+                itemsPerPage: pageSize,
+                currentPage: page,
+                totalItems: count
+              };
+        let i = index
+      " [class.active]="i == currentIndex" >
+      {{ post.caption }}
+    </li>
+  </ul>
+</div>
+
+
+
 <div class="container">
   <div class="card text-center">
     <!-- <h1>You are Admin</h1> -->
@@ -35,24 +58,24 @@
           </tr> -->
           <tr *ngFor="let post of posts; index as i">
             <div class="card text-center post mb-2" (click)='increaseView(post.id)'>
-            <ul class="post-ul">
-              <!-- <li>{{i + 1}}</li> -->
-              <li class="post-caption">{{post.caption}}</li>
-              <!-- <li>{{post.type}}</li> -->
-              <li><img src="http://localhost:8081/files/{{post.link}}" width="200" height="200"></li>
-              <li>Views: {{post.views}}</li>
-              <li>By: {{post.user?.userName}}</li>
-              <li>
-                <button (click)="updatePost(post.id)" class="btn btn-info" style="margin-right: 5px;"
-                  *ngIf="matchRole(['Admin']) || (getUserName()===post.user?.userName)">
-                  Update Post
-                </button>
-                <button (click)="deletePost(post.id)" class="btn btn-info" *ngIf="matchRole(['Admin'])">
-                  Delete
-                </button>
-              </li>
-            </ul>
-          </div>
+              <ul class="post-ul">
+                <!-- <li>{{i + 1}}</li> -->
+                <li class="post-caption">{{post.caption}}</li>
+                <!-- <li>{{post.type}}</li> -->
+                <li><img src="http://localhost:8081/files/{{post.link}}" width="200" height="200"></li>
+                <li>Views: {{post.views}}</li>
+                <li>By: {{post.user?.userName}}</li>
+                <li>
+                  <button (click)="updatePost(post.id)" class="btn btn-info" style="margin-right: 5px;"
+                    *ngIf="matchRole(['Admin']) || (getUserName()===post.user?.userName)">
+                    Update Post
+                  </button>
+                  <button (click)="deletePost(post.id)" class="btn btn-info" *ngIf="matchRole(['Admin'])">
+                    Delete
+                  </button>
+                </li>
+              </ul>
+            </div>
           </tr>
         </tbody>
       </table>
