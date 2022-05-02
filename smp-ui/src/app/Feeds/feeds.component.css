@@ -19,3 +19,8 @@ div.post{
   size: 50%;
   background-color:aliceblue;
 }
+
+
+.card{
+  border: none;
+}

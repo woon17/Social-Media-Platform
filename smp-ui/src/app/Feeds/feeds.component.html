@@ -4,11 +4,11 @@
   </button>
 </div>
 <div class="container">
-  <div class="card text-center" style="color: green; padding:20px">
+  <div class="card text-center">
     <!-- <h1>You are Admin</h1> -->
     <!-- <img src="http://localhost:8081/files/shufa3/53/github.png" alt="test picture" width="500" height="600"> -->
     <div class="card-body">
-      <table border="1px" class="table">
+      <table class="table">
         <!-- <thead>
           <th>No.</th>
           <th>caption</th>
@@ -34,7 +34,7 @@
             </td>
           </tr> -->
           <tr *ngFor="let post of posts; index as i">
-            <div class="card text-center post" (click)='increaseView(post.id)'>
+            <div class="card text-center post mb-2" (click)='increaseView(post.id)'>
             <ul class="post-ul">
               <!-- <li>{{i + 1}}</li> -->
               <li class="post-caption">{{post.caption}}</li>
