@@ -1,33 +1,30 @@
-<div>
-  <button (click)="createPost()" class="btn btn-info mb-2">
-    Create Post
-  </button>
-</div>
-
-<div class="col-md-12">
-  <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
-    (pageChange)="handlePageChange($event)"></pagination-controls>
-</div>
-<div class="col-md-6">
-  <h4>Tutorials List</h4>
-  <ul class="list-group">
-    <li class="list-group-item" *ngFor="
-        let post of posts | paginate : {
-                itemsPerPage: pageSize,
-                currentPage: page,
-                totalItems: count
-              };
-        let i = index
-      " [class.active]="i == currentIndex" >
-      {{ post.caption }}
-    </li>
-  </ul>
-</div>
-
-
-
 <div class="container">
+
+
   <div class="card text-center">
+    <div id="create-post">
+      <button (click)="createPost()" class="btn btn-info mb-2">
+        Create Post
+      </button>
+    </div>
+    <div class="col-md-12">
+      <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+        (pageChange)="handlePageChange($event)"></pagination-controls>
+    </div>
+
+    <div class="col-md-6">
+      <div class="list-group">
+        <div *ngFor="
+            let post of posts | paginate : {
+                    itemsPerPage: pageSize,
+                    currentPage: page,
+                    totalItems: count
+                  };
+            let i = index
+          " [class.active]="i == currentIndex">
+        </div>
+      </div>
+    </div>
     <!-- <h1>You are Admin</h1> -->
     <!-- <img src="http://localhost:8081/files/shufa3/53/github.png" alt="test picture" width="500" height="600"> -->
     <div class="card-body">
@@ -79,6 +76,23 @@
           </tr>
         </tbody>
       </table>
+    </div>
+    <div class="col-md-12">
+      <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+        (pageChange)="handlePageChange($event)"></pagination-controls>
+    </div>
+    <div class="col-md-6">
+      <div class="list-group">
+        <div *ngFor="
+            let post of posts | paginate : {
+                    itemsPerPage: pageSize,
+                    currentPage: page,
+                    totalItems: count
+                  };
+            let i = index
+          " [class.active]="i == currentIndex">
+        </div>
+      </div>
     </div>
   </div>
 </div>

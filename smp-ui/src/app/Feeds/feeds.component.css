@@ -24,3 +24,11 @@ div.post{
 .card{
   border: none;
 }
+
+div>div#create-post button{
+  float: right;
+}
+
+.col-md-12{
+  margin-top: 20px;
+}

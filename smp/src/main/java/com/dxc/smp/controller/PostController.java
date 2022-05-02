@@ -67,6 +67,7 @@ public class PostController {
 	public ResponseEntity<Map<String, Object>> getAllPosts(@RequestParam(required = false) String title,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
 		try {
+			System.out.println("/getAllPosts");
 			List<Post> posts = new ArrayList<>();
 			Pageable paging = PageRequest.of(page, size);
 

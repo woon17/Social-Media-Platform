@@ -76,6 +76,17 @@ export class PostService {
     );
   }
   getAll(params: any): Observable<any> {
+
     return this.httpclient.get<any>(`${AppSettings.API_ENDPOINT}/getAllPosts`, { params });
+    // const req = new HttpRequest(
+    //   'get',
+    //   `${AppSettings.API_ENDPOINT}/getAllPosts`,
+    //   { params },
+    //   {
+    //     headers: AppSettings.NO_AUTH_HEADER,
+    //   }
+    // );
+
+    // return this.httpclient.request(req);
   }
 }
