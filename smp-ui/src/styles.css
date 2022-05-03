@@ -1,1 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+.post-ul{
+  display: block;
+  list-style-type: disc;
+  margin-top: 1em;
+  margin-bottom: 1 em;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 40px;
+  text-decoration: dotted;
+  list-style-type: none;
+}
+
+.post-caption{
+  font-weight: bold;
+}
+
+div.post{
+  border-radius: 8px;
+  size: 50%;
+  background-color:aliceblue;
+}
+
+
+.card{
+  border: none;
+}
+
+div>div#create-post button{
+  float: right;
+}
+
+.col-md-12{
+  margin-top: 20px;
+}

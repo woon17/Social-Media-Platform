@@ -37,7 +37,7 @@ public class PostService {
 	// create a new post
 	public Post createPost(Post post, MultipartFile multipartFile) {
 //		filesStorageService.init();
-		System.out.println("create post... for: " + post.getId());
+		System.out.println("create post... for: " + post);
 		User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
 		post.setUser(user);
 		postRepository.save(post); // save to get the correct new post id to create storage folder

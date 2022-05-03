@@ -1,5 +1,4 @@
-<p>video-post works!</p>
-
+<p>hyperlink-post works!</p>
 <!-- <vg-player>
   <video #media [vgMedia]="media" id="singleVideo" preload="auto" controls>
     <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
@@ -14,7 +13,7 @@
     <li class="post-caption">{{post.caption}}</li>
     <li class="post-caption">{{post.createdDate}}</li>
     <!-- <li>{{post.type}}</li> -->
-    <li><video src="http://localhost:8081/files/{{post.link}}" width="200" height="200" type="video/mp4" ></video></li>
+    <li><iframe width="560" height="315" src="https://www.youtube.com/embed/8uIe0qY9qG8" frameborder="0" allowfullscreen ng-show="showvideo"></iframe></li>
     <li></li>
     <li>Views: {{post.views}}</li>
     <li>By: {{post.user?.userName}}</li>

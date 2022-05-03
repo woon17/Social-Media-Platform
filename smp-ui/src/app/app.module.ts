@@ -25,6 +25,10 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { UpdatePostComponent } from './update-post/update-post.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+
+import { VgCoreModule } from '@videogular/ngx-videogular/core';
+import { HyperlinkPostComponent } from './hyperlink-post/hyperlink-post.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +46,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     TextPostComponent,
     UpdatePostComponent,
     CreatePostComponent,
+    HyperlinkPostComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +54,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FormsModule, // used for login form
     HttpClientModule, // add for userService
     RouterModule, // used for user-auth service
-    NgxPaginationModule
+    NgxPaginationModule,
+    BrowserModule,
+    VgCoreModule,
   ],
   providers: [
     AuthGuard,

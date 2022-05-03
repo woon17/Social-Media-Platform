@@ -5,12 +5,11 @@ import { PostService } from '../_services/post.service';
 import { UserAuthService } from '../_services/user-auth.service';
 import { UserService } from '../_services/user.service';
 @Component({
-  selector: 'app-video-post',
-  templateUrl: './video-post.component.html',
-  styleUrls: ['./video-post.component.css']
+  selector: 'app-hyperlink-post',
+  templateUrl: './hyperlink-post.component.html',
+  styleUrls: ['./hyperlink-post.component.css'],
 })
-export class VideoPostComponent implements OnInit {
-
+export class HyperlinkPostComponent implements OnInit {
   @Input() post!: Post;
   constructor(
     private postService: PostService,
@@ -19,8 +18,7 @@ export class VideoPostComponent implements OnInit {
     private userAuthService: UserAuthService
   ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   refreshPost() {
     this.postService.getPostById(this.post.id).subscribe((data) => {
       this.post = data;
@@ -36,7 +34,6 @@ export class VideoPostComponent implements OnInit {
       // this.post = undefined;
       console.log('post deleted');
       this.router.navigate(['/feeds']);
-
     });
   }
   public matchRole(role: any) {

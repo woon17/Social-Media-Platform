@@ -72,7 +72,10 @@
                 </li>
               </ul>
             </div> -->
-            <app-picture-post [post]="posts[i]"></app-picture-post>
+            <!-- <app-picture-post [post]="posts[i]"></app-picture-post> -->
+            <app-picture-post [post]="posts[i]" *ngIf="posts[i].type==='Image'"></app-picture-post>
+            <app-hyperlink-post [post]="posts[i]" *ngIf="posts[i].type==='Hyperlink'"></app-hyperlink-post>
+            <app-video-post [post]="posts[i]" *ngIf="posts[i].type==='Video'"></app-video-post>
           </tr>
         </tbody>
       </table>

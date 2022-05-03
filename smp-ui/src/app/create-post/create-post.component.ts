@@ -12,6 +12,7 @@ import { UserService } from '../_services/user.service';
 export class CreatePostComponent implements OnInit {
   form: any = {};
   media?: File;
+  type: string = 'video';
   constructor(private postService: PostService, private router: Router) {}
 
   ngOnInit(): void {}
@@ -23,9 +24,11 @@ export class CreatePostComponent implements OnInit {
       if (file.type == 'image/jpeg' || file.type == 'image/png') {
         this.media = file;
         // this.hasMedia = true;
-        console.log('correct');
+        console.log('imge media');
       } else {
-        console.log('wrong');
+        this.media = file;
+
+        console.log('video media');
         // //call validation
         // this.registerForm.reset();
         // this.registerForm.controls["imageInput"].setValidators([Validators.required]);
