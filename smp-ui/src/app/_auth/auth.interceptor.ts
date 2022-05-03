@@ -21,15 +21,15 @@ export class AuthInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    console.log("req:: "+JSON.stringify(req));
-    console.log(req.headers.get('No-Auth'));
-    console.log(req.headers.get('No-Auth') === 'True');
+    // console.log("req:: "+JSON.stringify(req));
+    // console.log(req.headers.get('No-Auth'));
+    // console.log(req.headers.get('No-Auth') === 'True');
     if (req.headers.get('No-Auth') === 'True') {
       return next.handle(req.clone());
     }
     const token = this.userAuthService.getToken();
     req = this.addToken(req, token);
-    console.log("req addToken:: "+JSON.stringify(req));
+    // console.log("req addToken:: "+JSON.stringify(req));
 
     return next.handle(req).pipe(
       catchError((err: HttpErrorResponse) => {

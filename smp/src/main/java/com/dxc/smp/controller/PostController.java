@@ -103,7 +103,7 @@ public class PostController {
 	}
 
 	@DeleteMapping({ "/deletePost/{id}" })
-	@PreAuthorize("hasRole('Admin')")
+	@PreAuthorize("hasAnyRole('Admin', 'User')")
 	public void deletePostById(@PathVariable("id") int id) {
 		postService.deletePost(id);
 	}

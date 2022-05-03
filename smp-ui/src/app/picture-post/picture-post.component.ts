@@ -22,7 +22,6 @@ export class PicturePostComponent implements OnInit {
   ngOnInit(): void {
   }
   refreshPost() {
-    console.log('refreshPost called----');
     this.postService.getPostById(this.post.id).subscribe((data) => {
       this.post = data;
     });
@@ -36,6 +35,8 @@ export class PicturePostComponent implements OnInit {
     this.postService.deletePostById(id).subscribe(() => {
       // this.post = undefined;
       console.log('post deleted');
+      this.router.navigate(['/feeds']);
+
     });
   }
   public matchRole(role: any) {
