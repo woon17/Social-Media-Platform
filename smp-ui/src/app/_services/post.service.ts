@@ -26,7 +26,7 @@ export class PostService {
     );
   }
 
-  getPostById(id: number): Observable<Post> {
+  getPostById(id: any): Observable<Post> {
     console.log(`${AppSettings.API_ENDPOINT}/getPostById/${id}`);
     return this.httpclient.get<Post>(
       `${AppSettings.API_ENDPOINT}/getPostById/${id}`

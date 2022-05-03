@@ -34,7 +34,10 @@ export class FeedsComponent implements OnInit {
   ngOnInit(): void {
     // this.fetchPosts();
     this.retrievePosts();
+    // this.posts.push(this.posts[0]);
   }
+
+
 
   fetchPosts() {
     this.postService.getAllPosts().subscribe((data: Post[]) => {

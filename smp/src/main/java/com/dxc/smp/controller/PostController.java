@@ -74,7 +74,7 @@ public class PostController {
 			List<Post> posts = new ArrayList<>();
 			Order order1 = new Order(Sort.Direction.DESC, "id");
 			System.out.println("enter sorting post api");
-			Pageable paging = PageRequest.of(page, size, Sort.by("modifiedDate").descending());
+			Pageable paging = PageRequest.of(page, size, Sort.by("createdDate").descending());
 
 			Page<Post> pagePosts = postService.findAll(paging);
 			posts = pagePosts.getContent();

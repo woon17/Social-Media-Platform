@@ -54,12 +54,10 @@
             </td>
           </tr> -->
           <tr *ngFor="let post of posts; index as i">
-            <div class="card text-center post mb-2" (click)='increaseView(post.id)'>
+            <!-- <div class="card text-center post mb-2" (click)='increaseView(post.id)'>
               <ul class="post-ul">
-                <!-- <li>{{i + 1}}</li> -->
                 <li class="post-caption">{{post.caption}}</li>
-                <li class="post-caption">{{post.modifiedDate}}</li>
-                <!-- <li>{{post.type}}</li> -->
+                <li class="post-caption">{{post.createdDate}}</li>
                 <li><img src="http://localhost:8081/files/{{post.link}}" width="200" height="200"></li>
                 <li>Views: {{post.views}}</li>
                 <li>By: {{post.user?.userName}}</li>
@@ -73,7 +71,8 @@
                   </button>
                 </li>
               </ul>
-            </div>
+            </div> -->
+            <app-picture-post [post]="posts[i]"></app-picture-post>
           </tr>
         </tbody>
       </table>
