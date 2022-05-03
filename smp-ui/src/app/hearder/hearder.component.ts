@@ -23,7 +23,7 @@ export class HearderComponent implements OnInit {
   public logout() {
     console.log('call logout()');
     this.userAuthService.clear();
-    this.router.navigate(['/feeds']);
+    this.router.navigate(['/login']);
   }
 
   getUserName() {

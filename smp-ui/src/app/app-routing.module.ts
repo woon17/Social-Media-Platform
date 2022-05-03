@@ -16,8 +16,18 @@ import { MatchPostUserOrRoleGuard } from './_auth/match-post-user-or-role.guard'
 import { IsNotSignInGuard } from './_auth/is-not-sign-in.guard';
 
 const routes: Routes = [
-  { path: 'feeds', component: FeedsComponent },
-  { path: '', component: FeedsComponent },
+  {
+    path: 'feeds',
+    component: FeedsComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['Admin', 'User'] },
+  },
+  {
+    path: '',
+    component: FeedsComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['Admin', 'User'] },
+  },
   {
     path: 'admin',
     component: AdminComponent,
@@ -29,7 +39,7 @@ const routes: Routes = [
     path: 'update-post/:id',
     component: UpdatePostComponent,
     canActivate: [MatchPostUserOrRoleGuard, ExistingPostGuard],
-    data: { roles: ['Admin']},
+    data: { roles: ['Admin'] },
   }, // add update a post
   {
     path: 'create-post',
@@ -49,7 +59,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: ['User'] },
   },
-  { path: 'login', component: LoginComponent, canActivate: [IsNotSignInGuard] }, // no need to use auth guard
+  { path: 'login', component: LoginComponent, canActivate: [IsNotSignInGuard] },
   {
     path: 'registration',
     component: RegistrationComponent,
