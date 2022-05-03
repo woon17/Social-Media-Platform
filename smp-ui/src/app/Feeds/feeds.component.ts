@@ -33,8 +33,8 @@ export class FeedsComponent implements OnInit {
 
   ngOnInit(): void {
     // this.fetchPosts();
+    console.log("---------feeds component call ngOnInit");
     this.retrievePosts();
-    // this.posts.push(this.posts[0]);
   }
 
 
@@ -111,9 +111,6 @@ export class FeedsComponent implements OnInit {
         this.posts = posts;
         this.count = totalItems;
         console.log(response);
-      },
-      error => {
-        console.log(error);
       });
   }
   handlePageChange(event: number): void {

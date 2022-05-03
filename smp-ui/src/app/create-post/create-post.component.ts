@@ -20,12 +20,12 @@ export class CreatePostComponent implements OnInit {
     if ($event.target.files && $event.target.files[0]) {
       let file = $event.target.files[0];
       console.log(file);
-      if (file.type == "image/jpeg" || file.type == "image/png") {
+      if (file.type == 'image/jpeg' || file.type == 'image/png') {
         this.media = file;
         // this.hasMedia = true;
-        console.log("correct");
+        console.log('correct');
       } else {
-        console.log("wrong");
+        console.log('wrong');
         // //call validation
         // this.registerForm.reset();
         // this.registerForm.controls["imageInput"].setValidators([Validators.required]);
@@ -34,19 +34,19 @@ export class CreatePostComponent implements OnInit {
     }
   }
 
-
+  sleep(ms:any) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  }
 
   create(registerForm: NgForm) {
     console.log('form is submitted');
     console.log(registerForm);
 
-    this.postService.createPost(this.form, this.media).subscribe(
-      (response: any) => {
-        this.router.navigate(['/user']);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.postService.createPost(this.form, this.media).subscribe(async () => {
+      await this.sleep(500);
+      this.router.navigate(['/feeds']);
+    });
   }
 }
