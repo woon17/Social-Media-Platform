@@ -44,6 +44,7 @@ public class FilesController {
 	// }
 
 	@GetMapping("/files")
+	@PreAuthorize("hasAnyRole('Admin','User')")
 	public ResponseEntity<List<FileInfo>> getListFiles() {
 		List<FileInfo> fileInfos = storageService.loadAll().map(path -> {
 			String filename = path.getFileName().toString();

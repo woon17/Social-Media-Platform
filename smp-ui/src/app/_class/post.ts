@@ -7,4 +7,5 @@ export class Post {
   link: string | undefined;
   views: number | undefined;
   user?: User
+  modifiedDate?: string
 }

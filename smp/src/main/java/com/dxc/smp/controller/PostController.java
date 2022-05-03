@@ -1,6 +1,7 @@
 package com.dxc.smp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,8 @@ import com.dxc.smp.service.StorageService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-
+import org.springframework.data.domain.Sort.Order;
+import org.springframework.data.domain.Sort;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,7 +47,7 @@ public class PostController {
 
 	@Autowired
 	private StorageService storageService;
-	
+
 //	postRepository
 
 	@PostMapping({ "/createPost" })
@@ -64,12 +66,15 @@ public class PostController {
 //	
 
 	@GetMapping("/getAllPosts")
+	@PreAuthorize("hasAnyRole('Admin','User')")
 	public ResponseEntity<Map<String, Object>> getAllPosts(@RequestParam(required = false) String title,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
 		try {
 			System.out.println("/getAllPosts");
 			List<Post> posts = new ArrayList<>();
-			Pageable paging = PageRequest.of(page, size);
+			Order order1 = new Order(Sort.Direction.DESC, "id");
+			System.out.println("enter sorting post api");
+			Pageable paging = PageRequest.of(page, size, Sort.by("modifiedDate").descending());
 
 			Page<Post> pagePosts = postService.findAll(paging);
 			posts = pagePosts.getContent();
