@@ -51,6 +51,11 @@ public class FilesStorageServiceImpl implements FilesStorageService  {
 		return postFolder;
 	}
   
+//  public Path getPostStorageVideo(String videoPathStr) {
+//		
+//		return root.resolve((videoPathStr));
+//	}
+  
   @Override
   public Resource load(String filename) {
     try {

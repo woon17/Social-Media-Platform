@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Post } from '../_class/post';
 import { PostService } from '../_services/post.service';
@@ -18,7 +18,11 @@ export class VideoPostComponent implements OnInit {
     private userService: UserService,
     private userAuthService: UserAuthService
   ) {}
-
+  @ViewChild("videoPlayer", { static: false }) videoplayer!: ElementRef;
+  isPlay: boolean = false;
+  toggleVideo() {
+    this.videoplayer.nativeElement.play();
+  }
   ngOnInit(): void {
   }
   refreshPost() {

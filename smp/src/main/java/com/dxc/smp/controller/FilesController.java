@@ -21,7 +21,10 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import com.dxc.smp.entity.FileInfo;
 import com.dxc.smp.payload.response.MessageResponse;
 import com.dxc.smp.service.FilesStorageService;
+import org.springframework.core.io.ByteArrayResource;
 
+import java.io.IOException;
+import java.nio.file.Files;
 @Controller
 @CrossOrigin(origins="http://localhost:4200")
 public class FilesController {
@@ -43,17 +46,17 @@ public class FilesController {
 	// 	}
 	// }
 
-	@GetMapping("/files")
-	@PreAuthorize("hasAnyRole('Admin','User')")
-	public ResponseEntity<List<FileInfo>> getListFiles() {
-		List<FileInfo> fileInfos = storageService.loadAll().map(path -> {
-			String filename = path.getFileName().toString();
-			String url = MvcUriComponentsBuilder
-					.fromMethodName(FilesController.class, "getFile", path.getFileName().toString()).build().toString();
-			return new FileInfo(filename, url);
-		}).collect(Collectors.toList());
-		return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
-	}
+//	@GetMapping("/files")
+//	@PreAuthorize("hasAnyRole('Admin','User')")
+//	public ResponseEntity<List<FileInfo>> getListFiles() {
+//		List<FileInfo> fileInfos = storageService.loadAll().map(path -> {
+//			String filename = path.getFileName().toString();
+//			String url = MvcUriComponentsBuilder
+//					.fromMethodName(FilesController.class, "getFile", path.getFileName().toString()).build().toString();
+//			return new FileInfo(filename, url);
+//		}).collect(Collectors.toList());
+//		return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
+//	}
 
 	// @GetMapping("/files/{filename:.+}")
 	// @ResponseBody
@@ -77,6 +80,23 @@ public class FilesController {
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
 				.body(file);
 	}
+	
+//	@GetMapping("/files/{user}/{postid}/{filename}")
+//	@ResponseBody
+//	public ResponseEntity<Resource> getVideo(@PathVariable String user, @PathVariable String postid, @PathVariable String filename) {
+//		System.out.println("enter getFile in controller");
+//		// storageService.init();
+//		
+////		Resource file = storageService.load(user+"//"+postid+"//"+filename);
+//		byte[] bytes = null;
+//		try {
+//			bytes = Files .readAllBytes(storageService.getPostStorageVideo(user+"//"+postid+"//"+filename));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return ResponseEntity.ok(new ByteArrayResource(bytes));
+//	}
 
 //	@GetMapping("/files/{id}")
 //	@ResponseBody
