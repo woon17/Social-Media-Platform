@@ -25,7 +25,7 @@ public class PostService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	// @Autowired
 	// private StorageService storageService;
 
@@ -47,7 +47,7 @@ public class PostService {
 		System.out.println("create post successfully");
 		return post;
 	}
-	
+
 	public Post createPostWithHyperlink(Post post) {
 		System.out.println("create hyperlink post... for: " + post);
 		User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -75,7 +75,7 @@ public class PostService {
 		String loginUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userRepository.findByUserName(loginUserName);
 		List<Post> posts = (List<Post>) postRepository.findByUser(user);
-		
+
 //		File file = new File("src/test/resources/input.txt");
 //		FileInputStream input = new FileInputStream(file);
 //		MultipartFile multipartFile = new MockMultipartFile("file",
@@ -104,8 +104,11 @@ public class PostService {
 
 	// delete by Id
 	public void deletePost(int id) {
-		
-		filesStorageService.deletePost(postRepository.findById(id));
+		Post post = postRepository.findById(id);
+		System.out.println("---------"+post);
+		if (!post.getType().equals("hyperlink")) {
+			filesStorageService.deletePost(post);
+		}
 		postRepository.deleteById(id);
 	}
 

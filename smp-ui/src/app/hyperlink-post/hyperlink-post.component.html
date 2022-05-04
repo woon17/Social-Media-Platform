@@ -7,7 +7,7 @@
   </video>
 </vg-player> -->
 
-<div class="card text-center post" *ngIf="post !==null" >
+<div class="card text-center post" *ngIf="post !==null" (click)="toggleMediaView()">
   <ul class="post-ul">
     <!-- <li>{{i + 1}}</li> -->
     <li class="post-caption">{{post.caption}}</li>
@@ -17,8 +17,7 @@
         ng-show="showvideo"></iframe>
     </li>
     <li>
-      <button id="view-media" type="button" class="btn btn-primary btn-lg" (click)="toggleViewButton()">
-      View Media</button>
+      <!-- <button id="view-media" type="button" class="btn btn-primary btn-lg" (click)="toggleViewButton()">View Media</button> -->
     </li>
     <li>Views: {{post.views}}</li>
     <li>By: {{post.user?.userName}}</li>

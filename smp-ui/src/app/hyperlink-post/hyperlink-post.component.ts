@@ -49,6 +49,7 @@ export class HyperlinkPostComponent implements OnInit {
       console.log('post deleted');
       this.router.navigate(['/feeds']);
     });
+    this.refreshPost();
   }
   public matchRole(role: any) {
     return this.userService.roleMatch(role);
@@ -84,7 +85,7 @@ export class HyperlinkPostComponent implements OnInit {
   //   console.log('increase view for post_' + this.post.id);
   // }
 
-  toggleViewButton(){
+  toggleMediaView(){
     this.showMedia=!this.showMedia;
     if(this.showMedia === true){
       this.increaseView(this.post.id);
