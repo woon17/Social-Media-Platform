@@ -1,4 +1,4 @@
-<p>create-form.works!</p>
+<p>create-form works!</p>
 <div class="col-md-6 offset-md-3">
   <h3>Creat a new Post</h3>
   <form (ngSubmit)="create(registerForm)" name="form" #registerForm="ngForm">
@@ -16,12 +16,12 @@
         <option value="hyperlink">Hyperlink</option>
       </select>
     </div>
-    <div class="form-group" *ngIf=" type === 'hyperlink'">
+    <div class="form-group" *ngIf=" form.type === 'hyperlink'">
       <label>Post link:</label>
       <input type="text" id="link" class="form-control" [(ngModel)]="form.link" name="link">
     </div>
-    <div class="form-group" *ngIf=" type !== 'hyperlink'">
-      <label>Choose media: {{type}}</label>
+    <div class="form-group" *ngIf=" form.type !== 'hyperlink'">
+      <label>Choose media: {{form.type}}</label>
       <input type="file" id="media" class="form-control" (change)="onImageSelected($event)" name="media">
     </div>
     <div class="form-group">
