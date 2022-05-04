@@ -28,6 +28,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 import { VgCoreModule } from '@videogular/ngx-videogular/core';
 import { HyperlinkPostComponent } from './hyperlink-post/hyperlink-post.component';
+import { DateAsAgoPipe } from './shared/date-as-ago.pipe';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { HyperlinkPostComponent } from './hyperlink-post/hyperlink-post.componen
     UpdatePostComponent,
     CreatePostComponent,
     HyperlinkPostComponent,
+    DateAsAgoPipe,
   ],
   imports: [
     BrowserModule,
@@ -70,5 +72,8 @@ import { HyperlinkPostComponent } from './hyperlink-post/hyperlink-post.componen
     JwtHelperService,
   ],
   bootstrap: [AppComponent],
+  exports: [
+    DateAsAgoPipe
+  ],
 })
 export class AppModule {}

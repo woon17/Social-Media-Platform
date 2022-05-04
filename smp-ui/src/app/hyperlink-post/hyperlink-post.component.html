@@ -11,7 +11,7 @@
   <ul class="post-ul">
     <!-- <li>{{i + 1}}</li> -->
     <li class="post-caption">{{post.caption}}</li>
-    <li class="post-caption">{{post.createdDate}}</li>
+    <li class="post-caption">{{post.createdDate| dateAsAgo}}</li>
     <!-- <li>{{post.type}}</li> -->
     <li *ngIf="showMedia"><iframe width="560" height="315" [src]='link' frameborder="0" allowfullscreen
         ng-show="showvideo"></iframe>
