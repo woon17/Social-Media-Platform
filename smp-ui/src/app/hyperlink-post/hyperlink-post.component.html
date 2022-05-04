@@ -7,15 +7,19 @@
   </video>
 </vg-player> -->
 
-<div class="card text-center post" (click)='increaseView(post.id)' *ngIf="post !==null">
+<div class="card text-center post" *ngIf="post !==null" >
   <ul class="post-ul">
     <!-- <li>{{i + 1}}</li> -->
     <li class="post-caption">{{post.caption}}</li>
     <li class="post-caption">{{post.createdDate}}</li>
     <!-- <li>{{post.type}}</li> -->
-    <li><iframe width="560" height="315" [src]='link' frameborder="0" allowfullscreen
-        ng-show="showvideo"></iframe></li>
-    <li></li>
+    <li *ngIf="showMedia"><iframe width="560" height="315" [src]='link' frameborder="0" allowfullscreen
+        ng-show="showvideo"></iframe>
+    </li>
+    <li>
+      <button id="view-media" type="button" class="btn btn-primary btn-lg" (click)="toggleViewButton()">
+      View Media</button>
+    </li>
     <li>Views: {{post.views}}</li>
     <li>By: {{post.user?.userName}}</li>
     <li>

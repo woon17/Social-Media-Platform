@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Post } from '../_class/post';
@@ -12,7 +12,8 @@ import { UserService } from '../_services/user.service';
 })
 export class HyperlinkPostComponent implements OnInit {
   @Input() post!: Post;
-
+  displayFrame = false;
+  showMedia=false;
   link!: SafeResourceUrl;
   constructor(
     private postService: PostService,
@@ -21,7 +22,9 @@ export class HyperlinkPostComponent implements OnInit {
     private userAuthService: UserAuthService,
     private hostElement: ElementRef,
     private sanitizer: DomSanitizer
-  ) {}
+  ) {
+
+  }
 
   ngOnInit(): void {
     // this.refreshPost();
@@ -74,5 +77,17 @@ export class HyperlinkPostComponent implements OnInit {
       console.log('view +1');
       this.refreshPost();
     });
+  }
+
+  // @HostListener('window:blur', ['$event'])
+  // addView(){
+  //   console.log('increase view for post_' + this.post.id);
+  // }
+
+  toggleViewButton(){
+    this.showMedia=!this.showMedia;
+    if(this.showMedia === true){
+      this.increaseView(this.post.id);
+    }
   }
 }

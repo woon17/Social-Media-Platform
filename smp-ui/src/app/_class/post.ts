@@ -1,7 +1,7 @@
 import { User } from "./user";
 
 export class Post {
-  id: number | undefined;
+  id!: number;
   caption: string | undefined;
   type: string | undefined;
   link!: string;
