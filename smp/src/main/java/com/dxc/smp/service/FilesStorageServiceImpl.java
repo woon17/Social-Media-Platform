@@ -21,7 +21,7 @@ public class FilesStorageServiceImpl implements FilesStorageService  {
     try {
       Files.createDirectory(root);
     } catch (IOException e) {
-      throw new RuntimeException("Could not initialize folder for upload!");
+      System.out.println("root(Storage folder) is already existing");
     }
   }
   // @Override

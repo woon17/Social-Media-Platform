@@ -13,7 +13,8 @@
     <li class="post-caption">{{post.caption}}</li>
     <li class="post-caption">{{post.createdDate}}</li>
     <!-- <li>{{post.type}}</li> -->
-    <li><iframe width="560" height="315" src="https://www.youtube.com/embed/8uIe0qY9qG8" frameborder="0" allowfullscreen ng-show="showvideo"></iframe></li>
+    <li><iframe width="560" height="315" [src]='link' frameborder="0" allowfullscreen
+        ng-show="showvideo"></iframe></li>
     <li></li>
     <li>Views: {{post.views}}</li>
     <li>By: {{post.user?.userName}}</li>

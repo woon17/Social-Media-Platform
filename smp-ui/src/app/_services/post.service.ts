@@ -33,9 +33,9 @@ export class PostService {
     );
   }
 
-  public createPost(post: any, media: any): Observable<any> {
+  // with uploading a file (image or video)
+  public createPostWithFile(post: any, media: any): Observable<any> {
     const formData: FormData = new FormData();
-
     // formData.append('post',  JSON.stringify(postObj));
     formData.append('file', media);
     formData.append('type', post.type);
@@ -51,6 +51,15 @@ export class PostService {
     );
     return this.httpclient.request(req);
   }
+
+  public createPostWithHyperlink(post: any): Observable<any> {
+    console.log(`${AppSettings.API_ENDPOINT}/createPostWithHyperlink/${post}`);
+    return this.httpclient.post(
+      `${AppSettings.API_ENDPOINT}/createPostWithHyperlink`,
+      post
+    );
+  }
+
 
   updatePost(id: number, post: Post): Observable<Object> {
     console.log(`${AppSettings.API_ENDPOINT}/updatePost/${id}`);

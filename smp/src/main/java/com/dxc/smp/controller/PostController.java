@@ -50,12 +50,18 @@ public class PostController {
 
 //	postRepository
 
-	@PostMapping({ "/createPost" })
+	@PostMapping({ "/createPostWithFile" })
 	@PreAuthorize("hasRole('User')")
-	public Post createPost(@RequestParam("type") String type, @RequestParam("caption") String caption,
+	public Post createPostWithFile(@RequestParam("type") String type, @RequestParam("caption") String caption,
 			@RequestPart("file") MultipartFile multipartFile) {
 		Post post = new Post(type, caption, 0);
 		return postService.createPost(post, multipartFile);
+	}
+	
+	@PostMapping({ "/createPostWithHyperlink" })
+	@PreAuthorize("hasRole('User')")
+	public Post createPostWithHyperlink(@RequestBody Post post) {
+		return postService.createPostWithHyperlink(post);
 	}
 
 //	@GetMapping({ "/getAllPosts" }) // all posts show at home page

@@ -45,11 +45,19 @@ export class CreatePostComponent implements OnInit {
 
   create(registerForm: NgForm) {
     console.log('form is submitted');
-    console.log(registerForm);
+    console.log(this.form);
+    if(this.form.type === 'image' || this.form.type === 'video'){
+      this.postService.createPostWithFile(this.form, this.media).subscribe(async () => {
+        await this.sleep(500);
+        this.router.navigate(['/feeds']);
+      });
+    }else{// hyperlink type new pos
+      this.postService.createPostWithHyperlink(this.form).subscribe(async () => {
+        await this.sleep(500);
+        this.router.navigate(['/feeds']);
+      });
+    }
 
-    this.postService.createPost(this.form, this.media).subscribe(async () => {
-      await this.sleep(500);
-      this.router.navigate(['/feeds']);
-    });
+
   }
 }

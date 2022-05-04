@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Post } from '../_class/post';
 import { PostService } from '../_services/post.service';
@@ -11,14 +12,24 @@ import { UserService } from '../_services/user.service';
 })
 export class HyperlinkPostComponent implements OnInit {
   @Input() post!: Post;
+
+  link!: SafeResourceUrl;
   constructor(
     private postService: PostService,
     private router: Router,
     private userService: UserService,
-    private userAuthService: UserAuthService
+    private userAuthService: UserAuthService,
+    private hostElement: ElementRef,
+    private sanitizer: DomSanitizer
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // this.refreshPost();
+    // const iframe = this.hostElement.nativeElement.querySelector('iframe');
+    // iframe.src = this.post.link;
+    this.link =
+      this.sanitizer.bypassSecurityTrustResourceUrl(this.post.link);
+  }
   refreshPost() {
     this.postService.getPostById(this.post.id).subscribe((data) => {
       this.post = data;

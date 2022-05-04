@@ -4,9 +4,9 @@ export class Post {
   id: number | undefined;
   caption: string | undefined;
   type: string | undefined;
-  link: string | undefined;
+  link!: string;
   views: number | undefined;
-  user?: User
+  user?: User;
   createdDate?: string
 
 }

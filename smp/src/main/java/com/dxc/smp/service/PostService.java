@@ -36,8 +36,8 @@ public class PostService {
 
 	// create a new post
 	public Post createPost(Post post, MultipartFile multipartFile) {
-//		filesStorageService.init();
-		System.out.println("create post... for: " + post);
+		filesStorageService.init();
+		System.out.println("create media file post... for: " + post);
 		User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
 		post.setUser(user);
 		postRepository.save(post); // save to get the correct new post id to create storage folder
@@ -45,6 +45,16 @@ public class PostService {
 		post.setLink(linkPath.toString());
 		postRepository.save(post); // save correct link
 		System.out.println("create post successfully");
+		return post;
+	}
+	
+	public Post createPostWithHyperlink(Post post) {
+		System.out.println("create hyperlink post... for: " + post);
+		User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+		post.setUser(user);
+		post.setLink(post.getLink());
+		postRepository.save(post);
+		System.out.println("create hyperlink post successfully");
 		return post;
 	}
 
