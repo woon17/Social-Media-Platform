@@ -37,17 +37,22 @@ export class UpdatePostComponent implements OnInit {
       });
     }else{
       console.log("1");
-      this.postService.updatePostWithFile(this.id, this.post, this.media).subscribe((data) => {
+      this.postService.updatePostWithFile(this.id, this.post, this.media).subscribe(async () => {
+        await this.sleep(500);
         this.goToFeeds();
       });
     }
 
   }
-
+  sleep(ms:any) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+  }
   goToFeeds() {
     this.router.navigate(['/feeds']);
   }
-  onImageSelected($event: any) {
+  onFileSelected($event: any) {
     if ($event.target.files && $event.target.files[0]) {
       let file = $event.target.files[0];
       console.log(file);

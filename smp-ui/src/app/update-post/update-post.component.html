@@ -46,7 +46,7 @@
     </div>
     <div class="form-group" *ngIf=" post.type !== 'hyperlink'">
       <label>Choose media: {{post.type}}</label>
-      <input type="file" id="media" class="form-control" (change)="onImageSelected($event)" name="media">
+      <input type="file" id="media" class="form-control" (change)="onFileSelected($event)" name="media">
     </div>
     <div class="form-group">
       <label>Post caption:</label>
