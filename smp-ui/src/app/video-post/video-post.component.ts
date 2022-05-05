@@ -7,12 +7,11 @@ import { UserService } from '../_services/user.service';
 @Component({
   selector: 'app-video-post',
   templateUrl: './video-post.component.html',
-  styleUrls: ['./video-post.component.css']
+  styleUrls: ['./video-post.component.css'],
 })
 export class VideoPostComponent implements OnInit {
-
   @Input() post!: Post;
-  showMedia=false;
+  showMedia = false;
 
   constructor(
     private postService: PostService,
@@ -20,13 +19,12 @@ export class VideoPostComponent implements OnInit {
     private userService: UserService,
     private userAuthService: UserAuthService
   ) {}
-  @ViewChild("videoPlayer", { static: false }) videoplayer!: ElementRef;
+  @ViewChild('videoPlayer', { static: false }) videoplayer!: ElementRef;
   isPlay: boolean = false;
   toggleVideo() {
     this.videoplayer.nativeElement.play();
   }
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   refreshPost() {
     this.postService.getPostById(this.post.id).subscribe((data) => {
       this.post = data;
@@ -42,7 +40,6 @@ export class VideoPostComponent implements OnInit {
       // this.post = undefined;
       console.log('post deleted');
       this.router.navigate(['/feeds']);
-
     });
   }
   public matchRole(role: any) {
@@ -73,9 +70,10 @@ export class VideoPostComponent implements OnInit {
       this.refreshPost();
     });
   }
-  toggleMediaView(){
-    this.showMedia=!this.showMedia;
-    if(this.showMedia === true){
+
+  toggleMediaView() {
+    this.showMedia = !this.showMedia;
+    if (this.showMedia === true) {
       this.increaseView(this.post.id);
     }
   }
