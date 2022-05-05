@@ -4,7 +4,7 @@
     <h3>Update User Details</h3>
   </div>
 
-  <form (ngSubmit)="onSubmit()">
+  <form  #registerForm="ngForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label>User Name:</label>
       <input type="text" id="userName" class="form-control" [(ngModel)]="user.userName" name="userName" readonly>
@@ -45,10 +45,10 @@
     </div><br>
     <div class="form-group">
       <label>New Password: (Optional)</label>
-      <input type="text" id="userPassword" class="form-control" [(ngModel)]="form.userPassword" name="userPassword" placeholder="Enter new password">
+      <input type="text" id="userPassword" class="form-control" [(ngModel)]="form.userPassword" name="userPassword" placeholder="Enter new password" maxlength="8">
     </div>
     <div>
-      <button class="btn btn-success" type="submit">Update User
+      <button [disabled]="registerForm.form.invalid" class="btn btn-success" type="submit">Update User
       </button>
     </div>
   </form>
