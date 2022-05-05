@@ -71,7 +71,7 @@ public class FilesController {
 
 	@GetMapping("/files/{user}/{postid}/{filename}")
 	@ResponseBody
-//	@PreAuthorize("hasAnyRole('Admin','User')")
+	@PreAuthorize("hasAnyRole('Admin','User')")
 	public ResponseEntity<Resource> getFile(@PathVariable String user, @PathVariable String postid, @PathVariable String filename) {
 		System.out.println("enter getFile in controller");
 		// storageService.init();

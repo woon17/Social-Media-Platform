@@ -28,18 +28,18 @@ public class UserService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	private FilesStorageService filesStorageService;
 
 	// set two default admin with default password when running the application
-	public void initRoleAndUser() {
+	public void initAdmins() {
 
 		User admin1 = getUser("admin123");
 		if (admin1 == null) {
 			admin1 = new User();
-			admin1.setUserName("admin321");
-			admin1.setUserPassword(getEncodedPassword("admin321"));
+			admin1.setUserName("admin123");
+			admin1.setUserPassword(getEncodedPassword("admin123"));
 			admin1.setUserFirstName("admin");
 			admin1.setUserLastName("admin");
 			Set<Role> adminRoles = new HashSet<>();
@@ -53,16 +53,6 @@ public class UserService {
 			userRepository.save(admin1);
 		}
 
-//		Role adminRole = new Role();
-//		adminRole.setRoleName("Admin");
-//		adminRole.setRoleDescription("Admin role");
-//		roleRepository.save(adminRole);
-//
-//		Role userRole = new Role();
-//		userRole.setRoleName("User");
-//		userRole.setRoleDescription("Default role for newly created record");
-//		roleRepository.save(userRole);
-//
 		User admin2 = getUser("admin321");
 		if (admin2 == null) {
 			admin2 = new User();
@@ -80,27 +70,6 @@ public class UserService {
 			admin2.setUserPassword(getEncodedPassword("admin321"));
 			userRepository.save(admin2);
 		}
-
-//
-//		User user1 = new User();
-//		user1.setUserName("raj123");
-//		user1.setUserPassword("raj@123");
-//		user1.setUserFirstName("raj");
-//		user1.setUserLastName("sharma");
-//		Set<Role> userRoles = new HashSet<>();
-//		userRoles.add(userRole);
-//		user1.setRole(userRoles);
-//		userRepository.save(user1);
-//
-//		User user2 = new User();
-//		user2.setUserName("shufa");
-//		user2.setUserPassword("shufa@123");
-//		user2.setUserFirstName("shufa");
-//		user2.setUserLastName("wen");
-//		Set<Role> userRoles2 = new HashSet<>();
-//		userRoles2.add(userRole);
-//		user2.setRole(userRoles2);
-//		userRepository.save(user2);
 	}
 
 	public User registerNewUser(SignUpRequest signUpRequest) {
@@ -117,12 +86,23 @@ public class UserService {
 	}
 
 	public List<User> getAllUsers() {
+		Set<Role> adminRoles = new HashSet<>();
+		Role adminRole = new Role();
+		adminRole.setRoleName("Admin");
+		adminRoles.add(adminRole);
+//		List<User> users = (List<User>) userRepository.findByRoles(adminRoles);
 		List<User> users = (List<User>) userRepository.findAll();
 		return users;
 	}
 
 	public void deleteUser(String userName) {
 		System.out.println("userName: " + userName);
+		User user = getUser(userName);
+		for(Role r :user.getRole()) {
+			if(r.getRoleName().equals("Admin")) {
+				return;
+			}
+		}
 		filesStorageService.deleteUserByUserName(userName);
 		userRepository.deleteByUserName(userName);
 	}
@@ -136,11 +116,17 @@ public class UserService {
 	public void updateUser(String userName, User user) {
 //		user.setUserFirstName(user.getUserFirstName());
 //		user.setUserLastName(user.getUserLastName());
-		if (userName.equals(user.getUserName())) { // same userName
-//			Role role = roleRepository.findById("User").get();
-//			Set<Role> userRoles = new HashSet<>();
-//			userRoles.add(role);
-//			user.setRole(userRoles);
+		Role adminRole = new Role();
+		adminRole.setRoleName("Admin");
+		
+		for(Role r :user.getRole()) {
+			if(r.getRoleName().equals("Admin")) {
+				return;
+			}
+		}
+		
+		if(userName.equals(user.getUserName())) { // same userName
+			System.out.println("Updating a user...");
 			user.setUserPassword(getEncodedPassword(user.getUserPassword()));
 			userRepository.save(user);
 		}

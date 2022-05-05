@@ -10,12 +10,12 @@ import com.dxc.smp.service.RoleService;
 
 @RestController
 public class RoleController {
-
-    @Autowired
-    private RoleService roleService;
-
-    @PostMapping({"/createNewRole"})
-    public Role createNewRole(@RequestBody Role role) {
-        return roleService.createNewRole(role);
-    }
+//
+//    @Autowired
+//    private RoleService roleService;
+//
+//    @PostMapping({"/createNewRole"})
+//    public Role createNewRole(@RequestBody Role role) {
+//        return roleService.createNewRole(role);
+//    }
 }

@@ -43,7 +43,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         .xssProtection()
         .and()
         .contentSecurityPolicy("script-src 'self'");
-		httpSecurity.csrf().disable().authorizeRequests().antMatchers("/api/v0/signin", "/api/v0/signup", "/api/v0/getAllPosts", "/api/v0/files/**", "/api/v0/addViewsCount/**").permitAll()
+		httpSecurity.csrf().disable().authorizeRequests().antMatchers("/api/v0/signin", "/api/v0/signup", "/api/v0/files/**", "/api/v0/addViewsCount/**").permitAll()
 				.antMatchers(HttpHeaders.ALLOW).permitAll().anyRequest().authenticated().and().exceptionHandling()
 				.authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);

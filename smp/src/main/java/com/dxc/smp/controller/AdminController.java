@@ -2,10 +2,12 @@ package com.dxc.smp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,38 +19,40 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200/")
+@RequestMapping("/api/v0")
+@PreAuthorize("hasRole('Admin')")
 public class AdminController {
 
 	@Autowired
 	private UserService userService;
 
     @PostConstruct
-    public void initRoleAndUser() {
-        userService.initRoleAndUser();
+    public void initAdmins() {
+		System.out.println("running initAdmins");
+        userService.initAdmins();
     }
 
 	@GetMapping({ "/forAdmin" })
-	@PreAuthorize("hasRole('Admin')")
-	public List<User> forAdmin() {
+		public List<User> forAdmin() {
 		return userService.getAllUsers();
 	}
+	
+	@GetMapping({ "/getUser/{userName}" })
+	public User getUser(@PathVariable("userName") String userName) {
+		return userService.getUser(userName);
+	}
 
+	@PutMapping({ "/updateUser/{userName}" })
+	public void updateUser(@PathVariable("userName") String userName, @RequestBody User user) {
+		userService.updateUser(userName, user);
+	}
+	
 	@DeleteMapping({ "/deleteUser/{userName}" })
-	@PreAuthorize("hasRole('Admin')")
 	public void deleteUserByName(@PathVariable("userName") String userName) {
 		System.out.println("admin controller: " + userName);
 		userService.deleteUser(userName);
 	}
 
-	@PutMapping({ "/updateUser/{userName}" })
-	@PreAuthorize("hasRole('Admin')")
-	public void updateUser(@PathVariable("userName") String userName, @RequestBody User user) {
-		userService.updateUser(userName, user);
-	}
 
-	@GetMapping({ "/getUser/{userName}" })
-	@PreAuthorize("hasRole('Admin')")
-	public User getUser(@PathVariable("userName") String userName) {
-		return userService.getUser(userName);
-	}
 }
