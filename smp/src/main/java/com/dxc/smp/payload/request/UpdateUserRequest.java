@@ -23,11 +23,6 @@ public class UpdateUserRequest {
 	private String userLastName;
 
 	@Length(min = 0, max = 8, message = "min 0 and max 8")
-	// At least one digit
-	// At least one upper case ASCII letter
-	// At least one lower case ASCII letter
-	// 5-10 chars
-	// no white space
 	private String userPassword;
 
 

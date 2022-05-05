@@ -40,7 +40,7 @@ export class PostService {
 
     const req = new HttpRequest(
       'POST',
-      `${AppSettings.API_ENDPOINT}/createPost`,
+      `${AppSettings.API_ENDPOINT}/createPostWithFile`,
       formData,
       {
         responseType: 'json',

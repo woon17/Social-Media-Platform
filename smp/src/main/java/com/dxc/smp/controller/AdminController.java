@@ -41,10 +41,10 @@ public class AdminController {
 		return userService.getAllUsers();
 	}
 	
-//	@GetMapping({ "/getUser/{userName}" })
-//	public User getUser(@PathVariable("userName") String userName) {
-//		return userService.getUser(userName);
-//	}
+	@GetMapping({ "/getUser/{userName}" })
+	public User getUser(@PathVariable("userName") String userName) {
+		return userService.getUser(userName);
+	}
 
 	@PutMapping({ "/updateUser/{userName}" })
 	public void updateUser(@PathVariable("userName") String userName, @Valid @RequestBody UpdateUserRequest updateUserRequest) {
