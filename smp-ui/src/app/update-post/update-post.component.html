@@ -1,19 +1,12 @@
 <p>update-post works!</p>
 <div class="col-md-6 offset-md-3">
   <h3>Update Post Details</h3>
-  <form (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label>Post caption:</label>
-      <input type="text" id="caption" class="form-control" [(ngModel)]="post.caption" name="caption">
-    </div>
-    <div class="form-group">
+  <form (ngSubmit)="onSubmit()" name="form" #registerForm="ngForm">
+
+    <!-- <div class="form-group">
       <label>Post type:</label>
-      <input type="text" id="type" class="form-control" [(ngModel)]="post.type" name="type">
-    </div>
-    <div class="form-group">
-      <label>Post link:</label>
-      <input type="text" id="link" class="form-control" [(ngModel)]="post.link" name="link">
-    </div>
+      <input type="text" id="type" class="form-control" [(ngModel)]="form.type" name="type">
+    </div> -->
     <div class="form-group">
       <label>Post by:</label>
       <input type="text" id="user" class="form-control" value="{{post.user?.userName}}" name="user" disabled>
@@ -22,16 +15,6 @@
       <label>Post views:</label>
       <input type="text" id="userPassword" class="form-control" [(ngModel)]="post.views" name="views" disabled="">
     </div>
-    <button class="btn btn-success" type="submit">Update Post
-    </button>
-  </form>
-  <form (ngSubmit)="onSubmit()" name="form" #registerForm="ngForm">
-
-    <!-- <div class="form-group">
-      <label>Post type:</label>
-      <input type="text" id="type" class="form-control" [(ngModel)]="form.type" name="type">
-    </div> -->
-
     <div>
       <label>Post type:</label>
       <select [(ngModel)]='post.type' name="dropdownOption" id="dropdownOption" class='form-control'>
@@ -42,7 +25,7 @@
     </div>
     <div class="form-group" *ngIf=" post.type === 'hyperlink'">
       <label>Post link:</label>
-      <input type="text" id="link" class="form-control" [(ngModel)]="post.link" name="link">
+      <input type="text" id="link" class="form-control" [(ngModel)]="post.link" name="link" maxlength="120">
     </div>
     <div class="form-group" *ngIf=" post.type !== 'hyperlink'">
       <label>Choose media: {{post.type}}</label>
@@ -50,7 +33,7 @@
     </div>
     <div class="form-group">
       <label>Post caption:</label>
-      <input type="text" id="caption" class="form-control" [(ngModel)]="post.caption" name="caption">
+      <textarea type="text" id="caption" class="form-control" [(ngModel)]="post.caption" name="caption" maxlength="120"></textarea>
     </div>
     <div id="post-preview">
       <img id="post-preview-image">

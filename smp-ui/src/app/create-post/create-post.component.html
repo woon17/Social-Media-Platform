@@ -18,7 +18,7 @@
     </div>
     <div class="form-group" *ngIf=" form.type === 'hyperlink'">
       <label>Post link:</label>
-      <input type="text" id="link" class="form-control" [(ngModel)]="form.link" name="link">
+      <input type="text" id="link" class="form-control" [(ngModel)]="form.link" name="link" maxlength="120">
     </div>
     <div class="form-group" *ngIf=" form.type !== 'hyperlink'">
       <label>Choose media: {{form.type}}</label>
@@ -26,7 +26,7 @@
     </div>
     <div class="form-group">
       <label>Post caption:</label>
-      <input type="text" id="caption" class="form-control" [(ngModel)]="form.caption" name="caption">
+      <textarea type="text" id="caption" class="form-control" [(ngModel)]="form.caption" name="caption" maxlength="120"></textarea>
     </div>
     <div id="post-preview">
       <img id="post-preview-image">

@@ -103,7 +103,7 @@ public class PostService {
 	// delete by Id
 	public void deletePost(int id) {
 		Post post = postRepository.findById(id);
-		System.out.println("---------"+post);
+		System.out.println("---------" + post);
 		if (!post.getType().equals("hyperlink")) {
 			filesStorageService.deletePost(post);
 		}
@@ -137,7 +137,6 @@ public class PostService {
 		post.setLink(linkPath.toString());
 		postRepository.save(post); // save correct link
 		System.out.println("create post successfully");
-	
 	}
 
 //	public Path uploadToLocal(MultipartFile file, Post post) {
