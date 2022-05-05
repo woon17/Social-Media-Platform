@@ -12,6 +12,8 @@ import { UserService } from '../_services/user.service';
 })
 export class PicturePostComponent implements OnInit {
   @Input() post!: Post;
+  showMedia=false;
+
   constructor(
     private postService: PostService,
     private router: Router,
@@ -66,5 +68,11 @@ export class PicturePostComponent implements OnInit {
       console.log('view +1');
       this.refreshPost();
     });
+  }
+  toggleMediaView(){
+    this.showMedia=!this.showMedia;
+    if(this.showMedia === true){
+      this.increaseView(this.post.id);
+    }
   }
 }

@@ -23,5 +23,9 @@ public interface FilesStorageService {
 
 	public void deleteUserByUserName(String userName);
 
+	public Path updatePostFile(MultipartFile multipartFile, Post post);
+
+	public void deleteMediaFile(String link);
+
 //	public Path getPostStorageVideo(String string);
 }

@@ -44,6 +44,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200/")
 @RequestMapping("/api/v0")
+@PreAuthorize("hasAnyRole('Admin','User')")
 public class PostController {
 
 	@Autowired
@@ -51,7 +52,6 @@ public class PostController {
 
 	@Autowired
 	private StorageService storageService;
-
 
 //	@GetMapping({ "/getAllPosts" }) // all posts show at home page
 //	public List<Post> getAllPosts() {
@@ -61,7 +61,6 @@ public class PostController {
 //	
 
 	@GetMapping("/getAllPosts")
-	@PreAuthorize("hasAnyRole('Admin','User')")
 	public ResponseEntity<Map<String, Object>> getAllPosts(@RequestParam(required = false) String title,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
 		try {
@@ -85,27 +84,36 @@ public class PostController {
 	}
 
 	@GetMapping({ "/getPostById/{id}" })
-	@PreAuthorize("hasAnyRole('Admin','User')")
 	@ResponseBody
 	public Post getPostById(@PathVariable("id") int id) {
 		return postService.getPostById(id);
 	}
 
 	@DeleteMapping({ "/deletePost/{id}" })
-	@PreAuthorize("hasAnyRole('Admin', 'User')")
 	public void deletePostById(@PathVariable("id") int id) {
 		postService.deletePost(id);
 	}
 
 	@PutMapping({ "/updatePost/{id}" })
-	@PreAuthorize("hasAnyRole('Admin','User')")
 	public void updatePostById(@PathVariable("id") int id, @RequestBody Post post) {
 		postService.updatePostById(id, post);
 	}
+	
+	@PostMapping({ "/updatePostWithFile/{id}" })
+	public void updatePostWithFile(@PathVariable("id") int id, @RequestPart("file") MultipartFile multipartFile) {
+//		postService.updatePostById(id, post);
+		System.out.println("{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{");
+		postService.updatePostByIdWithFile(id, multipartFile);
+	}
 
+//	@PutMapping({ "/updatePostAndFile/{id}" })
+//	@PreAuthorize("hasAnyRole('Admin','User')")
+//	public void updatePostWithFileById(@PathVariable("id") int id, @RequestBody Post post, @RequestPart("file") MultipartFile multipartFile) {
+////		postService.updatePostById(id, post);
+//		postService.createPost(post, multipartFile);
+//	}
 
 	@PutMapping({ "/addViewsCount/{id}" })
-	@PreAuthorize("hasAnyRole('Admin','User')")
 	public int addViewsCount(@PathVariable("id") int id) {
 		return postService.increaseViews(id);
 	}

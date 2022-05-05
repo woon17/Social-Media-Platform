@@ -1,10 +1,10 @@
-<div class="card text-center post" (click)='increaseView(post.id)' *ngIf="post !==null">
+<div class="card text-center post" (click)="toggleMediaView()" *ngIf="post !==null">
   <ul class="post-ul">
     <!-- <li>{{i + 1}}</li> -->
     <li class="post-caption">{{post.caption}}</li>
-    <li class="post-caption">{{post.createdDate}}</li>
+    <li class="post-caption">{{post.createdDate| dateAsAgo}}</li>
     <!-- <li>{{post.type}}</li> -->
-    <li><img src="http://localhost:8081/files/{{post.link}}" width="200" height="200"></li>
+    <li *ngIf="showMedia"><img src="http://localhost:8081/files/{{post.link}}" width="200" height="200" ng-show="showvideo"></li>
     <li>Views: {{post.views}}</li>
     <li>By: {{post.user?.userName}}</li>
     <li>

@@ -14,6 +14,7 @@ import { AppSettings } from '../_help/appSettings';
 })
 export class PostService {
 
+
   constructor(private httpclient: HttpClient) {}
 
   getAllPosts(): Observable<Post[]> {
@@ -60,10 +61,29 @@ export class PostService {
 
   updatePost(id: number, post: Post): Observable<Object> {
     console.log(`${AppSettings.API_ENDPOINT}/updatePost/${id}`);
+
     return this.httpclient.put(
       `${AppSettings.API_ENDPOINT}/updatePost/${id}`,
       post
     );
+  }
+
+  updatePostWithFile(id: number, post: any, media: File) {
+    console.log("2");
+    const formData: FormData = new FormData();
+    // formData.append('post',  JSON.stringify(postObj));
+    formData.append('file', media);
+    formData.append('type', post.type);
+    formData.append('caption', post.caption);
+    const req = new HttpRequest(
+      'POST',
+      `${AppSettings.API_ENDPOINT}/updatePostWithFile/${id}`,
+      formData,
+      {
+        responseType: 'json',
+      }
+    );
+    return this.httpclient.request(req);
   }
 
   deletePostById(id: number | undefined) {
@@ -77,8 +97,7 @@ export class PostService {
     console.log(`${AppSettings.API_ENDPOINT}}/addViewsCount/${id}`);
     return this.httpclient.put(
       `${AppSettings.API_ENDPOINT}/addViewsCount/${id}`,
-      {},
-      { headers: AppSettings.NO_AUTH_HEADER }
+      {}
     );
   }
   getAll(params: any): Observable<any> {

@@ -39,7 +39,7 @@ public class UserController {
 	public Post createPostWithFile(@RequestParam("type") String type, @RequestParam("caption") String caption,
 			@RequestPart("file") MultipartFile multipartFile) {
 		Post post = new Post(type, caption, 0);
-		return postService.createPost(post, multipartFile);
+		return postService.createPostWithFile(post, multipartFile);
 	}
 
 	@PostMapping({ "/createPostWithHyperlink" })

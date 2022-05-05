@@ -13,6 +13,8 @@ export class UpdatePostComponent implements OnInit {
   post: Post = new Post();
   id!: number;
   uerRole='';
+  media?: File;
+
   constructor(
     private postService: PostService,
     private route: ActivatedRoute,
@@ -27,12 +29,41 @@ export class UpdatePostComponent implements OnInit {
   }
 
   onSubmit() {
-    this.postService.updatePost(this.id, this.post).subscribe((data) => {
-      this.goToFeeds();
-    });
+    console.log("media: " + this.media);
+    console.log(this.media === undefined);
+    if(this.media === undefined){
+      this.postService.updatePost(this.id, this.post).subscribe((data) => {
+        this.goToFeeds();
+      });
+    }else{
+      console.log("1");
+      this.postService.updatePostWithFile(this.id, this.post, this.media).subscribe((data) => {
+        this.goToFeeds();
+      });
+    }
+
   }
 
   goToFeeds() {
     this.router.navigate(['/feeds']);
+  }
+  onImageSelected($event: any) {
+    if ($event.target.files && $event.target.files[0]) {
+      let file = $event.target.files[0];
+      console.log(file);
+      if (file.type == 'image/jpeg' || file.type == 'image/png') {
+        this.media = file;
+        // this.hasMedia = true;
+        console.log('imge media');
+      } else {
+        this.media = file;
+
+        console.log('video media');
+        // //call validation
+        // this.registerForm.reset();
+        // this.registerForm.controls["imageInput"].setValidators([Validators.required]);
+        // this.registerForm.get('imageInput').updateValueAndValidity();
+      }
+    }
   }
 }

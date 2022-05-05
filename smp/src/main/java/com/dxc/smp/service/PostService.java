@@ -35,7 +35,7 @@ public class PostService {
 	private final String uploadFolderPath = "D:\\final-assessment\\uploaded";
 
 	// create a new post
-	public Post createPost(Post post, MultipartFile multipartFile) {
+	public Post createPostWithFile(Post post, MultipartFile multipartFile) {
 		filesStorageService.init();
 		System.out.println("create media file post... for: " + post);
 		User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -124,6 +124,22 @@ public class PostService {
 	public Page<Post> findAll(Pageable paging) {
 		// TODO Auto-generated method stub
 		return postRepository.findAll(paging);
+	}
+
+	public void updatePostByIdWithFile(int postId, MultipartFile multipartFile) {
+		Post post = getPostById(postId);
+		filesStorageService.init();
+		System.out.println("update media file post... for: " + post);
+		User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+		post.setCaption(post.getCaption());
+		post.setType(post.getType());
+		filesStorageService.deleteMediaFile(post.getLink());
+		Path linkPath = filesStorageService.save(multipartFile, post);
+		System.out.println("new linkPath: " + linkPath);
+		post.setLink(linkPath.toString());
+		postRepository.save(post); // save correct link
+		System.out.println("create post successfully");
+	
 	}
 
 //	public Path uploadToLocal(MultipartFile file, Post post) {

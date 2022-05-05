@@ -8,18 +8,18 @@
   </video>
 </vg-player> -->
 
-<div class="card text-center post" (click)='increaseView(post.id)' *ngIf="post !==null">
+<div class="card text-center post" (click)="toggleMediaView()" *ngIf="post !==null">
   <ul class="post-ul">
     <!-- <li>{{i + 1}}</li> -->
     <li class="post-caption">{{post.caption}}</li>
-    <li class="post-caption">{{post.createdDate}}</li>
+    <li class="post-caption">{{post.createdDate| dateAsAgo}}</li>
     <!-- <li>{{post.type}}</li> -->
 
     <!-- <li><video src="http://localhost:8081/files/{{post.link}}" width="200" height="200" type="video/mp4" ></video></li> -->
     <!-- <li><video src="http://localhost:8081/files/shufa3/114/SampleVideo.mp4" width="200" height="200" type="video/mp4" ></video></li> -->
     <!-- <li><video src="data:video/mp4;base64,http://localhost:8081/files/shufa3/114/SampleVideo.mp4" alt="not shown"></video>
     </li> -->
-    <li>
+    <li *ngIf="showMedia">
       <video controls (click)="toggleVideo()" #videoPlayer>
         <!-- <source src="http://localhost:8081/files/shufa3/114/SampleVideo.mp4" type="video/mp4" /> -->
         <source src="http://localhost:8081/files/{{post.link}}" type="video/mp4" />
