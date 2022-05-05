@@ -91,8 +91,6 @@ public class PostService {
 		return posts;
 	}
 
-	// update: front end should send post with all fields
-	// update post: type, caption, link, view
 	public void updatePostById(int id, Post post) {
 		System.out.println("new post: " + post);
 		Post oldPost = getPostById(id);
@@ -126,13 +124,13 @@ public class PostService {
 		return postRepository.findAll(paging);
 	}
 
-	public void updatePostByIdWithFile(int postId, MultipartFile multipartFile) {
+	public void updatePostByIdWithFile(int postId, String type, String caption, MultipartFile multipartFile) {
 		Post post = getPostById(postId);
 		filesStorageService.init();
 		System.out.println("update media file post... for: " + post);
 		User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
-		post.setCaption(post.getCaption());
-		post.setType(post.getType());
+		post.setCaption(caption);
+		post.setType(type);
 		filesStorageService.deleteMediaFile(post.getLink());
 		Path linkPath = filesStorageService.save(multipartFile, post);
 		System.out.println("new linkPath: " + linkPath);

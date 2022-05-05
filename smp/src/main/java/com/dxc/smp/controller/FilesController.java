@@ -45,6 +45,7 @@ public class FilesController {
 				.body(file);
 	}
 	
+//	method 2
 //	@GetMapping("/files/{user}/{postid}/{filename}")
 //	@ResponseBody
 //	public ResponseEntity<Resource> getVideo(@PathVariable String user, @PathVariable String postid, @PathVariable String filename) {

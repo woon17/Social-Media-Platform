@@ -100,10 +100,10 @@ public class PostController {
 	}
 	
 	@PostMapping({ "/updatePostWithFile/{id}" })
-	public void updatePostWithFile(@PathVariable("id") int id, @RequestPart("file") MultipartFile multipartFile) {
+	public void updatePostWithFile(@PathVariable("id") int id, @RequestPart("type") String type, @RequestPart("caption") String caption, @RequestPart("file") MultipartFile multipartFile) {
 //		postService.updatePostById(id, post);
 		System.out.println("{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{");
-		postService.updatePostByIdWithFile(id, multipartFile);
+		postService.updatePostByIdWithFile(id, type,caption,multipartFile);
 	}
 
 //	@PutMapping({ "/updatePostAndFile/{id}" })
