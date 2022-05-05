@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Post } from '../_class/post';
+import { UpdateUser } from '../_class/updateUser';
 import { User } from '../_class/user';
 import { AppSettings } from '../_help/appSettings';
 import { UserAuthService } from './user-auth.service';
@@ -16,7 +17,9 @@ export class UserService {
     private httpclient: HttpClient,
     private userAuthService: UserAuthService
   ) {
-    console.log("----------------------UserService constructor----------------------------");
+    console.log(
+      '----------------------UserService constructor----------------------------'
+    );
   }
 
   public login(loginData: any) {
@@ -69,11 +72,11 @@ export class UserService {
     }
   }
 
-  updateUser(username: string, user: User): Observable<Object> {
+  updateUser(username: string, updateUser: UpdateUser): Observable<Object> {
     console.log(`${AppSettings.API_ENDPOINT}/updateUser/${username}`);
     return this.httpclient.put(
       `${AppSettings.API_ENDPOINT}/updateUser/${username}`,
-      user
+      updateUser
     );
   }
 

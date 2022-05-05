@@ -5,7 +5,7 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 
-public class SignUpRequest {
+public class UpdateUserRequest {
 
 	@NotBlank
 	@Length(min = 3, max = 8, message = "min 3 and max 8")
@@ -14,22 +14,22 @@ public class SignUpRequest {
 
 	@NotBlank
 	@Length(min = 3, max = 8, message = "min 3 and max 8")
-	@Pattern(regexp = "[a-z]*", message = "lower/uppder case letter")
+	@Pattern(regexp = "[a-z0-9]*", message = "lower/uppder case letter")
 	private String userFirstName;
 
 	@NotBlank
 	@Length(min = 3, max = 8, message = "min 3 and max 8")
-	@Pattern(regexp = "[a-z]*", message = "lower/uppder case letter")
+	@Pattern(regexp = "[a-z0-9]*", message = "lower/uppder case letter")
 	private String userLastName;
 
-	@NotBlank
-	@Pattern(regexp = "(?=\\D*\\d)(?!.* )(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z]).{5,10}", message = "Invalid pattern")
+	@Length(min = 0, max = 10, message = "min 5 and max 10")
 	// At least one digit
 	// At least one upper case ASCII letter
 	// At least one lower case ASCII letter
 	// 5-10 chars
 	// no white space
 	private String userPassword;
+
 
 	public String getUserName() {
 		return userName;
@@ -62,4 +62,12 @@ public class SignUpRequest {
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
 	}
+
+	@Override
+	public String toString() {
+		return "updateUserRequest [userName=" + userName + ", userFirstName=" + userFirstName + ", userLastName="
+				+ userLastName + ", userPassword=" + userPassword + "]";
+	}
+	
+	
 }

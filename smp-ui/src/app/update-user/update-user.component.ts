@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UpdateUser } from '../_class/updateUser';
 import { User } from '../_class/user';
 import { UserService } from '../_services/user.service';
 
@@ -9,9 +10,11 @@ import { UserService } from '../_services/user.service';
   styleUrls: ['./update-user.component.css'],
 })
 export class UpdateUserComponent implements OnInit {
-  user: User = new User();
+  user: UpdateUser = new UpdateUser();
   userName!: string;
   uerRole = '';
+  form: any = {};
+
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
@@ -23,10 +26,17 @@ export class UpdateUserComponent implements OnInit {
     this.userService.getUserByUserName(this.userName).subscribe((data) => {
       this.uerRole = data.role[0].roleName;
       this.user = data;
+      this.user.userPassword = '';
+      this.form.firstName = data.userFirstName;
+      this.form.lastName = data.userLastName;
     });
   }
 
   onSubmit() {
+    console.log("update to user: " + JSON.stringify(this.user));
+    this.user.userFirstName=this.form.firstName;
+    this.user.userLastName=this.form.lastName;
+    this.user.userPassword=this.form.userPassword;
     this.userService.updateUser(this.userName, this.user).subscribe((data) => {
       this.goToUsersList();
     });
@@ -36,7 +46,4 @@ export class UpdateUserComponent implements OnInit {
     this.router.navigate(['/admin']);
   }
 
-  isUserRole(user: User): boolean {
-    return user.role?.[0].roleName === 'User';
-  }
 }

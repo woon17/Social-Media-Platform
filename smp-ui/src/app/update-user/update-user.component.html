@@ -1,12 +1,9 @@
 <p>update-user works!</p>
 <div class="col-md-6 offset-md-3">
-  <div *ngIf="isUserRole(user); else elseBlock">
+  <div>
     <h3>Update User Details</h3>
   </div>
 
-  <ng-template #elseBlock>
-    <h3>Update Admin Details</h3>
-  </ng-template>
   <form (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label>User Name:</label>
@@ -17,24 +14,42 @@
       <input type="text" id="role" class="form-control" [(ngModel)]="uerRole" name="role" readonly>
     </div>
     <div class="form-group">
-      <label>First Name:</label>
-      <input type="text" id="userFirstName" class="form-control" [(ngModel)]="user.userFirstName" name="userFirstName">
-    </div>
+      <label for="firstName">First Name:</label>
+      <input type="text" [(ngModel)]="form.firstName" name="firstName" id="firstName" placeholder="Enter your first name"
+        class="form-control" required pattern="^[a-zA-Z]{3,8}$" #firstname="ngModel"
+        [class.is-invalid]="firstname.invalid && firstname.touched">
+      <div *ngIf="firstname.errors && (firstname.invalid && firstname.touched)">
+        <small class="text-danger" *ngIf="firstname.errors?.['required']">first name is required field</small>
+        <small class="text-danger" *ngIf="firstname.errors?.['pattern']">Enter the valid firstname:
+          <ul>
+            <li>3-8 chars</li>
+            <li>lower/uppder case letter</li>
+          </ul>
+        </small>
+      </div>
+    </div><br>
     <div class="form-group">
-      <label>Last Name:</label>
-      <input type="text" id="userLastName" class="form-control" [(ngModel)]="user.userLastName" name="userLastName">
-    </div>
+      <label for="lastName">Last Name:</label>
+      <input type="text" [(ngModel)]="form.lastName" name="lastName" id="lastName" placeholder="Enter your last name"
+        class="form-control" required pattern="^[a-zA-Z]{3,8}$" #lastname="ngModel"
+        [class.is-invalid]="lastname.invalid && lastname.touched">
+      <div *ngIf="lastname.errors && (lastname.invalid && lastname.touched)">
+        <small class="text-danger" *ngIf="lastname.errors?.['required']">Last name is required field</small>
+        <small class="text-danger" *ngIf="lastname.errors?.['pattern']">Enter the valid lastname:
+          <ul>
+            <li>3-8 chars</li>
+            <li>lower case letter and digits</li>
+          </ul>
+        </small>
+      </div>
+    </div><br>
     <div class="form-group">
-      <label>Password:</label>
-      <input type="text" id="userPassword" class="form-control" [(ngModel)]="user.userPassword" name="userPassword">
+      <label>New Password: (Optional)</label>
+      <input type="text" id="userPassword" class="form-control" [(ngModel)]="form.userPassword" name="userPassword" placeholder="Enter new password">
     </div>
-    <div *ngIf="isUserRole(user); else elseButtonBlock">
+    <div>
       <button class="btn btn-success" type="submit">Update User
       </button>
     </div>
-    <ng-template #elseButtonBlock>
-      <button class="btn btn-success" type="submit">Update Admin
-      </button>
-    </ng-template>
   </form>
 </div>

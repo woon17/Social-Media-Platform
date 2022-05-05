@@ -12,11 +12,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dxc.smp.entity.User;
+import com.dxc.smp.payload.request.LoginRequest;
+import com.dxc.smp.payload.request.UpdateUserRequest;
 import com.dxc.smp.service.UserService;
 
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.validation.Valid;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200/")
@@ -44,8 +47,8 @@ public class AdminController {
 	}
 
 	@PutMapping({ "/updateUser/{userName}" })
-	public void updateUser(@PathVariable("userName") String userName, @RequestBody User user) {
-		userService.updateUser(userName, user);
+	public void updateUser(@PathVariable("userName") String userName, @Valid @RequestBody UpdateUserRequest updateUserRequest) {
+		userService.updateUser(userName, updateUserRequest);
 	}
 	
 	@DeleteMapping({ "/deleteUser/{userName}" })

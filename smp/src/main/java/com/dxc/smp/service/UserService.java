@@ -1,12 +1,14 @@
 package com.dxc.smp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.dxc.smp.entity.Role;
 import com.dxc.smp.entity.User;
 import com.dxc.smp.payload.request.SignUpRequest;
+import com.dxc.smp.payload.request.UpdateUserRequest;
 import com.dxc.smp.repository.RoleRepository;
 import com.dxc.smp.repository.UserRepository;
 
@@ -32,7 +34,7 @@ public class UserService {
 	@Autowired
 	private FilesStorageService filesStorageService;
 
-	// set two default admin with default password when running the application
+	// reset default admin with default password when running the application
 	public void initAdmins() {
 
 		User admin1 = getUser("admin123");
@@ -43,32 +45,13 @@ public class UserService {
 			admin1.setUserFirstName("admin");
 			admin1.setUserLastName("admin");
 			Set<Role> adminRoles = new HashSet<>();
-			Role adminRole = new Role();
-			adminRole.setRoleName("Admin");
+			Role adminRole = roleRepository.findById("Admin").get();
 			adminRoles.add(adminRole);
 			admin1.setRole(adminRoles);
 			userRepository.save(admin1);
 		} else {
 			admin1.setUserPassword(getEncodedPassword("admin123"));
 			userRepository.save(admin1);
-		}
-
-		User admin2 = getUser("admin321");
-		if (admin2 == null) {
-			admin2 = new User();
-			admin2.setUserName("admin321");
-			admin2.setUserPassword(getEncodedPassword("admin321"));
-			admin2.setUserFirstName("admin");
-			admin2.setUserLastName("admin");
-			Set<Role> adminRoles = new HashSet<>();
-			Role adminRole = new Role();
-			adminRole.setRoleName("Admin");
-			adminRoles.add(adminRole);
-			admin2.setRole(adminRoles);
-			userRepository.save(admin2);
-		} else {
-			admin2.setUserPassword(getEncodedPassword("admin321"));
-			userRepository.save(admin2);
 		}
 	}
 
@@ -98,8 +81,8 @@ public class UserService {
 	public void deleteUser(String userName) {
 		System.out.println("userName: " + userName);
 		User user = getUser(userName);
-		for(Role r :user.getRole()) {
-			if(r.getRoleName().equals("Admin")) {
+		for (Role r : user.getRole()) {
+			if (r.getRoleName().equals("Admin")) {
 				return;
 			}
 		}
@@ -113,21 +96,32 @@ public class UserService {
 	}
 
 	// only can update userFirstName, userLastName, uerPassword
-	public void updateUser(String userName, User user) {
+	public void updateUser(String userName, UpdateUserRequest updateUserRequest) {
+		System.out.println("updateUserRequest: " + updateUserRequest);
 //		user.setUserFirstName(user.getUserFirstName());
 //		user.setUserLastName(user.getUserLastName());
+		User user = getUser(updateUserRequest.getUserName());
+
+//		User user = new User(updateUserRequest.getUserName(), updateUserRequest.getUserFirstName(),
+//				updateUserRequest.getUserLastName(), getEncodedPassword(updateUserRequest.getUserPassword()));
+
 		Role adminRole = new Role();
 		adminRole.setRoleName("Admin");
-		
-		for(Role r :user.getRole()) {
-			if(r.getRoleName().equals("Admin")) {
+		for (Role r : user.getRole()) {
+			if (r.getRoleName().equals("Admin")) {
 				return;
 			}
 		}
-		
-		if(userName.equals(user.getUserName())) { // same userName
+
+		if (userName.equals(user.getUserName())) { // same userName
 			System.out.println("Updating a user...");
-			user.setUserPassword(getEncodedPassword(user.getUserPassword()));
+			System.out.println("password..." + updateUserRequest.getUserPassword());
+			System.out.println(!user.getUserPassword().equals(""));
+			user.setUserFirstName(updateUserRequest.getUserFirstName());
+			user.setUserLastName(updateUserRequest.getUserLastName());
+			if (!user.getUserPassword().equals("")) {
+				user.setUserPassword(getEncodedPassword(updateUserRequest.getUserPassword()));
+			}
 			userRepository.save(user);
 		}
 	}
