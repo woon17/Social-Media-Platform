@@ -1,9 +1,12 @@
 package com.dxc.smp.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dxc.smp.payload.request.LoginRequest;
@@ -17,7 +20,8 @@ import org.springframework.http.ResponseEntity;
 
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200/")
+@RequestMapping("/api/v0")
 public class AuthController {
 	// @Autowired
 	// AuthenticationManager authenticationManager;
@@ -31,7 +35,7 @@ public class AuthController {
 	// private JwtUtil jwtUtil;
 	// used for login
 	@PostMapping({ "/signin" })
-	public ResponseEntity<?> createJwtToken(@RequestBody LoginRequest loginRequest) throws Exception {
+	public ResponseEntity<?> createJwtToken(@Valid @RequestBody LoginRequest loginRequest) throws Exception {
 		
 		try {
 			JwtResponse jwsResponse = jwtService.createJwtToken(loginRequest);
@@ -47,14 +51,10 @@ public class AuthController {
 						.body(new MessageResponse("Error: password is not matched!"));
 			}
 		}
-
-		// return ResponseEntity
-		// .badRequest()
-		// .body(new MessageResponse("Error: Email is already in use!"));
 	}
 
 	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@RequestBody SignUpRequest signUpRequest) {
+	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
 		if (userService.getUser(signUpRequest.getUserName()) != null) {
 			return ResponseEntity
 					.badRequest()

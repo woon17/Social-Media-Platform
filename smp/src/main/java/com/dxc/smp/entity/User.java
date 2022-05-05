@@ -13,6 +13,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import javax.persistence.JoinColumn;
 
 @Entity
@@ -22,6 +25,9 @@ public class User {
 	@Id
 	private String userName;
 	@Column(name = "userFirstName")
+	@NotEmpty(message = "userFirstName must not be empty")
+	@NotBlank
+	@Size(max = 8)
 	private String userFirstName;
 	@Column(name = "userLastName")
 	private String userLastName;
