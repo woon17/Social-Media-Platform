@@ -14,12 +14,12 @@ public class UpdateUserRequest {
 
 	@NotBlank
 	@Length(min = 3, max = 8, message = "min 3 and max 8")
-	@Pattern(regexp = "[a-z0-9]*", message = "lower/uppder case letter")
+	@Pattern(regexp = "[a-zA-Z]*", message = "lower/uppder case letter")
 	private String userFirstName;
 
 	@NotBlank
 	@Length(min = 3, max = 8, message = "min 3 and max 8")
-	@Pattern(regexp = "[a-z0-9]*", message = "lower/uppder case letter")
+	@Pattern(regexp = "[a-zA-Z]*", message = "lower/uppder case letter")
 	private String userLastName;
 
 	@Length(min = 0, max = 10, message = "min 5 and max 10")

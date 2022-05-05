@@ -29,6 +29,7 @@ export class UpdateUserComponent implements OnInit {
       this.user.userPassword = '';
       this.form.firstName = data.userFirstName;
       this.form.lastName = data.userLastName;
+      this.form.userPassword = '';
     });
   }
 

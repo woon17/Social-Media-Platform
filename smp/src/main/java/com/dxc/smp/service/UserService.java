@@ -116,13 +116,19 @@ public class UserService {
 		if (userName.equals(user.getUserName())) { // same userName
 			System.out.println("Updating a user...");
 			System.out.println("password..." + updateUserRequest.getUserPassword());
-			System.out.println(!user.getUserPassword().equals(""));
 			user.setUserFirstName(updateUserRequest.getUserFirstName());
 			user.setUserLastName(updateUserRequest.getUserLastName());
-			if (!user.getUserPassword().equals("")) {
-				user.setUserPassword(getEncodedPassword(updateUserRequest.getUserPassword()));
+			System.out.println("password..." + updateUserRequest.getUserPassword().strip().equals(""));
+			try {
+				if (updateUserRequest.getUserPassword() != null
+						&& !updateUserRequest.getUserPassword().strip().equals("")) {
+					user.setUserPassword(getEncodedPassword(updateUserRequest.getUserPassword()));
+				}
+			} catch (Exception e) {
+				System.out.println("password is not given");
 			}
 			userRepository.save(user);
+			System.out.println("user updated");
 		}
 	}
 
