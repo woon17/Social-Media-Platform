@@ -101,7 +101,10 @@ public class PostService {
 		if (loginUserName.equals(post.getUser().getUserName()) || checkRole(loginUserName, "Admin")) {
 			System.out.println("new post: " + post);
 			Post oldPost = getPostById(id);
-
+			// unless the hyperlink change, otherwise ignore the type change
+			if(oldPost.getLink().equals(post.getLink())) {
+				post.setType(oldPost.getType());
+			}
 			post.setUser(oldPost.getUser());
 			post.setId(id);
 			postRepository.save(post);

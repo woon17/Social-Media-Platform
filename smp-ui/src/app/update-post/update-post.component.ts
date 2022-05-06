@@ -14,6 +14,7 @@ export class UpdatePostComponent implements OnInit {
   id!: number;
   uerRole='';
   media?: File;
+  mediaExisting=false;
 
   constructor(
     private postService: PostService,
@@ -70,4 +71,9 @@ export class UpdatePostComponent implements OnInit {
       }
     }
   }
+  clear(){
+    this.mediaExisting = false;
+    this.media = undefined;
+  }
+
 }

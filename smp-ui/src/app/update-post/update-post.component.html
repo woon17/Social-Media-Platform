@@ -17,7 +17,7 @@
     </div>
     <div>
       <label>Post type:</label>
-      <select [(ngModel)]='post.type' name="dropdownOption" id="dropdownOption" class='form-control'>
+      <select [(ngModel)]='post.type' name="dropdownOption" id="dropdownOption" class='form-control' (change)="clear()">
         <option value="image">Image</option>
         <option value="video">Video</option>
         <option value="hyperlink">Hyperlink</option>

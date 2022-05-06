@@ -40,19 +40,19 @@ const routes: Routes = [
     component: UpdatePostComponent,
     canActivate: [MatchPostUserOrRoleGuard, ExistingPostGuard],
     data: { roles: ['Admin'] },
-  }, // add update a post
+  }, // update a post
   {
     path: 'create-post',
     component: CreatePostComponent,
     canActivate: [AuthGuard],
     data: { roles: ['User'] },
-  }, // add update a post
+  }, // create a post
   {
     path: 'update-user/:userName',
     component: UpdateUserComponent,
     canActivate: [AuthGuard],
     data: { roles: ['Admin'] },
-  }, // add update a user
+  }, // update a user
   {
     path: 'user',
     component: UserComponent,
