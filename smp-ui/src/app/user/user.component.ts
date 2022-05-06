@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Post } from '../_class/post';
+import { PostService } from '../_services/post.service';
 import { UserAuthService } from '../_services/user-auth.service';
 import { UserService } from '../_services/user.service';
 
@@ -12,6 +13,7 @@ import { UserService } from '../_services/user.service';
 export class UserComponent implements OnInit {
   constructor(
     private userService: UserService,
+    private postService: PostService,
     private router: Router,
     private userAuthService: UserAuthService
   ) {}
@@ -48,4 +50,11 @@ export class UserComponent implements OnInit {
       this.router.navigate(['/login']);
     }
   }
+  deletePost(id: number | undefined) {
+    this.postService.deletePostById(id).subscribe(() => {
+      this.post = undefined;
+      console.log('post deleted');
+    });
+  }
+
 }

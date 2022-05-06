@@ -2,13 +2,7 @@
 <div class="col-md-6 offset-md-3">
   <h3>Creat a new Post</h3>
   <form (ngSubmit)="create(registerForm)" name="form" #registerForm="ngForm">
-    {{registerForm.form.valid}}<br>
-
-    <!-- <div class="form-group">
-      <label>Post type:</label>
-      <input type="text" id="type" class="form-control" [(ngModel)]="form.type" name="type">
-    </div> -->
-
+    <!-- {{registerForm.form.valid}}<br> -->
     <div>
       <label>Post type:</label>
       <select [(ngModel)]='form.type' name="dropdownOption" id="dropdownOption" class='form-control' required="true" (change)="clear()">
@@ -23,7 +17,6 @@
         required="true" (change)="clear()">
     </div>
     <div class="form-group" *ngIf=" form.type === 'image'">
-      {{"test" + media}}
       <label>Choose media: {{form.type}}</label>
       <input type="file" id="media" class="form-control" (change)="onFileSelected($event)" name="media"
         accept="image/x-png,image/gif,image/jpeg" required="true">

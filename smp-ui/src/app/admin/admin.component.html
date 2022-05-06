@@ -13,7 +13,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let user of users; index as i">
-            <td  *ngIf="user.role[0].roleName !=='Admin'">{{i + 1}}</td>
+            <td  *ngIf="user.role[0].roleName !=='Admin'">{{i}}</td>
             <td  *ngIf="user.role[0].roleName !=='Admin'">{{user.userName}}</td>
             <td *ngIf="user.role[0].roleName !=='Admin'">{{user.userFirstName}}</td>
             <td *ngIf="user.role[0].roleName !=='Admin'">{{user.userLastName}}</td>

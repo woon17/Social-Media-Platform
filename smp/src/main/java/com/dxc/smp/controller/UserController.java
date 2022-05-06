@@ -44,9 +44,9 @@ public class UserController {
 		return postService.getPosts();
 	}
 
-	@PostMapping({ "/getPostByUserName/{userName}" })
-	public List<Post> getAllPosts(@PathVariable("userName") String userName) {
-		return postService.getPostsByUserName(userName);
-	}
+//	@PostMapping({ "/getPostByUserName/{userName}" })
+//	public List<Post> getAllPosts(@PathVariable("userName") String userName) {
+//		return postService.getPostsByUserName(userName);
+//	}
 
 }

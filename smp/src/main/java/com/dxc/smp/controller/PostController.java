@@ -49,13 +49,6 @@ public class PostController {
 	@Autowired
 	private PostService postService;
 
-//	@GetMapping({ "/getAllPosts" }) // all posts show at home page
-//	public List<Post> getAllPosts() {
-//		System.out.println("----------------------reach here------------------------");
-//		return postService.getAllPost();
-//	}
-//	
-
 	@GetMapping("/getAllPosts")
 	public ResponseEntity<Map<String, Object>> getAllPosts(@RequestParam(required = false) String title,
 			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {

@@ -27,6 +27,10 @@
                 *ngIf="matchRole(['Admin']) || (getUserName()===post.user?.userName)">
                 Update Post
               </button>
+              <button (click)="deletePost(post.id)" class="btn btn-info" style="margin-right: 5px;"
+                *ngIf="getUserName()===post.user?.userName">
+                Delete Post
+              </button>
             </td>
           </tr>
         </tbody>

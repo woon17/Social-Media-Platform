@@ -34,31 +34,26 @@ public class PostService {
 
 	// create a new post
 	public void createPostWithFile(Post post, MultipartFile multipartFile) {
-		String loginUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-		if(checkRole(loginUserName, "User")) {
-			filesStorageService.init();
-			System.out.println("create media file post... for: " + post);
-			User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
-			post.setUser(user);
-			postRepository.save(post); // save to get the correct new post id to create storage folder
-			Path linkPath = filesStorageService.save(multipartFile, post);
-			post.setLink(linkPath.toString());
-			postRepository.save(post); // save correct link
-			System.out.println("create post successfully");
-		}
+		filesStorageService.init();
+		System.out.println("create media file post... for: " + post);
+		User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+		post.setUser(user);
+		postRepository.save(post); // save to get the correct new post id to create storage folder
+		Path linkPath = filesStorageService.save(multipartFile, post);
+		post.setLink(linkPath.toString());
+		postRepository.save(post); // save correct link
+		System.out.println("create post successfully");
+
 	}
 
 	public void createPostWithHyperlink(Post post) {
-		String loginUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-		if(checkRole(loginUserName, "User")) {
-			System.out.println("create hyperlink post... for: " + post);
-			User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
-			post.setUser(user);
-			post.setLink(post.getLink());
-			postRepository.save(post);
-			System.out.println("create hyperlink post successfully");
-		}
-	
+		System.out.println("create hyperlink post... for: " + post);
+		User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+		post.setUser(user);
+		post.setLink(post.getLink());
+		postRepository.save(post);
+		System.out.println("create hyperlink post successfully");
+
 	}
 
 	// read by Id
@@ -68,11 +63,11 @@ public class PostService {
 	}
 
 	// read by username
-	public List<Post> getPostsByUserName(String userName) {
-		User user = userRepository.findByUserName(userName);
-		List<Post> posts = (List<Post>) postRepository.findByUser(user);
-		return posts;
-	}
+//	public List<Post> getPostsByUserName(String userName) {
+//		User user = userRepository.findByUserName(userName);
+//		List<Post> posts = (List<Post>) postRepository.findByUser(user);
+//		return posts;
+//	}
 
 	public List<Post> getPosts() {
 		String loginUserName = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -101,9 +96,14 @@ public class PostService {
 		if (loginUserName.equals(post.getUser().getUserName()) || checkRole(loginUserName, "Admin")) {
 			System.out.println("new post: " + post);
 			Post oldPost = getPostById(id);
-			// unless the hyperlink change, otherwise ignore the type change
-			if(oldPost.getLink().equals(post.getLink())) {
+
+			// unless the link change, otherwise ignore the type change
+			if (oldPost.getLink().equals(post.getLink())) {
 				post.setType(oldPost.getType());
+			}else {
+				if(!oldPost.getType().equals("hyperlink")) {// has media file in storage
+					filesStorageService.deleteMediaFile(oldPost.getLink());
+				}
 			}
 			post.setUser(oldPost.getUser());
 			post.setId(id);
@@ -143,8 +143,10 @@ public class PostService {
 			System.out.println("update media file post... for: " + post);
 			User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
 			post.setCaption(caption);
+			if (!post.getType().equals("hyperlink")) {
+				filesStorageService.deleteMediaFile(post.getLink());
+			}
 			post.setType(type);
-			filesStorageService.deleteMediaFile(post.getLink());
 			Path linkPath = filesStorageService.save(multipartFile, post);
 			System.out.println("new linkPath: " + linkPath);
 			post.setLink(linkPath.toString());
@@ -172,14 +174,11 @@ public class PostService {
 		Iterator<Role> it = roleSet.iterator();
 		while (it.hasNext()) {
 			Role role = it.next();
-			if(role.getRoleName().equals(roleName)) {
+			if (role.getRoleName().equals(roleName)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
-	
-	
 
 }
