@@ -1,20 +1,29 @@
-<div class="card text-center post" (click)="toggleMediaView()" *ngIf="post !==null">
-  <ul class="post-ul">
-    <!-- <li>{{i + 1}}</li> -->
-    <li class="post-caption">{{post.caption}}</li>
-    <li class="post-caption">{{post.createdDate| dateAsAgo}}</li>
-    <!-- <li>{{post.type}}</li> -->
-    <li *ngIf="showMedia"><img src="http://localhost:8081/files/{{post.link}}" width="200" height="200" ng-show="showvideo"></li>
-    <li>Views: {{post.views}}</li>
-    <li>By: {{post.user?.userName}}</li>
-    <li>
-      <button (click)="updatePost(post.id)" class="btn btn-info" style="margin-right: 5px;"
-        *ngIf="matchRole(['Admin']) || (getUserName()===post.user?.userName)">
-        Update Post
-      </button>
-      <button (click)="deletePost(post.id)" class="btn btn-info" *ngIf="matchRole(['Admin']) || getUserName()===post.user?.userName">
-        Delete
-      </button>
-    </li>
-  </ul>
+<div class="card text-center post" *ngIf="post !==null">
+  <div (click)="toggleMediaView()">
+    <ul class="post-ul">
+      <!-- <li>{{i + 1}}</li> -->
+      <li class="post-caption">{{post.caption}}</li>
+      <li class="post-caption">{{post.createdDate| dateAsAgo}}</li>
+      <!-- <li>{{post.type}}</li> -->
+      <li *ngIf="showMedia"><img src="http://localhost:8081/files/{{post.link}}" width="200" height="200"
+          ng-show="showvideo"></li>
+      <li>Views: {{post.views}}</li>
+      <li>By: {{post.user?.userName}}</li>
+
+    </ul>
+  </div>
+  <div>
+    <ul class="post-ul">
+      <li>
+        <button (click)="updatePost(post.id)" class="btn btn-info" style="margin-right: 5px;"
+          *ngIf="matchRole(['Admin']) || (getUserName()===post.user?.userName)">
+          Update Post
+        </button>
+        <button (click)="deletePost(post.id)" class="btn btn-info"
+          *ngIf="matchRole(['Admin']) || getUserName()===post.user?.userName">
+          Delete
+        </button>
+      </li>
+    </ul>
+  </div>
 </div>

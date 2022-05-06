@@ -10,7 +10,7 @@ import { UserService } from '../_services/user.service';
   styleUrls: ['./video-post.component.css'],
 })
 export class VideoPostComponent implements OnInit {
-  @Input() post!: Post;
+  @Input() post: any;
   showMedia = false;
 
   constructor(
@@ -39,7 +39,7 @@ export class VideoPostComponent implements OnInit {
     this.postService.deletePostById(id).subscribe(() => {
       // this.post = undefined;
       console.log('post deleted');
-      this.router.navigate(['/feeds']);
+      this.post =null;
     });
   }
   public matchRole(role: any) {

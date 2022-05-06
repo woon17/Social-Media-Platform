@@ -17,7 +17,7 @@ export class CreatePostComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onImageSelected($event: any) {
+  onFileSelected($event: any) {
     if ($event.target.files && $event.target.files[0]) {
       let file = $event.target.files[0];
       console.log(file);

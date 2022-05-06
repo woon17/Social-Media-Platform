@@ -62,7 +62,6 @@ export class UpdatePostComponent implements OnInit {
         console.log('imge media');
       } else {
         this.media = file;
-
         console.log('video media');
         // //call validation
         // this.registerForm.reset();

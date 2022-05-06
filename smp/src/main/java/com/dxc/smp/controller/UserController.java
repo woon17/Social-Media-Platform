@@ -16,10 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dxc.smp.entity.Post;
-import com.dxc.smp.entity.User;
 import com.dxc.smp.service.PostService;
-import com.dxc.smp.service.StorageService;
-import com.dxc.smp.service.UserService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200/")
@@ -28,23 +25,18 @@ import com.dxc.smp.service.UserService;
 public class UserController {
 
 	@Autowired
-	private UserService userService;
-	@Autowired
 	private PostService postService;
 
-	@Autowired
-	private StorageService storageService;
-
 	@PostMapping({ "/createPostWithFile" })
-	public Post createPostWithFile(@RequestParam("type") String type, @RequestParam("caption") String caption,
+	public void createPostWithFile(@RequestParam("type") String type, @RequestParam("caption") String caption,
 			@RequestPart("file") MultipartFile multipartFile) {
 		Post post = new Post(type, caption, 0);
-		return postService.createPostWithFile(post, multipartFile);
+		postService.createPostWithFile(post, multipartFile);
 	}
 
 	@PostMapping({ "/createPostWithHyperlink" })
-	public Post createPostWithHyperlink(@RequestBody Post post) {
-		return postService.createPostWithHyperlink(post);
+	public void createPostWithHyperlink(@RequestBody Post post) {
+		postService.createPostWithHyperlink(post);
 	}
 
 	@GetMapping({ "/forUser" })

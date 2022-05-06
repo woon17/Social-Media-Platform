@@ -29,7 +29,6 @@ import com.dxc.smp.entity.Post;
 import com.dxc.smp.payload.response.MessageResponse;
 import com.dxc.smp.repository.PostRepository;
 import com.dxc.smp.service.PostService;
-import com.dxc.smp.service.StorageService;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -49,9 +48,6 @@ public class PostController {
 
 	@Autowired
 	private PostService postService;
-
-	@Autowired
-	private StorageService storageService;
 
 //	@GetMapping({ "/getAllPosts" }) // all posts show at home page
 //	public List<Post> getAllPosts() {

@@ -29,36 +29,36 @@ public class PostService {
 	@Autowired
 	private UserRepository userRepository;
 
-	// @Autowired
-	// private StorageService storageService;
-
 	@Autowired
 	private FilesStorageService filesStorageService;
 
-	private final String uploadFolderPath = "D:\\final-assessment\\uploaded";
-
 	// create a new post
-	public Post createPostWithFile(Post post, MultipartFile multipartFile) {
-		filesStorageService.init();
-		System.out.println("create media file post... for: " + post);
-		User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
-		post.setUser(user);
-		postRepository.save(post); // save to get the correct new post id to create storage folder
-		Path linkPath = filesStorageService.save(multipartFile, post);
-		post.setLink(linkPath.toString());
-		postRepository.save(post); // save correct link
-		System.out.println("create post successfully");
-		return post;
+	public void createPostWithFile(Post post, MultipartFile multipartFile) {
+		String loginUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		if(checkRole(loginUserName, "User")) {
+			filesStorageService.init();
+			System.out.println("create media file post... for: " + post);
+			User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+			post.setUser(user);
+			postRepository.save(post); // save to get the correct new post id to create storage folder
+			Path linkPath = filesStorageService.save(multipartFile, post);
+			post.setLink(linkPath.toString());
+			postRepository.save(post); // save correct link
+			System.out.println("create post successfully");
+		}
 	}
 
-	public Post createPostWithHyperlink(Post post) {
-		System.out.println("create hyperlink post... for: " + post);
-		User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
-		post.setUser(user);
-		post.setLink(post.getLink());
-		postRepository.save(post);
-		System.out.println("create hyperlink post successfully");
-		return post;
+	public void createPostWithHyperlink(Post post) {
+		String loginUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		if(checkRole(loginUserName, "User")) {
+			System.out.println("create hyperlink post... for: " + post);
+			User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+			post.setUser(user);
+			post.setLink(post.getLink());
+			postRepository.save(post);
+			System.out.println("create hyperlink post successfully");
+		}
+	
 	}
 
 	// read by Id
@@ -98,7 +98,7 @@ public class PostService {
 
 		String loginUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 		System.out.println(userRepository.findByUserName(loginUserName).getRole());
-		if (loginUserName.equals(post.getUser().getUserName()) || isAdminRole(loginUserName)) {
+		if (loginUserName.equals(post.getUser().getUserName()) || checkRole(loginUserName, "Admin")) {
 			System.out.println("new post: " + post);
 			Post oldPost = getPostById(id);
 
@@ -112,10 +112,10 @@ public class PostService {
 	public void deletePost(int id) {
 		Post post = postRepository.findById(id);
 		System.out.println("---------" + post);
+		postRepository.deleteById(id);
 		if (!post.getType().equals("hyperlink")) {
 			filesStorageService.deletePost(post);
 		}
-		postRepository.deleteById(id);
 	}
 
 	public int increaseViews(int postId) {
@@ -135,7 +135,7 @@ public class PostService {
 	public void updatePostByIdWithFile(int postId, String type, String caption, MultipartFile multipartFile) {
 		String loginUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 		Post post = getPostById(postId);
-		if (loginUserName.equals(post.getUser().getUserName()) || isAdminRole(loginUserName)) {
+		if (loginUserName.equals(post.getUser().getUserName()) || checkRole(loginUserName, "Admin")) {
 			filesStorageService.init();
 			System.out.println("update media file post... for: " + post);
 			User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -163,13 +163,13 @@ public class PostService {
 //		}
 //	}
 
-	boolean isAdminRole(String loginUserName) {
+	boolean checkRole(String loginUserName, String roleName) {
 		Set<Role> roleSet = userRepository.findByUserName(loginUserName).getRole();
 
 		Iterator<Role> it = roleSet.iterator();
 		while (it.hasNext()) {
 			Role role = it.next();
-			if(role.getRoleName().equals("Admin")) {
+			if(role.getRoleName().equals(roleName)) {
 				return true;
 			}
 		}

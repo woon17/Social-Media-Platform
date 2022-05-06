@@ -11,7 +11,7 @@ import { UserService } from '../_services/user.service';
   styleUrls: ['./hyperlink-post.component.css'],
 })
 export class HyperlinkPostComponent implements OnInit {
-  @Input() post!: Post;
+  @Input() post:any;
   displayFrame = false;
   showMedia=false;
   link!: SafeResourceUrl;
@@ -47,9 +47,9 @@ export class HyperlinkPostComponent implements OnInit {
     this.postService.deletePostById(id).subscribe(() => {
       // this.post = undefined;
       console.log('post deleted');
-      this.router.navigate(['/feeds']);
+      // this.router.navigate(['/feeds']);
+      this.post=null;
     });
-    this.refreshPost();
   }
   public matchRole(role: any) {
     return this.userService.roleMatch(role);

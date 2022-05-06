@@ -11,7 +11,7 @@ import { UserService } from '../_services/user.service';
   styleUrls: ['./picture-post.component.css'],
 })
 export class PicturePostComponent implements OnInit {
-  @Input() post!: Post;
+  @Input() post: any;
   showMedia=false;
 
   constructor(
@@ -37,7 +37,8 @@ export class PicturePostComponent implements OnInit {
     this.postService.deletePostById(id).subscribe(() => {
       // this.post = undefined;
       console.log('post deleted');
-      this.router.navigate(['/feeds']);
+      // this.router.navigate(['/feeds']);
+      this.post=null;
 
     });
   }
