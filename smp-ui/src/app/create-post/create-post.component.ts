@@ -11,11 +11,14 @@ import { UserService } from '../_services/user.service';
 })
 export class CreatePostComponent implements OnInit {
   form: any = {};
-  media?: File;
-  type: string = 'video';
+  media: any;
+  mediaExisting = false;
+  type: any;
   constructor(private postService: PostService, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+  }
 
   onFileSelected($event: any) {
     if ($event.target.files && $event.target.files[0]) {
@@ -31,9 +34,10 @@ export class CreatePostComponent implements OnInit {
         console.log('video media');
         // //call validation
         // this.registerForm.reset();
-        // this.registerForm.controls["imageInput"].setValidators([Validators.required]);
-        // this.registerForm.get('imageInput').updateValueAndValidity();
+        // this.registerForm.controls["media"].setValidators([Validators.required]);
+        // this.registerForm.get('media').updateValueAndValidity();
       }
+      this.mediaExisting = true;
     }
   }
 
@@ -57,7 +61,14 @@ export class CreatePostComponent implements OnInit {
         this.router.navigate(['/feeds']);
       });
     }
-
-
   }
+  clear(){
+    this.mediaExisting = false;
+  }
+
+  isNotHyperLink(){
+    return this.form.type!=="hyperlink";
+  }
+
+
 }

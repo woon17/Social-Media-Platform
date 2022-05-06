@@ -2,6 +2,7 @@
 <div class="col-md-6 offset-md-3">
   <h3>Creat a new Post</h3>
   <form (ngSubmit)="create(registerForm)" name="form" #registerForm="ngForm">
+    {{registerForm.form.valid}}<br>
 
     <!-- <div class="form-group">
       <label>Post type:</label>
@@ -10,7 +11,7 @@
 
     <div>
       <label>Post type:</label>
-      <select [(ngModel)]='form.type' name="dropdownOption" id="dropdownOption" class='form-control'>
+      <select [(ngModel)]='form.type' name="dropdownOption" id="dropdownOption" class='form-control' required="true" (change)="clear()">
         <option value="image">Image</option>
         <option value="video">Video</option>
         <option value="hyperlink">Hyperlink</option>
@@ -18,24 +19,30 @@
     </div>
     <div class="form-group" *ngIf=" form.type === 'hyperlink'">
       <label>Post link:</label>
-      <input type="text" id="link" class="form-control" [(ngModel)]="form.link" name="link" maxlength="120">
+      <input type="text" id="link" class="form-control" [(ngModel)]="form.link" name="link" maxlength="120"
+        required="true" (change)="clear()">
     </div>
     <div class="form-group" *ngIf=" form.type === 'image'">
+      {{"test" + media}}
       <label>Choose media: {{form.type}}</label>
-      <input type="file" id="media" class="form-control" (change)="onFileSelected($event)" name="media" accept="image/x-png,image/gif,image/jpeg">
+      <input type="file" id="media" class="form-control" (change)="onFileSelected($event)" name="media"
+        accept="image/x-png,image/gif,image/jpeg" required="true">
     </div>
     <div class="form-group" *ngIf=" form.type === 'video'">
       <label>Choose media: {{form.type}}</label>
-      <input type="file" id="media" class="form-control" (change)="onFileSelected($event)" name="media" accept="video/mp4,video/x-m4v,video/*">
+      <input type="file" id="media" class="form-control" (change)="onFileSelected($event)" name="media"
+        accept="video/mp4,video/x-m4v,video/*" required="true">
     </div>
     <div class="form-group">
       <label>Post caption:</label>
-      <textarea type="text" id="caption" class="form-control" [(ngModel)]="form.caption" name="caption" maxlength="120"></textarea>
+      <textarea type="text" id="caption" class="form-control" [(ngModel)]="form.caption" name="caption" maxlength="120"
+        required="true"></textarea>
     </div>
     <div id="post-preview">
       <img id="post-preview-image">
     </div>
-    <button class="btn btn-success" type="submit">Update Post
+    {{"mediaExisting: "  + mediaExisting}}
+    <button [disabled]="registerForm.form.invalid || (mediaExisting===false && isNotHyperLink()) " class="btn btn-success" type="submit">Create Post
     </button>
   </form>
 </div>
