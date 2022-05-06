@@ -27,9 +27,13 @@
       <label>Post link:</label>
       <input type="text" id="link" class="form-control" [(ngModel)]="post.link" name="link" maxlength="120">
     </div>
-    <div class="form-group" *ngIf=" post.type !== 'hyperlink'">
+    <div class="form-group" *ngIf=" post.type === 'image'">
       <label>Choose media: {{post.type}}</label>
-      <input type="file" id="media" class="form-control" (change)="onFileSelected($event)" name="media">
+      <input type="file" id="media" class="form-control" (change)="onFileSelected($event)" name="media" accept="image/x-png,image/gif,image/jpeg">
+    </div>
+    <div class="form-group" *ngIf=" post.type === 'video'">
+      <label>Choose media: {{post.type}}</label>
+      <input type="file" id="media" class="form-control" (change)="onFileSelected($event)" name="media" accept="video/mp4,video/x-m4v,video/*">
     </div>
     <div class="form-group">
       <label>Post caption:</label>
