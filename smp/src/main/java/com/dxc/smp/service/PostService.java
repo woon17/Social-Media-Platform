@@ -1,7 +1,9 @@
 package com.dxc.smp.service;
 
 import java.nio.file.Path;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -13,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.dxc.smp.entity.Post;
+import com.dxc.smp.entity.Role;
 import com.dxc.smp.entity.User;
 import com.dxc.smp.repository.PostRepository;
 import com.dxc.smp.repository.UserRepository;
@@ -92,12 +95,17 @@ public class PostService {
 	}
 
 	public void updatePostById(int id, Post post) {
-		System.out.println("new post: " + post);
-		Post oldPost = getPostById(id);
 
-		post.setUser(oldPost.getUser());
-		post.setId(id);
-		postRepository.save(post);
+		String loginUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+		System.out.println(userRepository.findByUserName(loginUserName).getRole());
+		if (loginUserName.equals(post.getUser().getUserName()) || isAdminRole(loginUserName)) {
+			System.out.println("new post: " + post);
+			Post oldPost = getPostById(id);
+
+			post.setUser(oldPost.getUser());
+			post.setId(id);
+			postRepository.save(post);
+		}
 	}
 
 	// delete by Id
@@ -125,18 +133,21 @@ public class PostService {
 	}
 
 	public void updatePostByIdWithFile(int postId, String type, String caption, MultipartFile multipartFile) {
+		String loginUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 		Post post = getPostById(postId);
-		filesStorageService.init();
-		System.out.println("update media file post... for: " + post);
-		User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
-		post.setCaption(caption);
-		post.setType(type);
-		filesStorageService.deleteMediaFile(post.getLink());
-		Path linkPath = filesStorageService.save(multipartFile, post);
-		System.out.println("new linkPath: " + linkPath);
-		post.setLink(linkPath.toString());
-		postRepository.save(post); // save correct link
-		System.out.println("create post successfully");
+		if (loginUserName.equals(post.getUser().getUserName()) || isAdminRole(loginUserName)) {
+			filesStorageService.init();
+			System.out.println("update media file post... for: " + post);
+			User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+			post.setCaption(caption);
+			post.setType(type);
+			filesStorageService.deleteMediaFile(post.getLink());
+			Path linkPath = filesStorageService.save(multipartFile, post);
+			System.out.println("new linkPath: " + linkPath);
+			post.setLink(linkPath.toString());
+			postRepository.save(post); // save correct link
+			System.out.println("create post successfully");
+		}
 	}
 
 //	public Path uploadToLocal(MultipartFile file, Post post) {
@@ -151,5 +162,21 @@ public class PostService {
 //			throw new RuntimeException("FAIL!");
 //		}
 //	}
+
+	boolean isAdminRole(String loginUserName) {
+		Set<Role> roleSet = userRepository.findByUserName(loginUserName).getRole();
+
+		Iterator<Role> it = roleSet.iterator();
+		while (it.hasNext()) {
+			Role role = it.next();
+			if(role.getRoleName().equals("Admin")) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+	
 
 }
