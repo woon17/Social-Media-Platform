@@ -58,7 +58,7 @@ public class PostController {
 
 	@GetMapping("/getAllPosts")
 	public ResponseEntity<Map<String, Object>> getAllPosts(@RequestParam(required = false) String title,
-			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
+			@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 		try {
 			System.out.println("/getAllPosts");
 			List<Post> posts = new ArrayList<>();
@@ -97,8 +97,6 @@ public class PostController {
 	
 	@PostMapping({ "/updatePostWithFile/{id}" })
 	public void updatePostWithFile(@PathVariable("id") int id, @RequestPart("type") String type, @RequestPart("caption") String caption, @RequestPart("file") MultipartFile multipartFile) {
-//		postService.updatePostById(id, post);
-		System.out.println("{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{");
 		postService.updatePostByIdWithFile(id, type,caption,multipartFile);
 	}
 
