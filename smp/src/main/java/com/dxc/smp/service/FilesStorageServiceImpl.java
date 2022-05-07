@@ -27,17 +27,7 @@ public class FilesStorageServiceImpl implements FilesStorageService {
 			System.out.println("root(Storage folder) is already existing");
 		}
 	}
-	// @Override
-	// public void save(MultipartFile file) {
-	// try {
-	// Files.copy(file.getInputStream(),
-	// this.root.resolve(file.getOriginalFilename()));
-	// } catch (Exception e) {
-	// throw new RuntimeException("Could not store the file. Error: " +
-	// e.getMessage());
-	// }
-	// }
-
+	
 	public Path save(MultipartFile file, Post post) {
 		try {
 			System.out.println("enter uploadToLocal");
@@ -59,10 +49,6 @@ public class FilesStorageServiceImpl implements FilesStorageService {
 		return postFolder;
 	}
 
-//  public Path getPostStorageVideo(String videoPathStr) {
-//		
-//		return root.resolve((videoPathStr));
-//	}
 
 	@Override
 	public Resource load(String filename) {

@@ -1,9 +1,6 @@
 package com.dxc.smp.payload.request;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-
-import org.hibernate.validator.constraints.Length;
 
 public class LoginRequest {
 	@NotBlank

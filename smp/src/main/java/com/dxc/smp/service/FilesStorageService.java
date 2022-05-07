@@ -27,5 +27,4 @@ public interface FilesStorageService {
 
 	public void deleteMediaFile(String link);
 
-//	public Path getPostStorageVideo(String string);
 }

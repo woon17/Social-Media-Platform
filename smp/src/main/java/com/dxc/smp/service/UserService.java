@@ -1,7 +1,6 @@
 package com.dxc.smp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -115,10 +114,8 @@ public class UserService {
 
 		if (userName.equals(user.getUserName())) { // same userName
 			System.out.println("Updating a user...");
-			System.out.println("password..." + updateUserRequest.getUserPassword());
 			user.setUserFirstName(updateUserRequest.getUserFirstName());
 			user.setUserLastName(updateUserRequest.getUserLastName());
-			System.out.println("password..." + updateUserRequest.getUserPassword().strip().equals(""));
 			try {
 				if (updateUserRequest.getUserPassword() != null
 						&& !updateUserRequest.getUserPassword().strip().equals("")) {

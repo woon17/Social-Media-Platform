@@ -8,7 +8,6 @@ import java.util.Set;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -62,23 +61,11 @@ public class PostService {
 		return post;
 	}
 
-	// read by username
-//	public List<Post> getPostsByUserName(String userName) {
-//		User user = userRepository.findByUserName(userName);
-//		List<Post> posts = (List<Post>) postRepository.findByUser(user);
-//		return posts;
-//	}
-
 	public List<Post> getPosts() {
 		String loginUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userRepository.findByUserName(loginUserName);
 		List<Post> posts = (List<Post>) postRepository.findByUser(user);
 
-//		File file = new File("src/test/resources/input.txt");
-//		FileInputStream input = new FileInputStream(file);
-//		MultipartFile multipartFile = new MockMultipartFile("file",
-//		            file.getName(), "text/plain", IOUtils.toByteArray(input));
-//		
 		return posts;
 	}
 
@@ -141,7 +128,6 @@ public class PostService {
 		if (loginUserName.equals(post.getUser().getUserName()) || checkRole(loginUserName, "Admin")) {
 			filesStorageService.init();
 			System.out.println("update media file post... for: " + post);
-			User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
 			post.setCaption(caption);
 			if (!post.getType().equals("hyperlink")) {
 				filesStorageService.deleteMediaFile(post.getLink());
@@ -155,18 +141,6 @@ public class PostService {
 		}
 	}
 
-//	public Path uploadToLocal(MultipartFile file, Post post) {
-//		try {
-//			System.out.println("enter uploadToLocal");
-//			Path postFolder = Paths.get(uploadFolderPath + "//" + post.getUser().getUserName() + "//" + post.getId());
-//			Files.createDirectories(postFolder);
-//			Path mediaPath = postFolder.resolve(file.getOriginalFilename());
-//			Files.copy(file.getInputStream(), mediaPath);
-//			return mediaPath;
-//		} catch (Exception e) {
-//			throw new RuntimeException("FAIL!");
-//		}
-//	}
 
 	boolean checkRole(String loginUserName, String roleName) {
 		Set<Role> roleSet = userRepository.findByUserName(loginUserName).getRole();

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dxc.smp.entity.User;
-import com.dxc.smp.payload.request.LoginRequest;
 import com.dxc.smp.payload.request.UpdateUserRequest;
 import com.dxc.smp.service.UserService;
 

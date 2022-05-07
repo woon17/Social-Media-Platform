@@ -2,8 +2,6 @@ package com.dxc.smp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,21 +17,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 
-import com.dxc.smp.entity.MediaPost;
 import com.dxc.smp.entity.Post;
-import com.dxc.smp.payload.response.MessageResponse;
-import com.dxc.smp.repository.PostRepository;
 import com.dxc.smp.service.PostService;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.domain.Sort;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,7 +46,6 @@ public class PostController {
 		try {
 			System.out.println("/getAllPosts");
 			List<Post> posts = new ArrayList<>();
-			Order order1 = new Order(Sort.Direction.DESC, "id");
 			System.out.println("enter sorting post api");
 			Pageable paging = PageRequest.of(page, size, Sort.by("createdDate").descending());
 
@@ -92,13 +82,6 @@ public class PostController {
 	public void updatePostWithFile(@PathVariable("id") int id, @RequestPart("type") String type, @RequestPart("caption") String caption, @RequestPart("file") MultipartFile multipartFile) {
 		postService.updatePostByIdWithFile(id, type,caption,multipartFile);
 	}
-
-//	@PutMapping({ "/updatePostAndFile/{id}" })
-//	@PreAuthorize("hasAnyRole('Admin','User')")
-//	public void updatePostWithFileById(@PathVariable("id") int id, @RequestBody Post post, @RequestPart("file") MultipartFile multipartFile) {
-////		postService.updatePostById(id, post);
-//		postService.createPost(post, multipartFile);
-//	}
 
 	@PutMapping({ "/addViewsCount/{id}" })
 	public int addViewsCount(@PathVariable("id") int id) {

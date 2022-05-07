@@ -23,16 +23,12 @@ import org.springframework.http.ResponseEntity;
 @CrossOrigin(origins = "http://localhost:4200/")
 @RequestMapping("/api/v0")
 public class AuthController {
-	// @Autowired
-	// AuthenticationManager authenticationManager;
 	@Autowired
 	private JwtService jwtService;
 
 	@Autowired
 	UserService userService;
 
-	// @Autowired
-	// private JwtUtil jwtUtil;
 	// used for login
 	@PostMapping({ "/signin" })
 	public ResponseEntity<?> createJwtToken(@Valid @RequestBody LoginRequest loginRequest) throws Exception {

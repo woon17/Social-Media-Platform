@@ -1,4 +1,3 @@
-<p>update-post works!</p>
 <div class="col-md-6 offset-md-3">
   <h3>Update Post Details</h3>
   <form (ngSubmit)="onSubmit()" name="form" #registerForm="ngForm">
@@ -39,9 +38,9 @@
       <label>Post caption:</label>
       <textarea type="text" id="caption" class="form-control" [(ngModel)]="post.caption" name="caption" minlength="5" maxlength="120" required="true"></textarea>
     </div>
-    <div id="post-preview">
+    <!-- <div id="post-preview">
       <img id="post-preview-image">
-    </div>
+    </div> -->
     <button [disabled]="registerForm.form.invalid || (post.type==='hyperlink' && post.link.trim().length===0) " class="btn btn-success" type="submit">Update Post
     </button>
   </form>
